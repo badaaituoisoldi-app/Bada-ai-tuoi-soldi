@@ -73,6 +73,31 @@ async function screenshotLinks(page) {
     assert.deepEqual(crop, [144, href.includes('store-3-uscite') ? 315 : 401, 792, 1424], 'Each crop matches the supplied app screen bounds');
   }
 }
+async function assertTheme(page, theme, scripted = true) {
+  if (scripted) {
+    await page.waitForFunction(theme => document.documentElement.dataset.theme === theme, theme);
+    const toggle = page.locator('#theme-toggle');
+    assert(await toggle.isVisible(), 'Theme switch is available with JavaScript');
+    assert.equal(await toggle.getAttribute('role'), 'switch');
+    assert.equal(await toggle.getAttribute('aria-label'), 'Tema scuro');
+    assert.equal(await toggle.getAttribute('aria-checked'), String(theme === 'dark'));
+    assert.equal(await page.locator('#theme-label').textContent(), theme === 'dark' ? 'Scuro' : 'Chiaro');
+  }
+  const palette = await page.evaluate(() => ({
+    scheme: getComputedStyle(document.documentElement).colorScheme,
+    background: getComputedStyle(document.body).backgroundColor.match(/[\d.]+/g).slice(0, 3).map(Number),
+  }));
+  assert.equal(palette.scheme, theme, 'Native controls use the selected color scheme');
+  const brightness = palette.background.reduce((sum, value) => sum + value, 0) / 3;
+  assert(theme === 'dark' ? brightness < 90 : brightness > 180, `The ${theme} theme changes the visible page background`);
+}
+async function chooseTheme(page, theme) {
+  if (await page.locator('html').getAttribute('data-theme') !== theme) {
+    await page.locator('#theme-toggle').focus();
+    await page.keyboard.press('Space');
+  }
+  await assertTheme(page, theme);
+}
 async function cropGeometry(container, crop, state) {
   const geometry = await container.evaluate(element => {
     const box = element.getBoundingClientRect();
@@ -200,7 +225,7 @@ async function zoomAndPan(page, state) {
     page.on('request', request => requests.push(request.url()));
   }
   try {
-    const context = await browser.newContext({ reducedMotion: 'reduce' });
+    const context = await browser.newContext({ reducedMotion: 'reduce', colorScheme: 'light' });
     context.setDefaultTimeout(15000);
     const page = await context.newPage();
     observe(page);
@@ -222,12 +247,17 @@ async function zoomAndPan(page, state) {
       assert.equal(await page.locator('.screenshots-grid figure').count(), 3);
       await screenshotLinks(page);
       await loadVisibleImages(page);
-      await thumbnailCrops(page);
-      await visibleContent(page, `reduced motion at ${width}px`);
-      await noOverflow(page, width, 'page and internal screenshot rail');
-      await audit(page, `${width}px`);
-      await page.screenshot({ path: `/tmp/bada-${width}.png`, fullPage: true });
-      console.log(`Verified viewport ${width}px and original screenshots`);
+      for (const theme of ['light', 'dark']) {
+        await chooseTheme(page, theme);
+        await thumbnailCrops(page);
+        assert(await page.locator('.screenshot-link img').evaluateAll(images => images.every(image => getComputedStyle(image).filter === 'none')), 'Themes preserve the original screenshot colors');
+        await visibleContent(page, `${theme}, reduced motion at ${width}px`);
+        await noOverflow(page, width, `${theme} page and internal screenshot rail`);
+        await audit(page, `${width}px ${theme}`);
+        await top(page);
+        await page.screenshot({ path: theme === 'light' ? `/tmp/bada-${width}.png` : `/tmp/bada-${width}-dark.png`, fullPage: true });
+      }
+      console.log(`Verified viewport ${width}px in light and dark themes`);
     }
     assert.equal(await page.locator('details').count(), 8);
     for (const details of await page.locator('details').all()) {
@@ -249,23 +279,72 @@ async function zoomAndPan(page, state) {
     }
     for (const width of [320, 1440]) {
       await page.setViewportSize({ width, height: 1000 });
-      const opener = page.locator('.hero-screen .screenshot-link');
-      const state = await openViewer(page, opener);
-      await audit(page, `zoom viewer at ${width}px`);
-      await zoomAndPan(page, state);
-      await closeViewer(page, opener, state, 'Escape');
-      await noOverflow(page, width, 'after zoom viewer');
-      for (const [selector, title] of [
-        ['.feature-media .screenshot-link', 'Entrate e uscite'],
-        ['.screenshots-grid .screenshot-link', 'Importazione CSV'],
-      ]) {
-        const link = title === 'Entrate e uscite' ? page.locator(selector).first() : page.locator(selector).nth(1);
-        const nextState = await openViewer(page, link);
-        assert.equal(await page.locator('#screenshot-title').textContent(), title);
-        await closeViewer(page, link, nextState, 'button');
+      for (const theme of ['light', 'dark']) {
+        await chooseTheme(page, theme);
+        const opener = page.locator('.hero-screen .screenshot-link');
+        const state = await openViewer(page, opener);
+        await audit(page, `zoom viewer at ${width}px ${theme}`);
+        await zoomAndPan(page, state);
+        await closeViewer(page, opener, state, 'Escape');
+        await noOverflow(page, width, `${theme} after zoom viewer`);
+        for (const [selector, title] of [
+          ['.feature-media .screenshot-link', 'Entrate e uscite'],
+          ['.screenshots-grid .screenshot-link', 'Importazione CSV'],
+        ]) {
+          const link = title === 'Entrate e uscite' ? page.locator(selector).first() : page.locator(selector).nth(1);
+          const nextState = await openViewer(page, link);
+          assert.equal(await page.locator('#screenshot-title').textContent(), title);
+          await closeViewer(page, link, nextState, 'button');
+        }
       }
-      console.log(`Verified real zoom, fit, 1:1, pan and close at ${width}px`);
+      console.log(`Verified real zoom, fit, 1:1, pan and close at ${width}px in both themes`);
     }
+
+    const preferenceContext = await browser.newContext({ colorScheme: 'dark', reducedMotion: 'reduce', viewport: { width: 390, height: 1000 } });
+    preferenceContext.setDefaultTimeout(15000);
+    const preferencePage = await preferenceContext.newPage();
+    observe(preferencePage);
+    await preferencePage.goto(baseURL);
+    await assertTheme(preferencePage, 'dark');
+    assert.equal(await preferencePage.evaluate(() => localStorage.getItem('bada-site-theme')), null, 'System defaults do not create a manual preference');
+    await preferencePage.emulateMedia({ colorScheme: 'light' });
+    await assertTheme(preferencePage, 'light');
+    await preferencePage.emulateMedia({ colorScheme: 'dark' });
+    await assertTheme(preferencePage, 'dark');
+    await preferencePage.locator('#theme-toggle').focus();
+    await preferencePage.keyboard.press('Space');
+    await assertTheme(preferencePage, 'light');
+    assert.equal(await preferencePage.evaluate(() => localStorage.getItem('bada-site-theme')), 'light');
+    await preferencePage.emulateMedia({ colorScheme: 'light' });
+    await preferencePage.emulateMedia({ colorScheme: 'dark' });
+    await assertTheme(preferencePage, 'light');
+    await preferencePage.reload();
+    await assertTheme(preferencePage, 'light');
+    await preferencePage.locator('#theme-toggle').focus();
+    await preferencePage.keyboard.press('Enter');
+    await assertTheme(preferencePage, 'dark');
+    assert.equal(await preferencePage.evaluate(() => localStorage.getItem('bada-site-theme')), 'dark');
+    await preferencePage.reload();
+    await preferencePage.emulateMedia({ colorScheme: 'light' });
+    await assertTheme(preferencePage, 'dark');
+
+    const blockedContext = await browser.newContext({ colorScheme: 'dark', reducedMotion: 'reduce' });
+    blockedContext.setDefaultTimeout(15000);
+    await blockedContext.addInitScript(() => {
+      Object.defineProperty(window, 'localStorage', { configurable: true, get() { throw new DOMException('Storage blocked for test', 'SecurityError'); } });
+    });
+    const blockedPage = await blockedContext.newPage();
+    observe(blockedPage);
+    await blockedPage.goto(baseURL);
+    await assertTheme(blockedPage, 'dark');
+    await chooseTheme(blockedPage, 'light');
+    await blockedPage.emulateMedia({ colorScheme: 'light' });
+    await blockedPage.emulateMedia({ colorScheme: 'dark' });
+    await assertTheme(blockedPage, 'light');
+    await blockedPage.reload();
+    await assertTheme(blockedPage, 'dark');
+    await chooseTheme(blockedPage, 'light');
+    console.log('Verified keyboard theme switch, OS defaults/live updates, persisted choices and blocked storage');
 
     const motionContext = await browser.newContext({ reducedMotion: 'no-preference', viewport: { width: 1440, height: 1000 } });
     motionContext.setDefaultTimeout(15000);
@@ -291,23 +370,27 @@ async function zoomAndPan(page, state) {
     assert(await motionPage.locator('[data-reveal]').evaluateAll(elements => elements.every(element => getComputedStyle(element).transitionDuration.split(',').every(duration => parseFloat(duration) === 0))));
     console.log('Verified one-time feature reveals and reduced motion');
 
-    const noJsContext = await browser.newContext({ javaScriptEnabled: false, reducedMotion: 'no-preference', viewport: { width: 390, height: 1000 } });
-    noJsContext.setDefaultTimeout(15000);
-    const staticPage = await noJsContext.newPage();
-    observe(staticPage);
-    await staticPage.goto(baseURL);
-    assert.equal(await staticPage.locator('.reveal').count(), 0);
-    assert.equal(await staticPage.locator('main img').count(), 6);
-    await visibleContent(staticPage, 'JavaScript disabled');
-    assert(await staticPage.evaluate(() => [...document.images].every(image => image.complete && image.naturalWidth > 0)), 'All original images load without JavaScript');
-    await screenshotLinks(staticPage);
-    await thumbnailCrops(staticPage);
-    await staticPage.locator('details summary').first().click();
-    assert(await staticPage.locator('details').first().evaluate(element => element.open));
-    await noOverflow(staticPage, 390, 'JavaScript disabled');
+    for (const theme of ['light', 'dark']) {
+      const noJsContext = await browser.newContext({ javaScriptEnabled: false, colorScheme: theme, reducedMotion: 'no-preference', viewport: { width: 390, height: 1000 } });
+      noJsContext.setDefaultTimeout(15000);
+      const staticPage = await noJsContext.newPage();
+      observe(staticPage);
+      await staticPage.goto(baseURL);
+      await assertTheme(staticPage, theme, false);
+      assert.equal(await staticPage.locator('#theme-toggle').isVisible(), false, 'Nonfunctional theme switch is hidden without JavaScript');
+      assert.equal(await staticPage.locator('.reveal').count(), 0);
+      assert.equal(await staticPage.locator('main img').count(), 6);
+      await visibleContent(staticPage, `JavaScript disabled, ${theme}`);
+      assert(await staticPage.evaluate(() => [...document.images].every(image => image.complete && image.naturalWidth > 0)), 'All original images load without JavaScript');
+      await screenshotLinks(staticPage);
+      await thumbnailCrops(staticPage);
+      await staticPage.locator('details summary').first().click();
+      assert(await staticPage.locator('details').first().evaluate(element => element.open));
+      await noOverflow(staticPage, 390, `JavaScript disabled, ${theme}`);
+    }
     assert.equal(errors.length, 0, JSON.stringify(errors));
     assert(requests.every(url => url.startsWith(new URL(baseURL).origin)), 'No external asset requests');
-    console.log(`PASS: ${viewports.length} widths, original PNG paths${process.env.ORIGINAL_ASSETS_DIR ? '/hashes' : ''}, six correctly cropped app screenshots, real zoom/fit/1:1/pan/keyboard scrolling, viewer crop/source/cleanup/focus, one-time reveals, reduced motion, native no-JS content/FAQ, keyboard navigation and axe WCAG A/AA.`);
+    console.log(`PASS: ${viewports.length} widths in light/dark, theme switch/OS/persistence/blocked storage/no-JS fallback, original PNG paths${process.env.ORIGINAL_ASSETS_DIR ? '/hashes' : ''} and crop geometry, real zoom/fit/1:1/pan/keyboard scrolling in both themes, viewer cleanup/focus, one-time reveals, reduced motion, native FAQs/navigation and axe WCAG A/AA.`);
   } finally {
     await browser.close();
   }

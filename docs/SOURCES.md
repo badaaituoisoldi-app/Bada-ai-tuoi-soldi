@@ -105,9 +105,8 @@ ridotto. DM Sans locale è l’unica famiglia tipografica, con una gerarchia sem
 state generate o ritoccate immagini.
 
 Controllo indipendente del 15 ottobre 2026: tutti i sette PNG presenti nel sito
-sono identici byte per byte agli originali forniti (SHA-256). I riferimenti
-raster in HTML, CSS, entrambi gli script e Open Graph rimandano solo a questi
-file. La copertina è esclusa dagli asset del sito.
+sono identici byte per byte agli originali forniti (SHA-256). I riferimenti alle immagini nei sorgenti HTML, CSS e JavaScript e nei
+metadati Open Graph rimandano solo a questi file. La copertina è esclusa dagli asset del sito.
 
 Le immagini mostrano bilancio mensile e annuale, categorie di spesa,
 obiettivi, revisione dell’importazione e impostazioni per promemoria,
@@ -115,6 +114,10 @@ backup/ripristino e CSV. Tutte le schermate sono in tema chiaro; non è stata
 fornita una schermata dedicata alle Spese fisse né una in tema scuro.
 Questi eventuali asset aggiuntivi non impediscono l’uso delle immagini
 autentiche già disponibili.
+
+Il tema chiaro/scuro riguarda il sito e i suoi colori. In entrambi i temi
+le immagini dell’app restano i PNG chiari forniti, senza filtri di inversione,
+ritocchi o schermate scure generate.
 
 Nell’ispezione visiva non compaiono nomi, contatti o identificativi bancari:
 si vedono importi, categorie e obiettivi generici. L’immagine da sola non

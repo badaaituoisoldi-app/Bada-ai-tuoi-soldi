@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#F3F6FA" />
+    <meta name="theme-color" content="#ECEAF5" />
     <title>Bada! — ai tuoi soldi · Sai quanto puoi spendere davvero</title>
     <meta
       name="description"
@@ -44,6 +44,7 @@
       type="font/woff2"
       crossorigin
     />
+    <script src="theme.js"></script>
     <link rel="stylesheet" href="styles.css" />
     <script src="script.js" defer></script>
     <script src="viewer.js" defer></script>
@@ -63,6 +64,26 @@
           <a href="#funzionalita">Funzionalità</a><a href="#privacy">Privacy</a
           ><a href="#faq">FAQ</a>
         </nav>
+        <button
+          class="theme-toggle"
+          id="theme-toggle"
+          type="button"
+          role="switch"
+          aria-label="Tema scuro"
+          aria-checked="false"
+          hidden
+        >
+          <svg class="theme-icon-sun" viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="12" r="4" />
+            <path
+              d="M12 2v2m0 16v2M2 12h2m16 0h2M5 5l1.4 1.4m11.2 11.2L19 19M5 19l1.4-1.4M17.6 6.4 19 5"
+            />
+          </svg>
+          <svg class="theme-icon-moon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M20.5 14A8.8 8.8 0 0 1 10 3.5 8.8 8.8 0 1 0 20.5 14Z" />
+          </svg>
+          <span id="theme-label">Chiaro</span>
+        </button>
       </div>
     </header>
     <main id="contenuto">
@@ -110,72 +131,74 @@
           </figure>
         </div>
       </section>
-      <section class="features container" id="funzionalita">
-        <article class="feature-row">
-          <figure class="feature-media" data-reveal>
-            <a
-              class="screenshot-link"
-              href="assets/screenshots/store-3-uscite.png"
-              data-crop="144 315 792 1424"
-              data-title="Entrate e uscite"
-              aria-label="Ingrandisci: Entrate e uscite"
-              ><img
-                src="assets/screenshots/store-3-uscite.png"
-                width="1080"
-                height="1920"
-                alt="Schermata originale delle entrate e uscite, organizzate per categoria."
-                loading="lazy"
-                decoding="async"
-            /></a>
-            <figcaption>Entrate e uscite</figcaption>
-          </figure>
-          <div class="feature-copy" data-reveal>
-            <h2>Il tuo mese, con un colpo d’occhio.</h2>
-            <p>
-              Registra entrate e uscite, ritrovale per categoria e
-              sottocategoria. Le spese fisse le inserisci una volta e le
-              pianifichi nei mesi dell’anno.
-            </p>
-            <p class="secondary-copy">
-              Il disponibile considera i dati inseriti, il margine che scegli di
-              tenere da parte e le somme destinate agli obiettivi. Non è il
-              saldo aggiornato della banca.
-            </p>
-            <p class="small-note">
-              La prima configurazione è guidata. Puoi completarla in seguito.
-            </p>
-          </div>
-        </article>
-        <article class="feature-row reverse">
-          <figure class="feature-media" data-reveal>
-            <a
-              class="screenshot-link"
-              href="assets/screenshots/store-4-obiettivi.png"
-              data-crop="144 401 792 1424"
-              data-title="Obiettivi"
-              aria-label="Ingrandisci: Obiettivi"
-              ><img
-                src="assets/screenshots/store-4-obiettivi.png"
-                width="1080"
-                height="1920"
-                alt="Schermata originale degli obiettivi di risparmio, con versamenti e progressi."
-                loading="lazy"
-                decoding="async"
-            /></a>
-            <figcaption>Obiettivi</figcaption>
-          </figure>
-          <div class="feature-copy" data-reveal>
-            <h2>Fai posto ai tuoi progetti.</h2>
-            <p>
-              Un viaggio, il prossimo telefono o una quota per gli imprevisti.
-              Segui quello che metti da parte, un versamento alla volta.
-            </p>
-            <p class="secondary-copy">
-              Obiettivi e progressi restano insieme al tuo budget. E con il
-              bilancio annuale puoi guardare anche più lontano.
-            </p>
-          </div>
-        </article>
+      <section class="features-section" id="funzionalita">
+        <div class="features container">
+          <article class="feature-row">
+            <figure class="feature-media" data-reveal>
+              <a
+                class="screenshot-link"
+                href="assets/screenshots/store-3-uscite.png"
+                data-crop="144 315 792 1424"
+                data-title="Entrate e uscite"
+                aria-label="Ingrandisci: Entrate e uscite"
+                ><img
+                  src="assets/screenshots/store-3-uscite.png"
+                  width="1080"
+                  height="1920"
+                  alt="Schermata originale delle entrate e uscite, organizzate per categoria."
+                  loading="lazy"
+                  decoding="async"
+              /></a>
+              <figcaption>Entrate e uscite</figcaption>
+            </figure>
+            <div class="feature-copy" data-reveal>
+              <h2>Il tuo mese, con un colpo d’occhio.</h2>
+              <p>
+                Registra entrate e uscite, ritrovale per categoria e
+                sottocategoria. Le spese fisse le inserisci una volta e le
+                pianifichi nei mesi dell’anno.
+              </p>
+              <p class="secondary-copy">
+                Il disponibile considera i dati inseriti, il margine che scegli
+                di tenere da parte e le somme destinate agli obiettivi. Non è il
+                saldo aggiornato della banca.
+              </p>
+              <p class="small-note">
+                La prima configurazione è guidata. Puoi completarla in seguito.
+              </p>
+            </div>
+          </article>
+          <article class="feature-row reverse">
+            <figure class="feature-media" data-reveal>
+              <a
+                class="screenshot-link"
+                href="assets/screenshots/store-4-obiettivi.png"
+                data-crop="144 401 792 1424"
+                data-title="Obiettivi"
+                aria-label="Ingrandisci: Obiettivi"
+                ><img
+                  src="assets/screenshots/store-4-obiettivi.png"
+                  width="1080"
+                  height="1920"
+                  alt="Schermata originale degli obiettivi di risparmio, con versamenti e progressi."
+                  loading="lazy"
+                  decoding="async"
+              /></a>
+              <figcaption>Obiettivi</figcaption>
+            </figure>
+            <div class="feature-copy" data-reveal>
+              <h2>Fai posto ai tuoi progetti.</h2>
+              <p>
+                Un viaggio, il prossimo telefono o una quota per gli imprevisti.
+                Segui quello che metti da parte, un versamento alla volta.
+              </p>
+              <p class="secondary-copy">
+                Obiettivi e progressi restano insieme al tuo budget. E con il
+                bilancio annuale puoi guardare anche più lontano.
+              </p>
+            </div>
+          </article>
+        </div>
       </section>
       <section class="gallery-section">
         <div class="container gallery-inner">
