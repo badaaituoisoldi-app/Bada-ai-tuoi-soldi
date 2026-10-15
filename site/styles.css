@@ -26,8 +26,9 @@ body {
   background: #fff;
   color: var(--ink);
   font:
-    16px/1.65 "DM Sans",
+    16px/1.6 "DM Sans",
     sans-serif;
+  font-optical-sizing: auto;
 }
 h1,
 h2,
@@ -40,8 +41,9 @@ h1,
 h2,
 h3 {
   font-weight: 600;
-  line-height: 1.12;
-  letter-spacing: -0.04em;
+  line-height: 1.16;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
 }
 a {
   color: inherit;
@@ -111,7 +113,7 @@ svg {
   background: #fff;
 }
 .header-inner {
-  min-height: 78px;
+  min-height: 72px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -155,7 +157,7 @@ svg {
   display: flex;
   align-items: center;
   min-height: 44px;
-  font-size: 13px;
+  font-size: 14px;
   font-weight: 500;
   text-decoration: none;
   transition: color 180ms;
@@ -170,8 +172,8 @@ svg {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
   align-items: center;
-  gap: 90px;
-  padding-block: 42px 45px;
+  gap: 64px;
+  padding-block: 36px 38px;
 }
 .eyebrow {
   font-size: 14px;
@@ -180,9 +182,10 @@ svg {
   margin-bottom: 18px;
 }
 h1 {
-  font-size: 62px;
-  line-height: 1.06;
-  letter-spacing: -0.045em;
+  font-size: 60px;
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -0.035em;
 }
 h1 em {
   color: var(--purple);
@@ -190,10 +193,10 @@ h1 em {
 }
 .hero-description {
   font-size: 18px;
-  line-height: 1.65;
+  line-height: 1.6;
   color: var(--muted);
   max-width: 450px;
-  margin-top: 24px;
+  margin-top: 22px;
 }
 .button {
   display: inline-flex;
@@ -227,13 +230,13 @@ h1 em {
   box-shadow: 0 6px 16px #655cc71c;
 }
 .hero .button {
-  margin-top: 28px;
+  margin-top: 24px;
 }
 .hero-trust {
-  font-size: 11px;
+  font-size: 12px;
   line-height: 1.7;
   color: var(--muted);
-  margin-top: 18px;
+  margin-top: 14px;
 }
 .hero-trust span {
   padding-inline: 7px;
@@ -267,7 +270,7 @@ h1 em {
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 11px;
+  font-size: 12px;
   color: var(--muted);
   margin-top: 12px;
   line-height: 1.4;
@@ -280,46 +283,52 @@ h1 em {
   padding-inline: 3px;
 }
 h2 {
-  font-size: 40px;
-  line-height: 1.1;
+  font-size: 38px;
 }
 .features {
-  padding-block: 26px;
+  max-width: 1000px;
+  padding-block: 18px;
 }
 .feature-row {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 90px;
+  grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr);
+  gap: 64px;
   align-items: center;
-  padding-block: 42px;
+  padding-block: 32px;
 }
 .feature-row + .feature-row {
   border-top: 1px solid var(--line);
 }
 .feature-media {
-  width: 260px;
+  width: 270px;
   max-width: 100%;
   justify-self: center;
 }
 .feature-copy {
   max-width: 440px;
 }
+.feature-copy h2 {
+  max-width: 18ch;
+}
 .feature-copy > p {
   font-size: 17px;
-  line-height: 1.7;
+  line-height: 1.6;
   color: var(--muted);
-  margin-top: 22px;
+  margin-top: 18px;
 }
 .feature-copy > p.secondary-copy {
-  font-size: 14px;
-  line-height: 1.7;
+  font-size: 15px;
+  line-height: 1.6;
 }
 .feature-copy > p.small-note {
   font-size: 12px;
   line-height: 1.65;
   border-top: 1px solid var(--line);
-  padding-top: 17px;
-  margin-top: 20px;
+  padding-top: 14px;
+  margin-top: 18px;
+}
+.feature-row.reverse {
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
 }
 .reverse .feature-media {
   grid-column: 2;
@@ -328,30 +337,32 @@ h2 {
 .reverse .feature-copy {
   grid-column: 1;
   grid-row: 1;
-  justify-self: center;
+  justify-self: start;
 }
 .gallery-section {
   background: var(--bg);
 }
 .gallery-inner {
-  padding-block: 52px;
+  padding-block: 44px;
 }
 .gallery-intro {
   text-align: center;
-  margin-bottom: 32px;
+  margin-bottom: 28px;
 }
 .gallery-intro h2 {
   font-size: 36px;
+  max-width: 26ch;
+  margin-inline: auto;
 }
 .gallery-intro > p {
-  font-size: 13px;
+  font-size: 14px;
   color: var(--muted);
-  margin-top: 15px;
+  margin-top: 12px;
 }
 .screenshots-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 45px;
+  gap: 36px;
 }
 .screenshots-grid figure {
   width: 100%;
@@ -364,17 +375,17 @@ h2 {
   margin-inline: auto;
 }
 .screenshots-grid figcaption {
-  margin-top: 21px;
+  margin-top: 18px;
   text-align: center;
 }
 .screenshots-grid h3 {
   font-size: 19px;
   line-height: 1.25;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.015em;
 }
 .screenshots-grid figcaption p {
-  font-size: 13px;
-  line-height: 1.7;
+  font-size: 14px;
+  line-height: 1.6;
   color: var(--muted);
   margin-top: 10px;
 }
@@ -383,8 +394,8 @@ h2 {
   font-size: 12px;
   line-height: 1.8;
   color: var(--muted);
-  margin-top: 32px;
-  padding-top: 24px;
+  margin-top: 26px;
+  padding-top: 20px;
   border-top: 1px solid var(--line);
 }
 .privacy-section {
@@ -393,17 +404,17 @@ h2 {
 }
 .privacy-content {
   max-width: 760px;
-  padding-block: 56px;
+  padding-block: 48px;
   text-align: center;
 }
 .privacy-content h2 {
-  font-size: 42px;
+  font-size: 38px;
 }
 .privacy-description {
   font-size: 17px;
-  line-height: 1.8;
+  line-height: 1.65;
   color: #c2cbd8;
-  margin-top: 24px;
+  margin-top: 20px;
 }
 .privacy-link {
   display: inline-flex;
@@ -411,7 +422,7 @@ h2 {
   justify-content: center;
   gap: 10px;
   min-height: 44px;
-  margin-top: 18px;
+  margin-top: 14px;
   font-size: 14px;
   color: #b6adff;
 }
@@ -426,16 +437,16 @@ h2 {
   font-size: 12px;
   line-height: 1.75;
   color: #9facbf;
-  margin-top: 20px;
+  margin-top: 16px;
 }
 .faq-section {
   max-width: 790px;
-  padding-block: 56px;
+  padding-block: 48px;
 }
 .faq-section > h2 {
   text-align: center;
-  font-size: 36px;
-  margin-bottom: 28px;
+  font-size: 34px;
+  margin-bottom: 24px;
 }
 .faq-list details {
   border-bottom: 1px solid var(--line);
@@ -471,7 +482,7 @@ h2 {
   transform: rotate(45deg);
 }
 .faq-list details p {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.7;
   color: var(--muted);
   padding: 0 30px 22px 0;
@@ -480,19 +491,19 @@ h2 {
   text-align: center;
   background: #ebe7f8;
   border-radius: 16px;
-  padding: 42px 24px;
-  margin-bottom: 42px;
+  padding: 36px 24px;
+  margin-bottom: 34px;
 }
 .closing h2 {
-  font-size: 36px;
+  font-size: 34px;
 }
 .closing > p {
   font-size: 16px;
   color: var(--muted);
-  margin-top: 16px;
+  margin-top: 14px;
 }
 .closing .button {
-  margin-top: 25px;
+  margin-top: 22px;
 }
 .closing > small {
   display: block;
@@ -689,7 +700,7 @@ h2 {
     gap: 55px;
   }
   .hero h1 {
-    font-size: 54px;
+    font-size: clamp(42px, 5.2vw, 52px);
   }
   .hero-description {
     font-size: 17px;
@@ -698,7 +709,7 @@ h2 {
     width: 270px;
   }
   .feature-row {
-    gap: 55px;
+    gap: 40px;
   }
   .feature-copy h2 {
     font-size: 36px;
@@ -727,8 +738,8 @@ h2 {
   .hero {
     grid-template-columns: 1fr;
     text-align: center;
-    gap: 32px;
-    padding-block: 36px 34px;
+    gap: 28px;
+    padding-block: 32px;
   }
   .hero-intro {
     max-width: 550px;
@@ -749,17 +760,17 @@ h2 {
     font-size: 12px;
   }
   .feature-row {
-    gap: 35px;
-    padding-block: 36px;
+    gap: 30px;
+    padding-block: 32px;
   }
   .feature-copy h2 {
     font-size: 32px;
   }
   .feature-copy > p {
-    font-size: 15px;
+    font-size: 16px;
   }
   .feature-copy > p.secondary-copy {
-    font-size: 13px;
+    font-size: 15px;
   }
   .feature-media {
     width: 230px;
@@ -782,22 +793,22 @@ h2 {
     max-width: 210px;
   }
   .gallery-inner {
-    padding-block: 44px;
+    padding-block: 40px;
   }
   .privacy-content {
-    padding-block: 48px;
+    padding-block: 40px;
   }
   .privacy-content h2 {
-    font-size: 38px;
+    font-size: 34px;
   }
   .privacy-description {
     font-size: 16px;
   }
   .faq-section {
-    padding-block: 48px;
+    padding-block: 42px;
   }
   .closing {
-    padding-block: 36px;
+    padding-block: 32px;
   }
 }
 @media (max-width: 520px) {
@@ -829,28 +840,28 @@ h2 {
     gap: 16px;
   }
   .site-header nav a {
-    font-size: 11px;
+    font-size: 12px;
   }
   .hero {
-    padding-top: 29px;
-    gap: 30px;
+    padding-top: 26px;
+    gap: 26px;
   }
   .eyebrow {
     font-size: 12px;
     margin-bottom: 16px;
   }
   .hero h1 {
-    font-size: clamp(36px, 10.9vw, 46px);
+    font-size: clamp(34px, 10.4vw, 44px);
     line-height: 1.09;
-    letter-spacing: -0.04em;
+    letter-spacing: -0.03em;
   }
   .hero-description {
     font-size: 16px;
-    line-height: 1.65;
-    margin-top: 21px;
+    line-height: 1.6;
+    margin-top: 20px;
   }
   .hero .button {
-    margin-top: 24px;
+    margin-top: 22px;
   }
   .button {
     font-size: 14px;
@@ -858,8 +869,8 @@ h2 {
     min-height: 53px;
   }
   .hero-trust {
-    font-size: 10px;
-    margin-top: 16px;
+    font-size: 11px;
+    margin-top: 14px;
   }
   .hero-trust span {
     padding-inline: 6px;
@@ -868,15 +879,16 @@ h2 {
     width: 250px;
   }
   .hero-screen > figcaption {
-    font-size: 10px;
+    font-size: 11px;
   }
   .features {
     padding-block: 12px;
   }
-  .feature-row {
+  .feature-row,
+  .feature-row.reverse {
     grid-template-columns: 1fr;
-    gap: 25px;
-    padding-block: 36px;
+    gap: 24px;
+    padding-block: 30px;
   }
   .feature-copy {
     grid-row: 1;
@@ -887,15 +899,16 @@ h2 {
     width: 240px;
   }
   .feature-copy h2 {
-    font-size: 34px;
+    font-size: 32px;
+    line-height: 1.18;
   }
   .feature-copy > p {
     font-size: 16px;
-    line-height: 1.65;
-    margin-top: 20px;
+    line-height: 1.6;
+    margin-top: 18px;
   }
   .feature-copy > p.secondary-copy {
-    font-size: 14px;
+    font-size: 15px;
   }
   .feature-copy > p.small-note {
     font-size: 12px;
@@ -910,11 +923,11 @@ h2 {
     grid-row: 2;
   }
   .gallery-intro h2 {
-    font-size: 31px;
+    font-size: 30px;
   }
   .gallery-intro > p {
-    font-size: 12px;
-    margin-top: 15px;
+    font-size: 13px;
+    margin-top: 12px;
   }
   .screenshots-grid {
     grid-template-columns: repeat(3, minmax(235px, 76vw));
@@ -930,32 +943,32 @@ h2 {
     font-size: 18px;
   }
   .screenshots-grid figcaption p {
-    font-size: 13px;
+    font-size: 14px;
   }
   .preferences {
-    font-size: 11px;
-    line-height: 1.8;
-    margin-top: 24px;
-    padding-top: 21px;
+    font-size: 12px;
+    line-height: 1.7;
+    margin-top: 20px;
+    padding-top: 18px;
   }
   .privacy-content h2 {
-    font-size: 34px;
+    font-size: 32px;
   }
   .privacy-description {
-    font-size: 15px;
-    line-height: 1.8;
-    margin-top: 21px;
+    font-size: 16px;
+    line-height: 1.65;
+    margin-top: 18px;
   }
   .privacy-link {
     font-size: 13px;
   }
   .privacy-note {
-    font-size: 11px;
-    margin-top: 18px;
-    line-height: 1.8;
+    font-size: 12px;
+    margin-top: 16px;
+    line-height: 1.7;
   }
   .faq-section > h2 {
-    font-size: 31px;
+    font-size: 30px;
     margin-bottom: 24px;
   }
   .faq-list summary {
@@ -964,14 +977,14 @@ h2 {
     padding-block: 16px;
   }
   .faq-list details p {
-    font-size: 14px;
+    font-size: 15px;
   }
   .closing {
-    padding: 34px 22px;
-    margin-bottom: 30px;
+    padding: 32px 22px;
+    margin-bottom: 28px;
   }
   .closing h2 {
-    font-size: 31px;
+    font-size: 30px;
   }
   .closing > p {
     font-size: 14px;
@@ -1046,13 +1059,10 @@ h2 {
     gap: 12px;
   }
   .site-header nav a {
-    font-size: 10px;
-  }
-  .hero h1 {
-    font-size: 36px;
+    font-size: 11px;
   }
   .hero-trust {
-    font-size: 9px;
+    font-size: 10px;
   }
   .hero-trust span {
     padding-inline: 4px;

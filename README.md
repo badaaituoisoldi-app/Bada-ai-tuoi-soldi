@@ -39,6 +39,8 @@ Il titolare ha fornito `Nuova cartella.zip`: sei schermate promozionali in tema 
 
 L’intestazione contiene il marchio e tre collegamenti: Funzionalità, Privacy e FAQ. L’apertura presenta la schermata Mese e il pulsante Google Play. Due sezioni illustrano Spese e Obiettivi, ciascuna con una sola schermata; una galleria compatta raccoglie Anno, CSV e Impostazioni. Seguono privacy, otto FAQ e un invito finale a scaricare l’app. DM Sans locale è l’unica famiglia tipografica, con una gerarchia semplice di dimensioni e pesi.
 
+La rifinitura tipografica mantiene questa struttura: colonne delle funzioni più vicine, titoli con spaziatura meno serrata e a capo bilanciati, testi secondari da 15 px. Le distanze tra le sezioni sono state ridotte in modo contenuto; le schermate su telefono mantengono le dimensioni precedenti.
+
 Ogni schermata si apre in un visualizzatore a tutto schermo: l’immagine parte da 720 px di larghezza su telefono, fino a 1080 px su desktop, e si può scorrere per leggere i dettagli. I controlli permettono zoom, adattamento alla larghezza, vista 1:1 e apertura dell’originale. È disponibile anche il trascinamento con il mouse e lo scorrimento touch nativo. Senza JavaScript i collegamenti aprono direttamente i PNG.
 
 Le sezioni compaiono una sola volta con una breve dissolvenza e uno spostamento di 16 px in 600 ms. La preferenza di sistema per il movimento ridotto disattiva l’effetto. Non sono presenti schermate persistenti durante lo scorrimento, schede a selezione, indicatori di lettura o parallasse.

@@ -8,6 +8,12 @@ Obiettivi, una galleria compatta con Anno, CSV e Impostazioni, privacy,
 otto FAQ native e l’invito finale al download. L’intestazione contiene solo
 marchio e tre collegamenti. DM Sans locale è l’unica famiglia tipografica.
 
+Rifinitura di spaziature e tipografia: verificati a capo dei titoli e
+leggibilità a 320, 390, 768 e 1440 px. Su desktop la distanza visibile tra
+prima schermata e testo passa da 208 a 140 px; l’altezza complessiva passa
+da 4333 a 4185 px. Su telefono a 390 px passa da 5032 a 4949 px, con
+testi secondari più grandi e schermate delle stesse dimensioni.
+
 - Asset: i sette PNG del sito sono identici byte per byte agli originali forniti (SHA-256). I riferimenti raster in HTML, CSS, entrambi gli script e Open Graph usano solo questi file; la copertina non è inclusa nel sito. Nessuna interfaccia dell’app è ricostruita.
 - Suite browser superata a 320, 360, 390, 430, 768, 1024 e 1440 px: immagini caricate e nessuno scorrimento orizzontale. Navigazione e otto FAQ native verificate.
 - Visualizzatore a 320 e 1440 px: zoom effettivo, adattamento alla larghezza, vista 1:1, trascinamento e comandi da tastiera superati. Verificati anche chiusura, ritorno del focus e ripristino dello scorrimento della pagina.
