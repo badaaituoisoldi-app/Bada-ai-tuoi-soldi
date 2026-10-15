@@ -70,11 +70,16 @@ async function viewer(page, checkDownload) {
   await page.waitForFunction(() => !document.querySelector('.viewer-stage').hasAttribute('aria-busy'));
   const frame = dialog.locator('.viewer-frame');
   const frameWidth = () => frame.evaluate(element => element.getBoundingClientRect().width);
-  await page.locator('#viewer-fit').click();
   const available = await page.locator('.viewer-stage').evaluate(stage => {
     const padding = getComputedStyle(stage.querySelector('.viewer-canvas'));
     return stage.clientWidth - parseFloat(padding.paddingLeft) - parseFloat(padding.paddingRight);
   });
+  assert(Math.abs(await frameWidth() - Math.min(792, available)) < 1, 'Standalone screenshot opens at full visible width without upscaling');
+  assert(await page.locator('.viewer-stage').evaluate(stage => stage.scrollWidth <= stage.clientWidth), 'Initial standalone view has no horizontal clipping');
+  const initialWidth = await frameWidth();
+  await page.locator('#viewer-zoom-in').click();
+  assert(await frameWidth() > initialWidth, 'Bundled zoom still enlarges the fitted screenshot');
+  await page.locator('#viewer-fit').click();
   assert(await frameWidth() <= available + 1, 'Fit keeps the screen within the viewer');
   await page.locator('#viewer-actual').click();
   assert.equal(Math.round(await frameWidth()), 792, '1:1 preserves the original app screen width');
@@ -127,6 +132,18 @@ async function viewer(page, checkDownload) {
       await page.setViewportSize({ width, height: 1000 });
       await page.goto(url);
       await images(page, true);
+      for (const id of ['schermate-principali', 'altre-schermate']) {
+        const controls = page.locator(`[data-gallery-controls="${id}"]`);
+        assert.equal(await controls.isVisible(), width === 320);
+        if (width === 320) {
+          await page.locator(`#${id}`).focus();
+          await page.keyboard.press('Home');
+          await controls.locator('[data-gallery-next]').click();
+          await page.waitForFunction(id => document.querySelector(`[data-gallery-controls="${id}"] [data-gallery-position]`).textContent === '2 di 3', id);
+          await controls.locator('[data-gallery-prev]').click();
+          await page.waitForFunction(id => document.querySelector(`[data-gallery-controls="${id}"] [data-gallery-position]`).textContent === '1 di 3', id);
+        }
+      }
       for (const selected of ['light', 'dark']) {
         await theme(page, selected);
         await styled(page, selected);
@@ -148,6 +165,7 @@ async function viewer(page, checkDownload) {
     await styled(staticPage, 'dark');
     await images(staticPage, false);
     assert.equal(await staticPage.locator('#theme-toggle').isVisible(), false);
+    assert(await staticPage.locator('.gallery-controls').evaluateAll(elements => elements.every(element => element.hidden)));
     await staticPage.locator('details summary').first().click();
     assert(await staticPage.locator('details').first().evaluate(element => element.open));
     assert.equal(errors.length, 0, JSON.stringify(errors));

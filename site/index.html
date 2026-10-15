@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#EEF0F3" />
+    <meta name="theme-color" content="#F2F2F4" />
     <title>Bada! — ai tuoi soldi · Sai quanto puoi spendere davvero</title>
     <meta
       name="description"
@@ -93,8 +93,8 @@
           <p class="eyebrow">Un po’ di ordine, ogni giorno.</p>
           <h1>Sai quanto puoi<br />spendere <em>davvero.</em></h1>
           <p class="hero-description">
-            Il mese, le spese, i tuoi progetti. Bada! ti aiuta a capire cosa
-            resta e a decidere come usarlo.
+            Organizza entrate, spese e obiettivi e controlla quanto resta
+            disponibile.
           </p>
           <a
             class="button button-cream"
@@ -111,6 +111,8 @@
         <div class="product-stage container">
           <div
             class="product-screens"
+            id="schermate-principali"
+            data-gallery
             role="region"
             aria-label="Schermate principali di Bada!"
             tabindex="0"
@@ -181,6 +183,39 @@
               </figcaption>
             </figure>
           </div>
+
+          <div
+            class="gallery-controls"
+            data-gallery-controls="schermate-principali"
+            role="group"
+            aria-label="Navigazione schermate principali"
+            hidden
+          >
+            <button
+              type="button"
+              data-gallery-prev
+              aria-controls="schermate-principali"
+              aria-label="Schermata precedente"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m14 6-6 6 6 6" />
+              </svg>
+            </button>
+            <p class="gallery-position" role="status" aria-atomic="true">
+              <span class="sr-only">Schermata </span
+              ><span data-gallery-position>1 di 3</span>
+            </p>
+            <button
+              type="button"
+              data-gallery-next
+              aria-controls="schermate-principali"
+              aria-label="Schermata successiva"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="m10 6 6 6-6 6" />
+              </svg>
+            </button>
+          </div>
           <p class="screen-instruction">
             <span class="mobile-only">Scorri tra le schermate. </span>Tocca per
             ingrandire.
@@ -236,6 +271,8 @@
         </div>
         <div
           class="screenshots-grid"
+          id="altre-schermate"
+          data-gallery
           role="region"
           aria-label="Altre schermate di Bada!"
           tabindex="0"
@@ -307,6 +344,39 @@
             </figcaption>
           </figure>
         </div>
+
+        <div
+          class="gallery-controls"
+          data-gallery-controls="altre-schermate"
+          role="group"
+          aria-label="Navigazione altre schermate"
+          hidden
+        >
+          <button
+            type="button"
+            data-gallery-prev
+            aria-controls="altre-schermate"
+            aria-label="Schermata precedente"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m14 6-6 6 6 6" />
+            </svg>
+          </button>
+          <p class="gallery-position" role="status" aria-atomic="true">
+            <span class="sr-only">Schermata </span
+            ><span data-gallery-position>1 di 3</span>
+          </p>
+          <button
+            type="button"
+            data-gallery-next
+            aria-controls="altre-schermate"
+            aria-label="Schermata successiva"
+          >
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m10 6 6 6-6 6" />
+            </svg>
+          </button>
+        </div>
         <p class="preferences">
           Tema chiaro, scuro o di sistema. Italiano e inglese. Valuta a scelta,
           senza conversione automatica.
@@ -333,20 +403,6 @@
             Nell’informativa trovi i dettagli sulle cartelle sincronizzate e sul
             backup di sistema Android.
           </p>
-          <div class="closing">
-            <h3>Parti dal prossimo mese.</h3>
-            <a
-              class="button button-ink"
-              href="https://play.google.com/store/apps/details?id=com.bada.aituoisoldi&amp;hl=it"
-              ><svg viewBox="0 0 24 24" aria-hidden="true">
-                <path d="m5 3 14 9L5 21V3Z" /></svg
-              >Scarica su Google Play</a
-            >
-            <p>
-              La prima configurazione è guidata.<br />Puoi completarla anche in
-              seguito.
-            </p>
-          </div>
         </div>
         <div class="faq-section" id="faq">
           <h2>Due cose da sapere.</h2>
@@ -402,6 +458,20 @@
               </p>
             </details>
           </div>
+        </div>
+        <div class="closing" data-reveal>
+          <h2>Inizia a fare ordine.</h2>
+          <a
+            class="button button-ink"
+            href="https://play.google.com/store/apps/details?id=com.bada.aituoisoldi&amp;hl=it"
+            ><svg viewBox="0 0 24 24" aria-hidden="true">
+              <path d="m5 3 14 9L5 21V3Z" /></svg
+            >Scarica su Google Play</a
+          >
+          <p>
+            La prima configurazione è guidata.<br />Puoi completarla anche in
+            seguito.
+          </p>
         </div>
       </section>
     </main>

@@ -85,7 +85,8 @@ I sei originali `store-*.png` sono conservati in
 `site/assets/screenshots/`, identici ai file ricevuti. L’apertura presenta
 insieme Mese, Entrate/uscite e Obiettivi. Dopo una panoramica di tre benefici,
 la galleria raccoglie Anno, Importazione e Impostazioni. Privacy e FAQ sono
-affiancate su desktop; su telefono le schermate scorrono orizzontalmente. Miniature e
+affiancate su desktop; su telefono le schermate scorrono orizzontalmente
+con contatore e frecce. Il secondo download segue le FAQ nell’ordine mobile. Miniature e
 visualizzatore inquadrano via CSS la sola area dell’app,
 escludendo titolo promozionale e margini viola: 792 × 1424 px da (144, 401),
 oppure da (144, 315) per Entrate/uscite. Una maschera con angoli di 48 px

@@ -7,21 +7,21 @@
 }
 :root {
   color-scheme: light;
-  --canvas: #eef0f3;
+  --canvas: #f2f2f4;
   --ink: #25252e;
-  --muted: #595c68;
-  --line: #c7cbd5;
-  --accent: #5145ad;
-  --hero: #e1e5eb;
+  --muted: #555560;
+  --line: #ccccd4;
+  --accent: #655cc7;
+  --hero: #e6e6eb;
   --hero-ink: #25252e;
-  --hero-soft: #595c68;
-  --hero-accent: #5145ad;
+  --hero-soft: #555560;
+  --hero-accent: #655cc7;
   --button: #655cc7;
   --button-ink: #ffffff;
   --screen-shadow: #24263120;
   --scroll-thumb: #7e8193;
-  --control-border: #7c8090;
-  --control-hover: #d6dae3;
+  --control-border: #7c7c8a;
+  --control-hover: #d9d9e1;
 }
 :root[data-theme="dark"] {
   color-scheme: dark;
@@ -96,7 +96,9 @@ h2 {
   line-height: 1.05;
 }
 h2 {
-  font-size: 44px;
+  font-size: 42px;
+  line-height: 1.12;
+  letter-spacing: -0.04em;
 }
 h3 {
   font-size: 20px;
@@ -264,13 +266,13 @@ svg {
 }
 .hero-intro {
   text-align: center;
-  padding-top: 44px;
+  padding-top: 32px;
 }
 .eyebrow {
   font-size: 14px;
   font-weight: 500;
   color: var(--hero-soft);
-  margin-bottom: 20px;
+  margin-bottom: 16px;
 }
 h1 {
   font-size: clamp(58px, 6.2vw, 84px);
@@ -283,7 +285,7 @@ h1 em {
 }
 .hero-description {
   max-width: 550px;
-  margin: 22px auto 0;
+  margin: 18px auto 0;
   font-size: 18px;
   line-height: 1.55;
   color: var(--hero-soft);
@@ -322,19 +324,19 @@ h1 em {
   color: var(--button-ink);
 }
 .hero-intro .button {
-  margin-top: 24px;
+  margin-top: 20px;
 }
 .hero-trust {
-  font-size: 12px;
+  font-size: 13px;
   color: var(--hero-soft);
-  margin-top: 14px;
+  margin-top: 12px;
 }
 .hero-trust span {
   padding-inline: 8px;
 }
 .product-stage {
-  padding-top: 34px;
-  padding-bottom: 30px;
+  padding-top: 26px;
+  padding-bottom: 24px;
 }
 .product-screens {
   display: grid;
@@ -365,7 +367,7 @@ h1 em {
   justify-content: center;
   gap: 7px;
   color: var(--hero-soft);
-  font-size: 12px;
+  font-size: 13px;
   margin-top: 14px;
   line-height: 1.4;
 }
@@ -375,12 +377,52 @@ h1 em {
 }
 .screen-instruction {
   text-align: center;
-  font-size: 11px;
+  font-size: 13px;
   color: var(--hero-soft);
-  margin-top: 19px;
+  margin-top: 16px;
 }
 .mobile-only {
   display: none;
+}
+.gallery-controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: max-content;
+  max-width: 100%;
+  margin: 14px auto 0;
+  color: var(--muted);
+}
+.gallery-controls[hidden] {
+  display: none;
+}
+.gallery-controls button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--control-border);
+  border-radius: 50%;
+  color: var(--ink);
+  background: transparent;
+  transition: background 180ms ease;
+}
+.gallery-controls button:hover:not(:disabled) {
+  background: var(--control-hover);
+}
+.gallery-controls button:disabled {
+  opacity: 0.4;
+  cursor: default;
+}
+.gallery-position {
+  min-width: 54px;
+  font-size: 13px;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
 }
 .screenshot-link {
   --crop-x: 144;
@@ -448,7 +490,7 @@ h1 em {
   margin-top: 14px;
 }
 .capability .small-note {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.55;
   margin-top: 12px;
 }
@@ -490,13 +532,13 @@ h1 em {
 }
 .screenshots-grid figcaption p {
   margin-top: 10px;
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.6;
   color: var(--muted);
 }
 .preferences {
   text-align: center;
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.65;
   color: var(--muted);
   margin-top: 32px;
@@ -504,12 +546,15 @@ h1 em {
 .assurance {
   display: grid;
   grid-template-columns: 0.9fr 1.1fr;
-  gap: 100px;
+  grid-template-areas: "privacy faq" "closing faq";
+  grid-template-rows: auto 1fr;
+  column-gap: 100px;
+  row-gap: 28px;
   padding-block: 58px 64px;
   border-top: 1px solid var(--line);
 }
-.privacy-content h2 {
-  font-size: 52px;
+.privacy-content {
+  grid-area: privacy;
 }
 .privacy-description {
   font-size: 16px;
@@ -532,26 +577,31 @@ h1 em {
   height: 14px;
 }
 .privacy-note {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.65;
   color: var(--muted);
   margin-top: 10px;
   max-width: 420px;
 }
 .closing {
-  margin-top: 30px;
-  padding-top: 28px;
+  grid-area: closing;
+  align-self: start;
+  padding-top: 26px;
   border-top: 1px solid var(--line);
 }
-.closing h3 {
-  font-size: 20px;
+.closing h2 {
+  font-size: 24px;
   margin-bottom: 16px;
 }
 .closing > p {
-  font-size: 12px;
+  font-size: 13px;
   line-height: 1.6;
   color: var(--muted);
   margin-top: 14px;
+}
+.faq-section {
+  grid-area: faq;
+  align-self: start;
 }
 .faq-section > h2 {
   font-size: 28px;
@@ -570,7 +620,7 @@ h1 em {
   gap: 18px;
   min-height: 56px;
   padding-block: 16px;
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 500;
   line-height: 1.45;
   list-style: none;
@@ -591,7 +641,7 @@ h1 em {
   transform: rotate(45deg);
 }
 .faq-list details p {
-  font-size: 14px;
+  font-size: 15px;
   line-height: 1.65;
   color: var(--muted);
   padding: 0 28px 20px 0;
@@ -805,10 +855,7 @@ h1 em {
     gap: 32px;
   }
   .assurance {
-    gap: 55px;
-  }
-  .privacy-content h2 {
-    font-size: 46px;
+    column-gap: 55px;
   }
 }
 @media (max-width: 760px) {
@@ -855,7 +902,7 @@ h1 em {
     margin-top: 0;
   }
   .screen-instruction {
-    font-size: 12px;
+    font-size: 13px;
     margin-top: 8px;
   }
   .mobile-only {
@@ -864,7 +911,9 @@ h1 em {
   .overview {
     padding-block: 44px;
   }
-  .overview h2 {
+  .overview h2,
+  .section-heading h2,
+  .privacy-content h2 {
     font-size: 36px;
   }
   .capabilities {
@@ -883,9 +932,7 @@ h1 em {
     display: block;
     margin-bottom: 28px;
   }
-  .section-heading h2 {
-    font-size: 38px;
-  }
+
   .section-heading > p {
     margin-top: 18px;
     font-size: 15px;
@@ -909,18 +956,22 @@ h1 em {
   }
   .assurance {
     grid-template-columns: 1fr;
-    gap: 46px;
+    grid-template-areas: "privacy" "faq" "closing";
+    grid-template-rows: auto;
+    gap: 40px;
     padding-block: 40px;
   }
-  .privacy-content h2 {
-    font-size: 42px;
-  }
+
   .privacy-description,
   .privacy-note {
     max-width: 540px;
   }
   .closing {
     max-width: 540px;
+  }
+  .faq-section {
+    grid-area: faq;
+    align-self: start;
   }
   .faq-section > h2 {
     font-size: 28px;
@@ -987,7 +1038,7 @@ h1 em {
     margin-top: 12px;
   }
   .capability .small-note {
-    font-size: 12px;
+    font-size: 13px;
     margin-top: 10px;
   }
   .overview-heading {
@@ -1022,9 +1073,7 @@ h1 em {
   .hero-intro .button {
     margin-top: 22px;
   }
-  .hero-trust {
-    font-size: 11px;
-  }
+
   .hero-trust span {
     padding-inline: 6px;
   }
@@ -1034,15 +1083,14 @@ h1 em {
   .product-screens {
     gap: 20px;
   }
-  .product-screens figcaption {
-    font-size: 12px;
-  }
+
   .section-label {
-    font-size: 12px;
+    font-size: 13px;
     margin-bottom: 12px;
   }
   .overview h2,
-  .section-heading h2 {
+  .section-heading h2,
+  .privacy-content h2 {
     font-size: 33px;
   }
   .section-heading > p {
@@ -1054,14 +1102,11 @@ h1 em {
   .screenshots-grid h3 {
     font-size: 19px;
   }
-  .privacy-content h2 {
-    font-size: 40px;
-  }
+
   .privacy-description {
     margin-top: 20px;
   }
   .closing {
-    margin-top: 24px;
     padding-top: 24px;
   }
   .site-footer {
@@ -1139,12 +1184,7 @@ h1 em {
   .site-header nav a {
     font-size: 11px;
   }
-  .hero-trust {
-    font-size: 10px;
-  }
-  .screen-instruction {
-    font-size: 11px;
-  }
+
   .site-footer nav {
     gap: 12px;
   }

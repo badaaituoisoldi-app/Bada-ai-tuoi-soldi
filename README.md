@@ -35,7 +35,7 @@ Se il link esiste già, riusalo verificando la destinazione. Apri `http://localh
 
 - `site/index.html`: sezioni, contenuti, metadati SEO/Open Graph, FAQ native.
 - `site/styles.css`: layout responsive, temi delle sezioni, focus e movimento ridotto.
-- `site/script.js`: ingresso discreto delle sezioni e anno nel footer.
+- `site/script.js`: ingresso discreto delle sezioni, navigazione delle gallerie e anno nel footer.
 - `site/theme.js`: tema del sito applicato prima degli stili, scelta di sistema e preferenza locale.
 - `site/viewer.js`: visualizzatore degli originali con zoom, adattamento, vista 1:1 e trascinamento.
 - `site/assets/`: screenshot e immagini originali forniti dal titolare, DM Sans locale con licenza OFL.
@@ -45,18 +45,19 @@ Se il link esiste già, riusalo verificando la destinazione. Apri `http://localh
 - `tests/preview.cjs`: verifica il file estratto dal pacchetto in isolamento, senza asset adiacenti.
 - `docs/SOURCES.md`: fonti consultate, provenienza degli asset e limiti.
 - `docs/VALIDATION.md`: controlli eseguiti e risultati.
+- `docs/ROADMAP.md`: interventi di rifinitura concordati e criteri di consegna.
 
 ## Immagini e transizioni
 
 Il titolare ha fornito `Nuova cartella.zip`: sei schermate promozionali in tema chiaro (1080 × 1920), una feature graphic (1024 × 500) e una copertina. Il sito usa solo i sei originali `store-*.png` in `site/assets/screenshots/` e `site/assets/feature-graphic.png` per marchio e Open Graph. La copertina non è usata. I sette PNG sono copie identiche dei file ricevuti. Il sito inquadra via CSS la sola interfaccia dell’app, escludendo titoli promozionali e margini viola del poster; nessun file immagine è modificato o rigenerato.
 
-L’intestazione contiene il marchio, tre collegamenti — L’app, Privacy e FAQ — e il selettore del tema; su telefono resta su una riga. L’apertura centrale su fondo perla o grafite presenta insieme Mese, Spese e Obiettivi e il pulsante Google Play. Seguono una panoramica di tre benefici e la galleria Anno, CSV e Impostazioni. Su telefono le schermate scorrono orizzontalmente. Privacy e otto FAQ sono affiancate su desktop; l’invito al download è nella colonna privacy. DM Sans locale è l’unica famiglia tipografica.
+L’intestazione contiene il marchio, tre collegamenti — L’app, Privacy e FAQ — e il selettore del tema; su telefono resta su una riga. L’apertura centrale su fondo perla o grafite presenta insieme Mese, Spese e Obiettivi e il pulsante Google Play. Seguono una panoramica di tre benefici e la galleria Anno, CSV e Impostazioni. Su telefono le schermate scorrono orizzontalmente con contatore «1 di 3» e frecce; sono disponibili anche i tasti freccia, Home e Fine quando la galleria ha il focus. I controlli compaiono solo quando le immagini scorrono e restano nascosti senza JavaScript. Privacy e otto FAQ sono affiancate su desktop, con l’invito al download sotto la privacy; su telefono e nell’ordine di lettura il secondo pulsante segue le FAQ. DM Sans locale è l’unica famiglia tipografica. I titoli principali delle sezioni condividono dimensioni, interlinea e spaziatura; note e didascalie hanno una dimensione minima di 13 px.
 
-Il tema chiaro usa sfondi grigio perla; quello scuro usa grafite. Il viola resta nei pulsanti, nei link e negli accenti del titolo. Il selettore nell’intestazione cambia tra «Chiaro» e «Scuro» e funziona anche da tastiera. Alla prima visita segue la preferenza del sistema; una scelta manuale viene ricordata solo nel browser tramite `localStorage` (`bada-site-theme`), senza backend o invio di dati. Se l’archiviazione è bloccata, il cambio resta utilizzabile durante la visita. Senza JavaScript il sito segue comunque il tema del sistema e il selettore resta nascosto. Gli screenshot dell’app rimangono quelli chiari forniti, senza inversione dei colori o ricostruzioni in tema scuro.
+Il tema chiaro usa sfondi grigio perla neutro; quello scuro usa grafite. Il viola resta nei pulsanti, nei link e negli accenti del titolo. Il selettore nell’intestazione cambia tra «Chiaro» e «Scuro» e funziona anche da tastiera. Alla prima visita segue la preferenza del sistema; una scelta manuale viene ricordata solo nel browser tramite `localStorage` (`bada-site-theme`), senza backend o invio di dati. Se l’archiviazione è bloccata, il cambio resta utilizzabile durante la visita. Senza JavaScript il sito segue comunque il tema del sistema e il selettore resta nascosto. Gli screenshot dell’app rimangono quelli chiari forniti, senza inversione dei colori o ricostruzioni in tema scuro.
 
 Le miniature e il visualizzatore mostrano la stessa area dell’app di 792 × 1424 px: origine (144, 401) nei PNG, oppure (144, 315) per Entrate/uscite. Una maschera con angoli di 48 px nelle coordinate originali esclude i triangoli viola esterni all’interfaccia. I pixel dell’app restano quelli forniti.
 
-Ogni schermata si apre in un visualizzatore a tutto schermo: l’area dell’app parte da 720 px di larghezza su telefono, fino a 792 px su desktop, e si può scorrere per leggere i dettagli. I controlli permettono zoom, adattamento alla larghezza, vista 1:1 e apertura del poster originale. A 1:1 l’area visibile dell’app misura 792 px e ogni pixel sorgente corrisponde a un pixel CSS. Sono disponibili trascinamento con il mouse e scorrimento touch nativo. Senza JavaScript i collegamenti aprono il PNG originale completo di titolo e margini promozionali.
+Ogni schermata si apre in un visualizzatore a tutto schermo: l’area dell’app si apre adattata alla larghezza disponibile, fino a 792 px (1:1) su desktop, senza tagli orizzontali iniziali. I pulsanti +/− permettono di ingrandire e scorrere i dettagli. I controlli permettono zoom, adattamento alla larghezza, vista 1:1 e apertura del poster originale. A 1:1 l’area visibile dell’app misura 792 px e ogni pixel sorgente corrisponde a un pixel CSS. Sono disponibili trascinamento con il mouse e scorrimento touch nativo. Senza JavaScript i collegamenti aprono il PNG originale completo di titolo e margini promozionali.
 
 Le sezioni compaiono una sola volta con una breve dissolvenza e uno spostamento di 18 px in 650 ms. La preferenza di sistema per il movimento ridotto disattiva l’effetto. Non sono presenti schermate persistenti durante lo scorrimento, schede a selezione, indicatori di lettura o parallasse.
 

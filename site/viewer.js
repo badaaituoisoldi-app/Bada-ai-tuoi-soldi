@@ -133,8 +133,9 @@
   }
 
   function updateInitialSize() {
-    const width = Math.min(crop.width, Math.max(availableWidth(), 720));
-    setScale(width / crop.width, true);
+    const initialScale = Math.min(1, availableWidth() / crop.width);
+    sizing = initialScale < 1 ? "fit" : "actual";
+    setScale(initialScale, true);
   }
 
   function resetDialog() {

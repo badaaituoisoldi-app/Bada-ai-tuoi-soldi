@@ -140,9 +140,52 @@ async function loadVisibleImages(page) {
   await page.locator('.product-screens, .screenshots-grid').evaluateAll(regions => regions.forEach(region => { region.scrollLeft = 0; }));
   await top(page);
 }
+async function galleryNavigation(page) {
+  for (const id of ['schermate-principali', 'altre-schermate']) {
+    const rail = page.locator(`#${id}`);
+    const controls = page.locator(`[data-gallery-controls="${id}"]`);
+    const previous = controls.locator('[data-gallery-prev]');
+    const next = controls.locator('[data-gallery-next]');
+    const counter = controls.locator('[data-gallery-position]');
+    async function position(index) {
+      await page.waitForFunction(({ id, index }) => {
+        const rail = document.getElementById(id);
+        const center = rail.getBoundingClientRect().left + rail.clientWidth / 2;
+        const figures = [...rail.querySelectorAll('figure')];
+        const distance = element => { const box = element.getBoundingClientRect(); return Math.abs(box.left + box.width / 2 - center); };
+        const nearest = figures.reduce((best, figure, current) => distance(figure) < distance(figures[best]) ? current : best, 0);
+        return nearest === index && document.querySelector(`[data-gallery-controls="${id}"] [data-gallery-position]`).textContent === `${index + 1} di 3`;
+      }, { id, index });
+      assert.equal(await counter.textContent(), `${index + 1} di 3`);
+    }
+    await rail.focus();
+    await page.keyboard.press('Home');
+    await position(0);
+    assert(await previous.isDisabled());
+    await controls.scrollIntoViewIfNeeded();
+    const scrollY = await page.evaluate(() => window.scrollY);
+    await next.click();
+    await position(1);
+    assert.equal(await page.evaluate(() => window.scrollY), scrollY, 'Gallery arrows preserve the vertical reading position');
+    await next.click();
+    await position(2);
+    assert(await next.isDisabled());
+    await previous.click();
+    await position(1);
+    await rail.evaluate(element => element.scrollTo({ left: 0, behavior: 'instant' }));
+    await position(0);
+    await rail.focus();
+    await page.keyboard.press('End');
+    await position(2);
+    await page.keyboard.press('ArrowLeft');
+    await position(1);
+    await page.keyboard.press('Home');
+    await position(0);
+  }
+  console.log('Verified both gallery counters, arrows, manual scrolling, keyboard navigation and stable vertical position');
+}
 async function openViewer(page, opener) {
   await opener.focus();
-  const thumbWidth = await opener.evaluate(element => element.getBoundingClientRect().width);
   const crop = (await opener.getAttribute('data-crop')).trim().split(/\s+/).map(Number);
   const priorOverflow = await page.evaluate(() => document.body.style.overflow);
   await page.keyboard.press('Enter');
@@ -158,7 +201,16 @@ async function openViewer(page, opener) {
   assert.equal(await image.getAttribute('src'), source);
   assert.equal(await page.locator('#viewer-original').getAttribute('href'), source);
   assert.equal(await image.getAttribute('alt'), await opener.locator('img').getAttribute('alt'));
-  assert(await frame.evaluate((element, width) => element.getBoundingClientRect().width > width * 1.5, thumbWidth), 'Visible app screen is substantially larger than the thumbnail');
+  const initial = await dialog.locator('.viewer-stage').evaluate(stage => {
+    const padding = getComputedStyle(stage.querySelector('.viewer-canvas'));
+    return {
+      available: stage.clientWidth - parseFloat(padding.paddingLeft) - parseFloat(padding.paddingRight),
+      frame: stage.querySelector('.viewer-frame').getBoundingClientRect().width,
+      overflow: stage.scrollWidth > stage.clientWidth,
+    };
+  });
+  assert(Math.abs(initial.frame - Math.min(792, initial.available)) < 1, 'Initial view fits the full app width without upscaling beyond 1:1');
+  assert.equal(initial.overflow, false, 'Initial screenshot has no horizontal clipping');
   await cropGeometry(frame, crop, 'Initial viewer crop');
   assert.equal(await page.evaluate(() => document.body.style.overflow), 'hidden');
   return { dialog, image, frame, crop, priorOverflow, entryDuration };
@@ -247,6 +299,10 @@ async function zoomAndPan(page, state) {
       assert.equal(await page.locator('.product-screens > figure').count(), 3);
       assert.equal(await page.locator('.capability').count(), 3);
       assert.equal(await page.locator('.screenshots-grid figure').count(), 3);
+      assert(await page.locator('.closing').evaluate(element => Boolean(document.querySelector('.faq-section').compareDocumentPosition(element) & Node.DOCUMENT_POSITION_FOLLOWING)), 'Final download follows the FAQ in reading order');
+      if (width <= 760) {
+        assert(await page.locator('.closing').evaluate(element => element.getBoundingClientRect().top >= document.querySelector('.faq-section').getBoundingClientRect().bottom), 'Mobile final download is visibly below the FAQ');
+      }
       await screenshotLinks(page);
       await loadVisibleImages(page);
       for (const theme of ['light', 'dark']) {
@@ -255,11 +311,21 @@ async function zoomAndPan(page, state) {
         assert(await page.locator('.screenshot-link img').evaluateAll(images => images.every(image => getComputedStyle(image).filter === 'none')), 'Themes preserve the original screenshot colors');
         await visibleContent(page, `${theme}, reduced motion at ${width}px`);
         await noOverflow(page, width, `${theme} page and internal screenshot rail`);
+        for (const controls of await page.locator('.gallery-controls').all()) {
+          assert.equal(await controls.isVisible(), width <= 760, 'Gallery navigation appears only when its screenshots overflow');
+        }
         await audit(page, `${width}px ${theme}`);
         await top(page);
         await page.screenshot({ path: theme === 'light' ? `/tmp/bada-${width}.png` : `/tmp/bada-${width}-dark.png`, fullPage: true });
       }
       console.log(`Verified viewport ${width}px in light and dark themes`);
+      if (width === 390) {
+        await galleryNavigation(page);
+        await page.setViewportSize({ width: 1440, height: 1000 });
+        await page.waitForFunction(() => [...document.querySelectorAll('.gallery-controls')].every(element => element.hidden));
+        await page.setViewportSize({ width: 390, height: 1000 });
+        await page.waitForFunction(() => [...document.querySelectorAll('.gallery-controls')].every(element => !element.hidden));
+      }
     }
     assert.equal(await page.locator('details').count(), 8);
     for (const details of await page.locator('details').all()) {
@@ -366,6 +432,9 @@ async function zoomAndPan(page, state) {
     const motionState = await openViewer(motionPage, motionOpener);
     assert(motionState.entryDuration >= 200, 'Viewer entry animates with normal motion');
     await closeViewer(motionPage, motionOpener, motionState, 'Escape');
+    await motionPage.setViewportSize({ width: 390, height: 1000 });
+    await motionPage.waitForFunction(() => [...document.querySelectorAll('.gallery-controls')].every(element => !element.hidden));
+    await galleryNavigation(motionPage);
     await motionPage.emulateMedia({ reducedMotion: 'reduce' });
     await motionPage.waitForFunction(() => [...document.querySelectorAll('[data-reveal]')].every(element => getComputedStyle(element).opacity === '1'));
     await visibleContent(motionPage, 'reduced-motion preference changed');
@@ -380,6 +449,7 @@ async function zoomAndPan(page, state) {
       await staticPage.goto(baseURL);
       await assertTheme(staticPage, theme, false);
       assert.equal(await staticPage.locator('#theme-toggle').isVisible(), false, 'Nonfunctional theme switch is hidden without JavaScript');
+      assert(await staticPage.locator('.gallery-controls').evaluateAll(elements => elements.every(element => element.hidden)), 'Inactive gallery controls stay hidden without JavaScript');
       assert.equal(await staticPage.locator('.reveal').count(), 0);
       assert.equal(await staticPage.locator('main img').count(), 6);
       await visibleContent(staticPage, `JavaScript disabled, ${theme}`);
