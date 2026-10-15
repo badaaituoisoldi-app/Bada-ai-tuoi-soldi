@@ -4,11 +4,12 @@ Revisione verificata il **15 ottobre 2026** su Chromium headless con server
 statico Python e percorso `/Bada-ai-tuoi-soldi/`. Miniature e visualizzatore
 inquadrano la sola interfaccia dell’app dai PNG originali.
 
-L’apertura mostra solo Mese. Seguono due sezioni dedicate a Spese e
-Obiettivi, una galleria compatta con Anno, CSV e Impostazioni, privacy,
-otto FAQ native e l’invito finale al download. L’intestazione contiene solo
-marchio, tre collegamenti e il selettore del tema. DM Sans locale è l’unica
-famiglia tipografica.
+L’apertura su fondo viola presenta il titolo centrale e le tre schermate
+Mese, Spese e Obiettivi insieme. Seguono tre benefici sintetici e una sola
+galleria con Anno, CSV e Impostazioni. Privacy e otto FAQ native sono
+affiancate su desktop; l’invito finale al download è nella colonna privacy.
+Su telefono entrambe le raccolte di schermate scorrono orizzontalmente e
+l’intestazione resta su una riga. DM Sans locale è l’unica famiglia tipografica.
 
 L’inquadratura misura 792 × 1424 px, da (144, 401) nei file sorgente,
 oppure (144, 315) per Entrate/uscite, con angoli mascherati di 48 px. A 1:1
@@ -16,9 +17,9 @@ il visualizzatore mostra l’area dell’app a 792 px di larghezza. I file non
 sono stati modificati o rigenerati; il collegamento all’originale conserva
 il poster completo, disponibile anche senza JavaScript.
 
-Aggiornamento dei temi: superfici colorate in chiaro e in scuro, preferenza
-del sistema fino alla scelta manuale, memoria locale della scelta e selettore
-accessibile. Gli screenshot dell’app restano chiari e invariati. I controlli
+I temi usano carta e viola in chiaro, carbone e viola profondo in scuro.
+La preferenza del sistema resta attiva fino alla scelta manuale, con memoria
+locale della scelta e selettore accessibile. Gli screenshot dell’app restano chiari e invariati. I controlli
 browser di entrambi i temi sono superati sulla revisione corrente.
 
 - Asset: i sette PNG del sito sono identici byte per byte agli originali forniti (SHA-256). I riferimenti alle immagini nei sorgenti HTML, CSS e JavaScript e nei metadati Open Graph usano solo questi file; la copertina non è inclusa nel sito. Nessuna interfaccia dell’app è ricostruita.
@@ -28,12 +29,17 @@ browser di entrambi i temi sono superati sulla revisione corrente.
 - Movimento: ingresso delle sezioni una sola volta, disattivazione con `prefers-reduced-motion` e cambio di preferenza a pagina aperta verificati. Assenti schermate persistenti, selettori di capitolo, parallasse e indicatore di lettura.
 - Senza JavaScript: temi chiaro/scuro secondo il sistema, selettore nascosto, inquadratura dell’app e contenuti visibili, collegamenti ai PNG originali completi e FAQ native funzionanti.
 - Controlli axe-core WCAG 2 A/AA e 2.1 AA senza violazioni nei sette viewport e nel visualizzatore, in entrambi i temi. Nessun errore HTTP o JavaScript e nessuna richiesta di asset esterni.
-- Ispezione visiva dei temi chiaro e scuro su desktop e telefono, comprese intestazione a due righe a 320 px e pagina intera: campiture distinte, testi leggibili e selettore visibile. Le schermate mantengono i colori originali, senza slogan o margini viola del poster e senza filtri o pixel ricostruiti.
+- Ispezione visiva dei temi chiaro e scuro su desktop e telefono, comprese intestazione su una riga a 320 px, gallerie a scorrimento e pagina intera: campiture distinte, testi leggibili e selettore visibile. Verificata la separazione delle parole nei titoli anche quando gli a capo desktop sono rimossi. Le schermate mantengono i colori originali, senza slogan o margini viola del poster e senza filtri o pixel ricostruiti.
 
 Test ripetibili in `tests/browser.cjs`, istruzioni nel README. I controlli
 automatici di accessibilità non equivalgono a un audit completo con
 tecnologie assistive. Le prove delle composizioni precedenti non descrivono
 questa revisione.
+
+L’apertura diretta tramite `file://` non è stata verificata: il Chromium
+dell’ambiente blocca tale protocollo con `ERR_BLOCKED_BY_ADMINISTRATOR`.
+I controlli sopra usano il server statico; tutti gli asset necessari
+sono locali e inclusi nell’archivio.
 
 La scheda Google Play e l’informativa privacy remote avevano restituito
 HTTP 403 nell’ambiente: il loro contenuto e la versione corrente dello store

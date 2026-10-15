@@ -82,9 +82,10 @@ come immagini della scheda Play Store. Contiene sei schermate promozionali
 `copertina-onde.png` (1080 × 1920).
 
 I sei originali `store-*.png` sono conservati in
-`site/assets/screenshots/`, identici ai file ricevuti. L’apertura mostra Mese; le due
-sezioni principali presentano Entrate/uscite e Obiettivi. La galleria
-compatta contiene Anno, Importazione e Impostazioni. Miniature e
+`site/assets/screenshots/`, identici ai file ricevuti. L’apertura presenta
+insieme Mese, Entrate/uscite e Obiettivi. Dopo una panoramica di tre benefici,
+la galleria raccoglie Anno, Importazione e Impostazioni. Privacy e FAQ sono
+affiancate su desktop; su telefono le schermate scorrono orizzontalmente. Miniature e
 visualizzatore inquadrano via CSS la sola area dell’app,
 escludendo titolo promozionale e margini viola: 792 × 1424 px da (144, 401),
 oppure da (144, 315) per Entrate/uscite. Una maschera con angoli di 48 px
@@ -115,7 +116,8 @@ fornita una schermata dedicata alle Spese fisse né una in tema scuro.
 Questi eventuali asset aggiuntivi non impediscono l’uso delle immagini
 autentiche già disponibili.
 
-Il tema chiaro/scuro riguarda il sito e i suoi colori. In entrambi i temi
+Il tema chiaro/scuro riguarda il sito e i suoi colori: fondi caldi color
+carta e viola del marchio, oppure carbone e viola profondo. In entrambi i temi
 le immagini dell’app restano i PNG chiari forniti, senza filtri di inversione,
 ritocchi o schermate scure generate.
 

@@ -55,7 +55,7 @@ async function audit(page, state) {
   assert.deepEqual(result.violations, [], `Accessibility violations (${state})`);
 }
 async function visibleContent(page, state) {
-  const hidden = await page.locator('[data-reveal], .hero-intro, .hero-screen, .feature-copy, .feature-media, .screenshots-grid figure, .privacy-content, .closing').evaluateAll(elements => elements.filter(element => {
+  const hidden = await page.locator('[data-reveal], .hero-intro, .product-screens figure, .capability, .screenshots-grid figure, .privacy-content, .closing').evaluateAll(elements => elements.filter(element => {
     const style = getComputedStyle(element);
     return style.display === 'none' || style.visibility !== 'visible' || Number(style.opacity) !== 1 || element.getBoundingClientRect().height === 0;
   }).map(element => element.className));
@@ -63,7 +63,7 @@ async function visibleContent(page, state) {
 }
 async function screenshotLinks(page) {
   const links = page.locator('.screenshot-link');
-  assert.equal(await links.count(), 6, 'One hero, two feature and three gallery screenshots');
+  assert.equal(await links.count(), 6, 'Three hero and three gallery screenshots');
   const hrefs = await links.evaluateAll(elements => elements.map(element => element.getAttribute('href')));
   assert.deepEqual([...new Set(hrefs)].sort(), suppliedImages.filter(path => path.includes('/screenshots/')).sort(), 'All six original screenshot sources are linked');
   for (const link of await links.all()) {
@@ -137,6 +137,7 @@ async function loadVisibleImages(page) {
     await image.scrollIntoViewIfNeeded();
     await loaded(page, image);
   }
+  await page.locator('.product-screens, .screenshots-grid').evaluateAll(regions => regions.forEach(region => { region.scrollLeft = 0; }));
   await top(page);
 }
 async function openViewer(page, opener) {
@@ -243,7 +244,8 @@ async function zoomAndPan(page, state) {
       assert.equal(await page.locator('.site-header a[href*="play.google.com"]').count(), 0, 'Header has no store CTA');
       assert(await page.locator('.site-header').evaluate(element => !['fixed', 'sticky'].includes(getComputedStyle(element).position)), 'Header scrolls naturally with the page');
       assert.equal(await page.locator('.hero-screen').count(), 1);
-      assert.equal(await page.locator('.feature-row').count(), 2);
+      assert.equal(await page.locator('.product-screens > figure').count(), 3);
+      assert.equal(await page.locator('.capability').count(), 3);
       assert.equal(await page.locator('.screenshots-grid figure').count(), 3);
       await screenshotLinks(page);
       await loadVisibleImages(page);
@@ -288,7 +290,7 @@ async function zoomAndPan(page, state) {
         await closeViewer(page, opener, state, 'Escape');
         await noOverflow(page, width, `${theme} after zoom viewer`);
         for (const [selector, title] of [
-          ['.feature-media .screenshot-link', 'Entrate e uscite'],
+          ['.screen-expenses .screenshot-link', 'Entrate e uscite'],
           ['.screenshots-grid .screenshot-link', 'Importazione CSV'],
         ]) {
           const link = title === 'Entrate e uscite' ? page.locator(selector).first() : page.locator(selector).nth(1);
@@ -354,7 +356,7 @@ async function zoomAndPan(page, state) {
     await motionPage.evaluate(() => document.fonts.ready);
     await motionPage.waitForFunction(() => document.querySelector('.hero-intro').classList.contains('is-visible') && getComputedStyle(document.querySelector('.hero-intro')).opacity === '1');
     assert(await motionPage.locator('.hero-intro').evaluate(element => getComputedStyle(element).transitionDuration.split(',').some(duration => parseFloat(duration) >= 0.6)), 'Reveal movement has perceptible duration');
-    const feature = motionPage.locator('.feature-copy').last();
+    const feature = motionPage.locator('.capability').last();
     assert.equal(await feature.evaluate(element => element.classList.contains('is-visible')), false, 'A below-fold feature waits to enter view');
     await feature.scrollIntoViewIfNeeded();
     await motionPage.waitForFunction(element => element.classList.contains('is-visible') && getComputedStyle(element).opacity === '1', await feature.elementHandle());

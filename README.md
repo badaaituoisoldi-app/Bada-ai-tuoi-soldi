@@ -4,7 +4,9 @@ Landing page italiana per l’app Android Bada!. HTML, CSS e JavaScript statici,
 
 ## Avvio locale
 
-Servono solo Python 3 e un browser:
+Per vedere l’anteprima senza installazioni, estrai lo ZIP del repository e apri `site/index.html` nel browser. Mantieni insieme tutti i file della cartella `site`, che contiene anche immagini e font.
+
+Per usare un server locale, sono sufficienti Python 3 e un browser:
 
 ```sh
 cd /workspace/Bada-ai-tuoi-soldi
@@ -38,17 +40,15 @@ Se il link esiste già, riusalo verificando la destinazione. Apri `http://localh
 
 Il titolare ha fornito `Nuova cartella.zip`: sei schermate promozionali in tema chiaro (1080 × 1920), una feature graphic (1024 × 500) e una copertina. Il sito usa solo i sei originali `store-*.png` in `site/assets/screenshots/` e `site/assets/feature-graphic.png` per marchio e Open Graph. La copertina non è usata. I sette PNG sono copie identiche dei file ricevuti. Il sito inquadra via CSS la sola interfaccia dell’app, escludendo titoli promozionali e margini viola del poster; nessun file immagine è modificato o rigenerato.
 
-L’intestazione contiene il marchio, tre collegamenti — Funzionalità, Privacy e FAQ — e il selettore del tema. L’apertura presenta la schermata Mese e il pulsante Google Play. Due sezioni illustrano Spese e Obiettivi, ciascuna con una sola schermata; una galleria compatta raccoglie Anno, CSV e Impostazioni. Seguono privacy, otto FAQ e un invito finale a scaricare l’app. DM Sans locale è l’unica famiglia tipografica, con una gerarchia semplice di dimensioni e pesi.
+L’intestazione contiene il marchio, tre collegamenti — L’app, Privacy e FAQ — e il selettore del tema; su telefono resta su una riga. L’apertura centrale su fondo viola presenta insieme Mese, Spese e Obiettivi e il pulsante Google Play. Seguono una panoramica di tre benefici e la galleria Anno, CSV e Impostazioni. Su telefono le schermate scorrono orizzontalmente. Privacy e otto FAQ sono affiancate su desktop; l’invito al download è nella colonna privacy. DM Sans locale è l’unica famiglia tipografica.
 
-Il sito offre un tema chiaro con superfici lavanda e grigio azzurro e uno scuro antracite e lilla. Il selettore nell’intestazione mostra il tema attivo, «Chiaro» o «Scuro», e funziona anche da tastiera. Alla prima visita segue la preferenza del sistema; una scelta manuale viene ricordata solo nel browser tramite `localStorage` (`bada-site-theme`), senza backend o invio di dati. Se l’archiviazione è bloccata, il cambio resta utilizzabile durante la visita. Senza JavaScript il sito segue comunque il tema del sistema e il selettore resta nascosto. Gli screenshot dell’app rimangono quelli chiari forniti, senza inversione dei colori o ricostruzioni in tema scuro.
-
-La rifinitura tipografica mantiene questa struttura: colonne delle funzioni più vicine, titoli con spaziatura meno serrata e a capo bilanciati, testi secondari da 15 px. Le distanze tra le sezioni sono state ridotte in modo contenuto.
+Il tema chiaro abbina fondi caldi color carta al viola del marchio; quello scuro usa carbone e viola profondo. Il selettore nell’intestazione cambia tra «Chiaro» e «Scuro» e funziona anche da tastiera. Alla prima visita segue la preferenza del sistema; una scelta manuale viene ricordata solo nel browser tramite `localStorage` (`bada-site-theme`), senza backend o invio di dati. Se l’archiviazione è bloccata, il cambio resta utilizzabile durante la visita. Senza JavaScript il sito segue comunque il tema del sistema e il selettore resta nascosto. Gli screenshot dell’app rimangono quelli chiari forniti, senza inversione dei colori o ricostruzioni in tema scuro.
 
 Le miniature e il visualizzatore mostrano la stessa area dell’app di 792 × 1424 px: origine (144, 401) nei PNG, oppure (144, 315) per Entrate/uscite. Una maschera con angoli di 48 px nelle coordinate originali esclude i triangoli viola esterni all’interfaccia. I pixel dell’app restano quelli forniti.
 
 Ogni schermata si apre in un visualizzatore a tutto schermo: l’area dell’app parte da 720 px di larghezza su telefono, fino a 792 px su desktop, e si può scorrere per leggere i dettagli. I controlli permettono zoom, adattamento alla larghezza, vista 1:1 e apertura del poster originale. A 1:1 l’area visibile dell’app misura 792 px e ogni pixel sorgente corrisponde a un pixel CSS. Sono disponibili trascinamento con il mouse e scorrimento touch nativo. Senza JavaScript i collegamenti aprono il PNG originale completo di titolo e margini promozionali.
 
-Le sezioni compaiono una sola volta con una breve dissolvenza e uno spostamento di 16 px in 600 ms. La preferenza di sistema per il movimento ridotto disattiva l’effetto. Non sono presenti schermate persistenti durante lo scorrimento, schede a selezione, indicatori di lettura o parallasse.
+Le sezioni compaiono una sola volta con una breve dissolvenza e uno spostamento di 18 px in 650 ms. La preferenza di sistema per il movimento ridotto disattiva l’effetto. Non sono presenti schermate persistenti durante lo scorrimento, schede a selezione, indicatori di lettura o parallasse.
 
 Il calcolatore illustrativo e gli asset provenienti dal repository dell’app sono stati rimossi; restano solo i file immagine forniti nello ZIP. Nessuna interfaccia dell’app è ricostruita. Nell’intestazione e nel footer il logo è inquadrato via CSS dalla feature graphic fornita, senza creare un nuovo file o ridisegnarlo: il sorriso resta il punto esclamativo di «Bada!».
 
