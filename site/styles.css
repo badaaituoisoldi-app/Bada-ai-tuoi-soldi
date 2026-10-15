@@ -908,7 +908,7 @@ h1 em {
   .mobile-only {
     display: inline;
   }
-  /* On phones the fourth item gets its own line instead of a dangling dot. */
+  /* On phones the list splits in two lines instead of leaving a dangling dot. */
   .hero-trust .trust-separator {
     display: none;
   }
