@@ -1,0 +1,95 @@
+# Fonti e limiti della verifica
+
+Consultazione: **14 ottobre 2026**. Questo documento distingue le evidenze
+disponibili dalle parti che richiedono ancora materiale ufficiale.
+
+## App Bada!
+
+Repository di riferimento, consultato senza modificarlo:
+<https://github.com/badaaituoisoldi-app/Bada---ai-tuoi-soldi>.
+Commit esaminato: `1a16a1a6d61b83b2aa37c3fc5e34ee341c90b7f5`.
+
+Sono stati letti `AGENTS.md`, `CLAUDE.md`, `README.md`, `CHANGELOG.md`,
+`package.json`, `app.json`, `src/constants.ts`, `src/ui/tokens.ts` e
+`docs/privacy-policy.md`. Le informazioni su funzioni e privacy derivano
+da questi documenti, non da una verifica dell'app installata.
+
+Il changelog identifica **1.0.0, 1 settembre 2026**, come prima versione
+pubblica e documenta **1.2.1, 27 settembre 2026**, come versione più recente.
+La versione 1.2.1 coincide con i manifest del repository. Questo è un
+riscontro documentale delle versioni: la versione attualmente distribuita
+da Google Play non è stata verificata. Le voci sotto «Non rilasciato» non
+sono usate come promessa di funzionalità già disponibili.
+
+Le funzioni documentate comprendono budget mensile, entrate e uscite,
+categorie, spese fisse, obiettivi, bilancio annuale, grafici, importazione ed
+esportazione CSV e backup automatico in una cartella scelta dall'utente.
+L'app è solo Android, con interfaccia italiana e inglese. Non sono promessi
+collegamenti bancari, sincronizzazione tra dispositivi o app web/iOS.
+
+L'informativa sorgente precisa che l'app non invia dati e funziona offline.
+CSV condivisi dall'utente, cartelle di backup eventualmente sincronizzate
+con servizi cloud e backup di sistema Android seguono invece le scelte
+dell'utente e del sistema. «Offline» non significa che un file esportato
+non possa mai uscire dal telefono.
+
+## Accesso alle fonti pubbliche
+
+I tentativi di consultare la scheda Google Play, il sito Actual Budget,
+il sito Cashew e l'informativa privacy pubblicata hanno restituito **HTTP
+403** nell'ambiente di lavoro. Non sono stati verificati contenuti, immagini,
+prezzi, recensioni o versione corrente dello store attraverso tali pagine.
+L'informativa sorgente del repository non prova automaticamente che la copia
+pubblicata sia identica.
+
+- Google Play: <https://play.google.com/store/apps/details?id=com.bada.aituoisoldi&hl=it>
+- Privacy pubblicata: <https://badaaituoisoldi-app.github.io/bada-privacy/Privacy-it.html>
+- Actual Budget: <https://actualbudget.org/>
+- Cashew: <https://cashewapp.web.app/>
+
+Il testo del repository <https://github.com/Ivy-Apps/ivy-wallet> è stato
+accessibile. Le domande quotidiane sul budget, la semplicità e la chiarezza
+sono riferimenti di comunicazione, senza riprenderne testi, immagini,
+marchi o funzionalità. Il repository è archiviato; il README dichiara che
+il progetto non è più mantenuto dal 5 novembre 2024.
+
+## Provenienza degli asset e anteprime
+
+Il materiale iniziale comprendeva il brief testuale. Il repository di
+riferimento contiene `assets/logo.png`,
+`assets/icon.png`, `assets/adaptive-icon.png` e `assets/notification-icon.png`,
+ma non screenshot. Logo e icona provengono dagli asset ufficiali di Bada!
+e il loro uso sul sito dello stesso titolare è autorizzato dalla richiesta
+dell'utente; questa autorizzazione non costituisce una licenza generale
+sugli altri contenuti del repository, il cui codice resta riservato.
+
+Il 14 ottobre 2026 il titolare ha fornito `Nuova cartella.zip`, descritto
+come immagini della scheda Play Store. Contiene sei schermate promozionali
+1080 × 1920 (`store-1-mese.png`, `store-2-impostazioni.png`,
+`store-3-uscite.png`, `store-4-obiettivi.png`, `store-5-anno.png`,
+`store-6-import.png`), `feature-graphic.png` (1024 × 500) e
+`copertina-onde.png` (1080 × 1920).
+
+I sei originali `store-*.png` sono conservati in
+`site/assets/screenshots/` e usati integri, senza modifiche a testo, dati o
+controlli. Mese compare anche nell’apertura; la galleria presenta Mese,
+Entrate/uscite, Obiettivi, Anno, Importazione e Impostazioni. La feature
+graphic originale è in `site/assets/feature-graphic.png` e serve come
+immagine Open Graph. La copertina è stata esaminata, ma non è usata sul sito.
+La demo interattiva della landing è separata dalle immagini dell’app ed
+esegue un esempio di calcolo nel browser.
+
+Le immagini mostrano bilancio mensile e annuale, categorie di spesa,
+obiettivi, revisione dell’importazione e impostazioni per promemoria,
+backup/ripristino e CSV. Tutte le schermate sono in tema chiaro; non è stata
+fornita una schermata dedicata alle Spese fisse né una in tema scuro.
+Questi eventuali asset aggiuntivi non impediscono l’uso delle immagini
+autentiche già disponibili.
+
+Nell’ispezione visiva non compaiono nomi, contatti o identificativi bancari:
+si vedono importi, categorie e obiettivi generici. L’immagine da sola non
+prova che ogni dato sia dimostrativo. La fornitura del titolare documenta
+la provenienza degli asset; non sostituisce la verifica diretta della
+scheda pubblicata, della versione attualmente distribuita o del prezzo.
+
+Precisazione del marchio fornita dall’autore: il segno disposto come un sorriso è il punto esclamativo di «Bada!». Il logo non è stato ridisegnato.
