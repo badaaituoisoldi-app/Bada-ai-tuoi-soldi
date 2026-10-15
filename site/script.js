@@ -1,60 +1,65 @@
 "use strict";
-const form = document.querySelector(".calculator");
-const fields = [...form.querySelectorAll("input")];
-const output = document.querySelector("#result");
-const label = document.querySelector("#result-label");
-const help = document.querySelector("#result-help");
-const currency = new Intl.NumberFormat("it-IT", {
-  style: "currency",
-  currency: "EUR",
-});
-function updateAvailable() {
-  const invalid = fields.some(
-    (field) => !field.validity.valid || field.value === "",
-  );
-  if (invalid) {
-    output.value = "—";
-    label.textContent = "Controlla gli importi";
-    help.textContent =
-      "Usa importi da 0 a 100.000.000 €, con al massimo due decimali.";
-    output.parentElement.classList.remove("negative");
-    return;
-  }
-  const [income, expenses, margin, goals] = fields.map((field) =>
-    Math.round(field.valueAsNumber * 100),
-  );
-  const available = income - expenses - margin - goals;
-  output.value = currency.format(available / 100);
-  label.textContent = available < 0 ? "Disponibile negativo" : "Disponibile";
-  help.textContent =
-    available < 0
-      ? "Spese, margine e obiettivi superano le entrate. Rivedi le somme destinate."
-      : "Dopo spese, margine e obiettivi.";
-  output.parentElement.classList.toggle("negative", available < 0);
-  fitResult();
-}
-// Mantiene leggibile anche il risultato di importi molto grandi, senza troncarlo.
-function fitResult() {
-  output.style.fontSize = "";
-  const space = output.clientWidth;
-  if (space > 0 && output.scrollWidth > space) {
-    const size = parseFloat(getComputedStyle(output).fontSize);
-    output.style.fontSize = `${Math.floor((size * space) / output.scrollWidth)}px`;
-  }
-}
-form.addEventListener("input", updateAvailable);
-form.addEventListener("submit", (event) => event.preventDefault());
-form.addEventListener("reset", () => requestAnimationFrame(updateAvailable));
-window.addEventListener("resize", fitResult);
-document.fonts.ready.then(fitResult);
-updateAvailable();
-document.querySelector("#year").textContent = new Date().getFullYear();
 
-// Il collegamento all’originale funziona anche senza JavaScript.
+document.querySelector("#year").textContent = new Date().getFullYear();
+const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+// I contenuti sono visibili senza JavaScript o con movimento ridotto.
+if (!reducedMotion.matches && "IntersectionObserver" in window) {
+  const targets = document.querySelectorAll(
+    ".hero-intro, .hero-screen, .section-top, .steps article, .balance-note, " +
+      ".feature-intro, .feature-card, .extras article, .gallery-heading, " +
+      ".screenshots-grid figure, .privacy-heading, .privacy-content li, " +
+      ".faq-section > div, .closing > div, .closing > img",
+  );
+  const revealObserver = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add("is-visible");
+        revealObserver.unobserve(entry.target);
+      });
+    },
+    { rootMargin: "0px 0px -32px 0px", threshold: 0 },
+  );
+  targets.forEach((target) => {
+    target.classList.add("reveal");
+    revealObserver.observe(target);
+  });
+  reducedMotion.addEventListener("change", (event) => {
+    if (!event.matches) return;
+    revealObserver.disconnect();
+    targets.forEach((target) => target.classList.add("is-visible"));
+  });
+}
+
+// Ogni collegamento apre sempre il PNG originale fornito dall’utente.
 const screenshotDialog = document.querySelector(".screenshot-dialog");
 const screenshotTitle = document.querySelector("#screenshot-title");
 const screenshotMedia = document.querySelector(".dialog-media");
 if (typeof screenshotDialog.showModal === "function") {
+  let closing = false;
+  async function closeScreenshot() {
+    if (!screenshotDialog.open || closing) return;
+    closing = true;
+    if (
+      !reducedMotion.matches &&
+      typeof screenshotDialog.animate === "function"
+    ) {
+      const exit = screenshotDialog.animate(
+        [
+          { opacity: 1, transform: "translateY(0)" },
+          { opacity: 0, transform: "translateY(6px)" },
+        ],
+        { duration: 120, easing: "ease-in", fill: "forwards" },
+      );
+      await exit.finished.catch(() => {});
+      screenshotDialog.close();
+      exit.cancel();
+    } else {
+      screenshotDialog.close();
+    }
+    closing = false;
+  }
   document.querySelectorAll(".screenshot-link").forEach((link) => {
     link.addEventListener("click", (event) => {
       if (event.ctrlKey || event.metaKey || event.shiftKey || event.altKey)
@@ -72,11 +77,15 @@ if (typeof screenshotDialog.showModal === "function") {
   });
   document
     .querySelector(".dialog-close")
-    .addEventListener("click", () => screenshotDialog.close());
-  screenshotDialog.addEventListener("click", (event) => {
-    if (event.target === screenshotDialog) screenshotDialog.close();
+    .addEventListener("click", closeScreenshot);
+  screenshotDialog.addEventListener("cancel", (event) => {
+    event.preventDefault();
+    closeScreenshot();
   });
-  screenshotDialog.addEventListener("close", () =>
-    screenshotMedia.replaceChildren(),
-  );
+  screenshotDialog.addEventListener("click", (event) => {
+    if (event.target === screenshotDialog) closeScreenshot();
+  });
+  screenshotDialog.addEventListener("close", () => {
+    if (!screenshotDialog.open) screenshotMedia.replaceChildren();
+  });
 }

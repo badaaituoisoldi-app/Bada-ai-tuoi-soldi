@@ -1,6 +1,6 @@
 # Bada! — ai tuoi soldi · sito ufficiale
 
-Landing page italiana per l’app Android Bada!. HTML, CSS e JavaScript statici, senza backend, dipendenze di produzione, tracker o richieste a font esterni. La demo esegue i calcoli nella pagina e non salva i valori.
+Landing page italiana per l’app Android Bada!. HTML, CSS e JavaScript statici, senza backend, dipendenze di produzione, tracker o richieste a font esterni. Le immagini dell’app sono esclusivamente quelle fornite dal titolare.
 
 ## Avvio locale
 
@@ -25,20 +25,20 @@ Se il link esiste già, riusalo verificando la destinazione. Apri `http://localh
 
 - `site/index.html`: sezioni, contenuti, metadati SEO/Open Graph, FAQ native.
 - `site/styles.css`: layout responsive, temi delle sezioni, focus e movimento ridotto.
-- `site/script.js`: demo del disponibile, validazione degli importi e anno nel footer.
-- `site/assets/`: logo originale, feature graphic dello store per Open Graph, screenshot e DM Sans locale con licenza OFL.
+- `site/script.js`: galleria ingrandibile, transizioni di ingresso e anno nel footer.
+- `site/assets/`: screenshot e immagini originali forniti dal titolare, DM Sans locale con licenza OFL.
 - `.github/workflows/pages.yml`: distribuzione con azioni ufficiali GitHub Pages.
 - `tests/browser.cjs`: verifiche browser ripetibili, incluse accessibilità automatica.
 - `docs/SOURCES.md`: fonti consultate, provenienza degli asset e limiti.
 - `docs/VALIDATION.md`: controlli eseguiti e risultati.
 
-## Logo e screenshot
+## Immagini e transizioni
 
-Il logo originale proviene da `assets/logo.png` del repository dell’app: la “b” e il punto esclamativo disposto come un sorriso. Non è stato ridisegnato. Per sostituirlo, conserva proporzioni e trasparenza; aggiorna anche favicon e immagine Open Graph, se necessario.
+Il titolare ha fornito le immagini della scheda Play Store nell’archivio `Nuova cartella.zip`: sei schermate promozionali in tema chiaro (1080 × 1920), la feature graphic (1024 × 500) e una copertina. Gli originali dei sei `store-*.png` sono in `site/assets/screenshots/`; `site/assets/feature-graphic.png` è usata per Open Graph e `site/assets/copertina-onde.png` nella chiusura. I PNG sono copie integre dei file ricevuti: testi, importi e controlli non sono stati modificati.
 
-Il titolare ha fornito le immagini della scheda Play Store nell’archivio `Nuova cartella.zip`: sei schermate promozionali in tema chiaro (1080 × 1920), la feature graphic (1024 × 500) e una copertina. Gli originali dei sei `store-*.png` sono in `site/assets/screenshots/`; `site/assets/feature-graphic.png` è usata per Open Graph. Sono immagini integre: testi, importi e controlli non sono stati modificati.
+L’apertura mostra `store-1-mese.png`. La galleria responsive presenta Mese, Entrate/uscite, Obiettivi, Anno, Importazione e Impostazioni. Il 15 ottobre 2026 sono stati rimossi il calcolatore illustrativo e gli asset provenienti dal repository dell’app; restano solo i file immagine forniti nello ZIP. Non sono presenti interfacce dell’app ricostruite. Nell’intestazione e nel footer il logo è inquadrato via CSS dalla feature graphic fornita, senza creare un nuovo file o ridisegnarlo: il sorriso resta il punto esclamativo di «Bada!».
 
-L’apertura mostra `store-1-mese.png`. La galleria responsive presenta Mese, Entrate/uscite, Obiettivi, Anno, Importazione e Impostazioni; la demo interattiva occupa una sezione dedicata prima delle funzioni. Non sono presenti schermate dedicate alle Spese fisse o al tema scuro: si possono aggiungere in futuro, ma le immagini fornite coprono già la galleria attuale. Per nuove immagini conserva proporzioni, testi e dati originali, specifica dimensioni e testo alternativo e usa il caricamento differito sotto il primo schermo.
+Le transizioni accompagnano la comparsa delle sezioni, i controlli e l’apertura della galleria. Non animano transazioni o dati finanziari e non si ripetono in ciclo. La preferenza di sistema per il movimento ridotto disattiva gli effetti.
 
 Prima della pubblicazione confronta le funzioni con lo store corrente: in questa attività Google Play non era raggiungibile. Le immagini fornite documentano l’interfaccia, ma non stabiliscono la versione attualmente distribuita o il prezzo dello store. I dettagli sulla provenienza sono in `docs/SOURCES.md`.
 
@@ -61,6 +61,6 @@ Controllare anche visivamente desktop e telefono, testi e asset dopo ogni modifi
 2. Nel repository GitHub seleziona **Settings → Pages → Build and deployment → Source → GitHub Actions**.
 3. Rivedi e salva i file con un commit, quindi esegui il push su `main`. Il workflow pubblica esclusivamente `site/`.
 4. In alternativa avvia **Actions → Deploy static site to GitHub Pages → Run workflow** su `main`.
-5. Attendi l’esito del job `deploy` e verifica `https://badaaituoisoldi-app.github.io/Bada-ai-tuoi-soldi/`, inclusi immagini, font, navigazione e demo.
+5. Attendi l’esito del job `deploy` e verifica `https://badaaituoisoldi-app.github.io/Bada-ai-tuoi-soldi/`, inclusi immagini, font, navigazione e galleria.
 
-Gli aggiornamenti successivi vengono distribuiti a ogni push su `main`. Tutti gli asset usano percorsi relativi; se cambia il nome del repository, aggiorna canonical e URL assoluti Open Graph. Non inserire credenziali o dati dell’app in questo repository. Nessun push o deploy è stato effettuato durante la realizzazione.
+Gli aggiornamenti successivi vengono distribuiti a ogni push su `main`. Tutti gli asset usano percorsi relativi; se cambia il nome del repository, aggiorna canonical e URL assoluti Open Graph. Non inserire credenziali o dati dell’app in questo repository.

@@ -262,180 +262,6 @@ svg {
 .under-link:hover {
   text-decoration: underline;
 }
-.hero-example {
-  align-self: center;
-  padding-top: 25px;
-}
-.example-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.11em;
-  gap: 12px;
-  margin-bottom: 14px;
-}
-.example-tag {
-  border: 1px solid #b2aaca;
-  padding: 5px 7px;
-  border-radius: 4px;
-  font-size: 9px;
-  color: #5d5382;
-  letter-spacing: 0.04em;
-  white-space: nowrap;
-}
-.calculator {
-  background: white;
-  border: 1px solid #d7d0ed;
-  border-radius: 22px;
-  overflow: hidden;
-  box-shadow: 0 15px 30px #28304506;
-}
-.result {
-  padding: 30px 30px 28px;
-  background: var(--lavender);
-  display: flex;
-  flex-direction: column;
-  color: var(--violet-ink);
-  min-height: 221px;
-}
-.result > span {
-  font-size: 14px;
-  font-weight: 550;
-}
-.result output {
-  font-size: 70px;
-  font-weight: 600;
-  line-height: 1.2;
-  letter-spacing: -0.07em;
-  font-variant-numeric: tabular-nums;
-  white-space: nowrap;
-  margin-top: 8px;
-}
-.result p {
-  font-size: 12px;
-  margin-top: 10px;
-  line-height: 1.5;
-}
-.result.negative {
-  color: #923b35;
-  background: #fce9e7;
-}
-.calculator-fields {
-  padding: 8px 25px 0;
-}
-.calc-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 12px;
-  padding: 15px 0;
-  border-bottom: 1px solid #e8eaf1;
-  min-height: 71px;
-}
-.calc-row:last-child {
-  border-bottom: 0;
-}
-.calc-row label {
-  font-size: 13px;
-  font-weight: 550;
-  position: relative;
-  padding-left: 26px;
-  line-height: 1.5;
-}
-.calc-row small {
-  display: block;
-  font-size: 11px;
-  font-weight: 400;
-  color: var(--muted);
-}
-.amount-sign {
-  position: absolute;
-  left: 0;
-  top: 0;
-  font-size: 20px;
-  line-height: 1;
-}
-.income {
-  color: var(--green);
-}
-.expenses {
-  color: var(--red);
-}
-.margin {
-  color: var(--amber);
-}
-.goals {
-  color: var(--purple);
-}
-.amount-field {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  flex-shrink: 0;
-  max-width: 132px;
-  font-size: 14px;
-  color: var(--muted);
-  padding: 7px 9px;
-  border: 1px solid #d9deea;
-  border-radius: 6px;
-  background: #fafbfd;
-}
-.amount-field input {
-  border: 0;
-  padding: 0;
-  width: 100%;
-  min-width: 0;
-  text-align: right;
-  background: transparent;
-  color: var(--ink);
-  font-weight: 650;
-  appearance: textfield;
-  -moz-appearance: textfield;
-  font-variant-numeric: tabular-nums;
-}
-.amount-field input::-webkit-inner-spin-button {
-  appearance: none;
-}
-.amount-field input:focus-visible {
-  outline-offset: 3px;
-}
-.amount-field input:invalid {
-  box-shadow: 0 2px var(--red);
-}
-.calculator-bottom {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  align-items: center;
-  justify-content: space-between;
-  padding: 10px 25px 17px;
-  font-size: 10px;
-  color: var(--muted);
-}
-.calculator-bottom button {
-  font-size: 10px;
-  font-weight: 550;
-  border: 0;
-  background: transparent;
-  color: var(--violet-ink);
-  padding: 8px 0;
-  min-height: 44px;
-}
-.calculator-bottom button:hover {
-  text-decoration: underline;
-}
-.example-disclaimer {
-  font-size: 11px;
-  line-height: 1.6;
-  color: var(--muted);
-  margin-top: 15px;
-}
-.no-script {
-  padding: 16px;
-  font-size: 13px;
-}
 .trust-band {
   border-block: 1px solid var(--line);
 }
@@ -840,13 +666,6 @@ h2 {
   color: #525c74;
   margin-top: 14px;
 }
-.closing > img {
-  width: 290px;
-  height: 290px;
-  border-radius: 64px;
-  flex-shrink: 0;
-  transform: rotate(-7deg);
-}
 .site-footer {
   display: flex;
   flex-wrap: wrap;
@@ -898,25 +717,6 @@ h2 {
   .site-header nav {
     gap: 20px;
   }
-  .result output {
-    font-size: 60px;
-  }
-  .result {
-    padding: 25px;
-    min-height: 204px;
-  }
-  .calculator-fields {
-    padding-inline: 20px;
-  }
-  .amount-field {
-    max-width: 110px;
-  }
-  .calc-row label {
-    font-size: 12px;
-  }
-  .calculator-bottom {
-    padding-inline: 20px;
-  }
   .feature-intro {
     align-items: flex-start;
     flex-direction: column;
@@ -933,11 +733,6 @@ h2 {
   }
   .closing {
     padding: 55px;
-  }
-  .closing > img {
-    width: 240px;
-    height: 240px;
-    border-radius: 54px;
   }
 }
 @media (max-width: 850px) {
@@ -979,53 +774,6 @@ h2 {
   .hero .button svg {
     width: 17px;
     height: 17px;
-  }
-  .example-title {
-    font-size: 8px;
-    letter-spacing: 0.04em;
-  }
-  .example-tag {
-    font-size: 7px;
-    padding: 4px;
-  }
-  .hero-example {
-    padding-top: 0;
-  }
-  .result {
-    padding: 20px;
-    min-height: 190px;
-  }
-  .result output {
-    font-size: 50px;
-  }
-  .calculator-fields {
-    padding-inline: 15px;
-  }
-  .calc-row {
-    gap: 8px;
-    padding-block: 13px;
-  }
-  .calc-row label {
-    font-size: 11px;
-    padding-left: 19px;
-  }
-  .calc-row small {
-    font-size: 10px;
-  }
-  .amount-field {
-    max-width: 94px;
-    padding: 7px;
-    font-size: 12px;
-  }
-  .calculator-bottom {
-    padding-inline: 15px;
-    font-size: 9px;
-  }
-  .calculator-bottom button {
-    font-size: 9px;
-  }
-  .example-disclaimer {
-    font-size: 10px;
   }
   .section {
     padding-block: 70px;
@@ -1076,11 +824,6 @@ h2 {
   .closing {
     padding: 45px;
     gap: 30px;
-  }
-  .closing > img {
-    width: 190px;
-    height: 190px;
-    border-radius: 42px;
   }
 }
 @media (max-width: 650px) {
@@ -1145,62 +888,6 @@ h2 {
   .under-link {
     font-size: 13px;
     margin-top: 10px;
-  }
-  .hero-example {
-    width: 100%;
-    max-width: 470px;
-    margin-inline: auto;
-  }
-  .example-title {
-    font-size: 10px;
-    letter-spacing: 0.06em;
-  }
-  .example-tag {
-    font-size: 9px;
-    padding: 4px 6px;
-  }
-  .result {
-    padding: 25px 24px;
-    min-height: 211px;
-  }
-  .result output {
-    font-size: 68px;
-  }
-  .result > span {
-    font-size: 14px;
-  }
-  .result p {
-    font-size: 12px;
-  }
-  .calculator-fields {
-    padding-inline: 22px;
-  }
-  .calc-row label {
-    font-size: 13px;
-    padding-left: 25px;
-  }
-  .calc-row small {
-    font-size: 11px;
-  }
-  .calc-row {
-    padding-block: 16px;
-    min-height: 71px;
-  }
-  .amount-field {
-    max-width: 116px;
-    font-size: 14px;
-    padding: 8px;
-  }
-  .calculator-bottom {
-    padding: 5px 22px 15px;
-    font-size: 10px;
-  }
-  .calculator-bottom button {
-    font-size: 10px;
-  }
-  .example-disclaimer {
-    font-size: 11px;
-    margin-top: 12px;
   }
   .trust-band ul {
     padding-block: 18px;
@@ -1408,15 +1095,6 @@ h2 {
     font-size: 9px;
     margin-bottom: 22px;
   }
-  .closing > img {
-    align-self: flex-end;
-    transform: rotate(-8deg) translateY(20px);
-    width: 180px;
-    height: 180px;
-    border-radius: 38px;
-    margin-top: -25px;
-    margin-right: 5px;
-  }
   .site-footer {
     gap: 25px;
     padding-bottom: 25px;
@@ -1458,25 +1136,6 @@ h2 {
     padding-inline: 16px;
     gap: 10px;
   }
-  .result output {
-    font-size: 60px;
-  }
-  .calculator-fields {
-    padding-inline: 17px;
-  }
-  .calc-row label {
-    font-size: 12px;
-  }
-  .amount-field {
-    max-width: 100px;
-    font-size: 13px;
-  }
-  .example-title {
-    font-size: 9px;
-  }
-  .calculator-bottom {
-    padding-inline: 17px;
-  }
   .closing {
     padding-inline: 22px;
   }
@@ -1515,10 +1174,6 @@ h2 {
   .closing {
     padding-bottom: 35px;
   }
-  .closing > img {
-    transform: rotate(-7deg);
-    margin-top: 0;
-  }
   .site-footer nav {
     gap: 14px;
   }
@@ -1528,10 +1183,6 @@ h2 {
 }
 .hero > * {
   min-width: 0;
-}
-.result output {
-  min-width: 0;
-  width: 100%;
 }
 
 /* Le immagini fornite restano integre, con le proporzioni originali. */
@@ -1567,34 +1218,6 @@ figure {
 }
 .screenshot-link:focus-visible {
   outline-offset: 6px;
-}
-.demo-section {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 100px;
-  align-items: center;
-  border-top: 1px solid var(--line);
-  padding-top: 75px;
-}
-.demo-intro .kicker {
-  margin-bottom: 25px;
-}
-.demo-intro h2 {
-  font-size: clamp(38px, 3.8vw, 54px);
-}
-.demo-intro > p:not(.kicker) {
-  margin-top: 23px;
-  color: var(--muted);
-  font-size: 15px;
-  line-height: 1.8;
-}
-.demo-intro p.demo-hint {
-  font-size: 12px;
-}
-.demo-section .hero-example {
-  padding-top: 0;
-  min-width: 0;
-  width: 100%;
 }
 .app-gallery {
   border-top: 1px solid var(--line);
@@ -1733,9 +1356,6 @@ figure {
   .hero-screen {
     width: 310px;
   }
-  .demo-section {
-    gap: 50px;
-  }
   .screenshots-grid {
     gap: 35px 20px;
   }
@@ -1743,12 +1363,6 @@ figure {
 @media (max-width: 850px) {
   .hero-screen {
     width: 280px;
-  }
-  .demo-section {
-    gap: 30px;
-  }
-  .demo-intro h2 {
-    font-size: 40px;
   }
   .screenshots-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1765,20 +1379,6 @@ figure {
   }
   .hero-screen figcaption {
     font-size: 10px;
-  }
-  .demo-section {
-    grid-template-columns: minmax(0, 1fr);
-    gap: 30px;
-    padding-top: 50px;
-  }
-  .demo-intro h2 {
-    font-size: 42px;
-  }
-  .demo-intro > p:not(.kicker) {
-    font-size: 15px;
-  }
-  .demo-section .hero-example {
-    max-width: 470px;
   }
   .app-gallery {
     padding-top: 35px;
@@ -1839,5 +1439,142 @@ figure {
   }
   .screen-label {
     font-size: 8px;
+  }
+}
+
+/* Inquadratura dell’icona originale contenuta nella feature graphic fornita. */
+.brand > .brand-mark {
+  display: block;
+  width: 44px;
+  height: 44px;
+  flex-shrink: 0;
+  border-radius: 10px;
+  background: url("assets/feature-graphic.png") no-repeat -16.43px -25.3px /
+    193.37px 94.42px;
+}
+.site-footer .brand > .brand-mark {
+  width: 40px;
+  height: 40px;
+  background-size: 175.79px 85.84px;
+  background-position: -14.94px -23px;
+}
+.closing > img {
+  width: 260px;
+  max-width: 36%;
+  height: auto;
+  border-radius: 14px;
+  flex-shrink: 0;
+  transform: none;
+}
+@media (max-width: 650px) {
+  .brand > .brand-mark {
+    width: 40px;
+    height: 40px;
+    background-size: 175.79px 85.84px;
+    background-position: -14.94px -23px;
+  }
+  .closing > img {
+    width: 220px;
+    max-width: 100%;
+    align-self: center;
+    margin-top: 0;
+    margin-right: 0;
+  }
+}
+
+/* Transizioni del sito, senza animazioni sui dati delle schermate. */
+.site-header nav a {
+  position: relative;
+}
+.site-header nav a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 7px;
+  height: 1px;
+  background: var(--purple);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 180ms ease;
+}
+.site-header nav a:hover::after,
+.site-header nav a:focus-visible::after {
+  transform: scaleX(1);
+}
+.screenshot-link {
+  transition:
+    transform 200ms ease,
+    box-shadow 200ms ease;
+}
+.screenshots-grid .screenshot-link:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 28px #29204b14;
+}
+.zoom-label {
+  transition:
+    background 180ms ease,
+    border-color 180ms ease;
+}
+.screenshot-link:hover .zoom-label {
+  background: #f3f0ff;
+  border-color: #b9afe8;
+}
+.button > svg:last-child {
+  transition: transform 180ms ease;
+}
+.button:hover > svg:last-child {
+  transform: translate(2px, -2px);
+}
+.dialog-close {
+  transition: background 150ms ease;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .reveal {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 360ms ease,
+      transform 420ms cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .reveal.is-visible,
+  .reveal:focus-within {
+    opacity: 1;
+    transform: none;
+  }
+  .screenshot-dialog[open] {
+    animation: dialog-enter 180ms ease-out both;
+  }
+  .screenshot-dialog[open]::backdrop {
+    animation: backdrop-enter 180ms ease-out both;
+  }
+}
+@keyframes dialog-enter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes backdrop-enter {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+  }
+  .screenshot-link:hover,
+  .button:hover,
+  .button:hover > svg:last-child {
+    transform: none;
   }
 }

@@ -1,7 +1,7 @@
 # Fonti e limiti della verifica
 
-Consultazione: **14 ottobre 2026**. Questo documento distingue le evidenze
-disponibili dalle parti che richiedono ancora materiale ufficiale.
+Consultazione delle fonti: **14 ottobre 2026**. Asset aggiornati il **15 ottobre 2026**.
+Questo documento distingue le evidenze disponibili dai contenuti non verificati.
 
 ## App Bada!
 
@@ -56,11 +56,9 @@ il progetto non è più mantenuto dal 5 novembre 2024.
 ## Provenienza degli asset e anteprime
 
 Il materiale iniziale comprendeva il brief testuale. Il repository di
-riferimento contiene `assets/logo.png`,
-`assets/icon.png`, `assets/adaptive-icon.png` e `assets/notification-icon.png`,
-ma non screenshot. Logo e icona provengono dagli asset ufficiali di Bada!
-e il loro uso sul sito dello stesso titolare è autorizzato dalla richiesta
-dell'utente; questa autorizzazione non costituisce una licenza generale
+riferimento contiene logo e icone ufficiali; questi file non sono più usati
+nella landing, che impiega soltanto immagini dell’archivio fornito dal titolare.
+L’autorizzazione all’uso del materiale non costituisce una licenza generale
 sugli altri contenuti del repository, il cui codice resta riservato.
 
 Il 14 ottobre 2026 il titolare ha fornito `Nuova cartella.zip`, descritto
@@ -75,9 +73,22 @@ I sei originali `store-*.png` sono conservati in
 controlli. Mese compare anche nell’apertura; la galleria presenta Mese,
 Entrate/uscite, Obiettivi, Anno, Importazione e Impostazioni. La feature
 graphic originale è in `site/assets/feature-graphic.png` e serve come
-immagine Open Graph. La copertina è stata esaminata, ma non è usata sul sito.
-La demo interattiva della landing è separata dalle immagini dell’app ed
-esegue un esempio di calcolo nel browser.
+immagine Open Graph. La copertina originale è in
+`site/assets/copertina-onde.png` e compare nella chiusura. Il logo in
+intestazione e footer è una porzione della feature graphic inquadrata via
+CSS: il file originale resta integro. Non sono usati altri file immagine.
+
+Il 15 ottobre 2026, su richiesta del titolare, sono stati rimossi il
+calcolatore illustrativo e gli asset provenienti dal repository dell’app.
+Restano solo i file immagine forniti nello ZIP; non sono presenti interfacce
+dell’app ricostruite. Le transizioni riguardano sezioni, controlli e galleria, senza animare dati o transazioni.
+Non sono state generate o ritoccate immagini.
+
+Controllo indipendente del 15 ottobre 2026: tutti gli otto PNG presenti in
+`site/assets/` corrispondono byte per byte agli originali dell’archivio
+(confronto SHA-256). I riferimenti alle immagini in HTML, CSS, JavaScript e
+metadati Open Graph rimandano solo a questi file. Non restano altri asset
+raster, favicon derivate o immagini incorporate nei sorgenti.
 
 Le immagini mostrano bilancio mensile e annuale, categorie di spesa,
 obiettivi, revisione dell’importazione e impostazioni per promemoria,

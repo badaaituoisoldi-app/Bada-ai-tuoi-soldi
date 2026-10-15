@@ -37,7 +37,6 @@
       property="og:image:alt"
       content="Bada! — ai tuoi soldi. Budget personale, offline, senza account."
     />
-    <link rel="icon" href="assets/logo.png" type="image/png" />
     <link
       rel="preload"
       href="assets/fonts/dm-sans-latin-wght-normal.woff2"
@@ -55,9 +54,8 @@
         class="brand"
         href="#inizio"
         aria-label="Bada! — ai tuoi soldi, inizio pagina"
-        ><img src="assets/logo.png" width="44" height="44" alt="" /><span
-          ><strong>Bada!</strong><span>ai tuoi soldi</span></span
-        ></a
+        ><span class="brand-mark" aria-hidden="true"></span
+        ><span><strong>Bada!</strong><span>ai tuoi soldi</span></span></a
       >
       <nav aria-label="Navigazione principale">
         <a href="#come-funziona">Come funziona</a
@@ -181,142 +179,11 @@
               obiettivi. Il risultato non è il saldo aggiornato del conto.
             </p>
           </div>
-          <a href="#disponibile" aria-label="Torna alla demo del disponibile"
+          <a href="#schermate" aria-label="Guarda le schermate fornite dell’app"
             ><svg viewBox="0 0 24 24" aria-hidden="true">
               <path d="M6 18 18 6M6 6h12v12" /></svg
           ></a>
         </aside>
-      </section>
-      <section class="demo-section section container" id="disponibile">
-        <div class="demo-intro">
-          <p class="kicker">FACCIAMO DUE CONTI</p>
-          <h2>Non tutto il saldo<br />è già libero.</h2>
-          <p>
-            Una parte ha una destinazione: le spese, la quota che scegli di
-            tenere da parte e i tuoi obiettivi. Il disponibile ti aiuta a vedere
-            quello che resta.
-          </p>
-          <p>
-            <strong>Qui puoi provare con dati fittizi.</strong> Cambia gli
-            importi: il calcolo avviene in questa pagina, senza salvare o
-            inviare i valori.
-          </p>
-          <p class="demo-hint">
-            È una dimostrazione del sito. Il risultato nell’app dipende dai dati
-            che inserisci, non dal saldo aggiornato della banca.
-          </p>
-        </div>
-        <div class="hero-example">
-          <div class="example-title">
-            <span>IL MESE, IN UN NUMERO.</span
-            ><span class="example-tag">DEMO DEL SITO</span>
-          </div>
-          <form
-            class="calculator"
-            aria-label="Esempio illustrativo del disponibile"
-          >
-            <div
-              class="result"
-              role="status"
-              aria-live="polite"
-              aria-atomic="true"
-            >
-              <span id="result-label">Disponibile</span>
-              <output id="result" for="income expenses margin goals"
-                >450,00 €</output
-              >
-              <p id="result-help">Dopo spese, margine e obiettivi.</p>
-            </div>
-            <div class="calculator-fields">
-              <div class="calc-row">
-                <label for="income"
-                  ><span class="amount-sign income" aria-hidden="true">+</span
-                  >Entrate</label
-                ><span class="amount-field"
-                  ><input
-                    id="income"
-                    name="income"
-                    type="number"
-                    min="0"
-                    max="100000000"
-                    step="0.01"
-                    value="1800"
-                    required
-                    inputmode="decimal"
-                  /><span aria-hidden="true">€</span></span
-                >
-              </div>
-              <div class="calc-row">
-                <label for="expenses"
-                  ><span class="amount-sign expenses" aria-hidden="true">−</span
-                  >Spese registrate<small>Comprese quelle fisse</small></label
-                ><span class="amount-field"
-                  ><input
-                    id="expenses"
-                    name="expenses"
-                    type="number"
-                    min="0"
-                    max="100000000"
-                    step="0.01"
-                    value="1100"
-                    required
-                    inputmode="decimal"
-                  /><span aria-hidden="true">€</span></span
-                >
-              </div>
-              <div class="calc-row">
-                <label for="margin"
-                  ><span class="amount-sign margin" aria-hidden="true">−</span
-                  >Margine di sicurezza</label
-                ><span class="amount-field"
-                  ><input
-                    id="margin"
-                    name="margin"
-                    type="number"
-                    min="0"
-                    max="100000000"
-                    step="0.01"
-                    value="100"
-                    required
-                    inputmode="decimal"
-                  /><span aria-hidden="true">€</span></span
-                >
-              </div>
-              <div class="calc-row">
-                <label for="goals"
-                  ><span class="amount-sign goals" aria-hidden="true">−</span
-                  >Destinati agli obiettivi</label
-                ><span class="amount-field"
-                  ><input
-                    id="goals"
-                    name="goals"
-                    type="number"
-                    min="0"
-                    max="100000000"
-                    step="0.01"
-                    value="150"
-                    required
-                    inputmode="decimal"
-                  /><span aria-hidden="true">€</span></span
-                >
-              </div>
-            </div>
-            <div class="calculator-bottom">
-              <span>Prova a cambiare gli importi.</span
-              ><button type="reset">Ripristina l’esempio</button>
-            </div>
-            <noscript
-              ><p class="no-script">
-                1.800 € − 1.100 € − 100 € − 150 € = 450 €. Attiva JavaScript per
-                modificare i valori.
-              </p></noscript
-            >
-          </form>
-          <p class="example-disclaimer">
-            Esempio illustrativo: il risultato dipende dai dati inseriti.<br />Non
-            è una schermata dell’app. I valori non vengono salvati né inviati.
-          </p>
-        </div>
       </section>
       <section class="features-section" id="funzionalita">
         <div class="container section">
@@ -409,7 +276,11 @@
               </p>
             </article>
           </div>
-          <section class="app-gallery" aria-labelledby="gallery-title">
+          <section
+            class="app-gallery"
+            id="schermate"
+            aria-labelledby="gallery-title"
+          >
             <div class="gallery-heading">
               <div>
                 <p class="kicker">BADA!, DA VICINO</p>
@@ -752,19 +623,18 @@
           ><small>Disponibile per Android.</small>
         </div>
         <img
-          src="assets/social-icon.png"
-          width="360"
-          height="360"
-          alt="Il logo Bada!: il punto esclamativo sotto la b forma un sorriso."
+          src="assets/copertina-onde.png"
+          width="1080"
+          height="1920"
+          alt="Copertina originale Bada! — ai tuoi soldi: offline, senza account, senza pubblicità."
           loading="lazy"
         />
       </section>
     </main>
     <footer class="container site-footer">
       <a class="brand" href="#inizio"
-        ><img src="assets/logo.png" width="40" height="40" alt="" /><span
-          ><strong>Bada!</strong><span>ai tuoi soldi</span></span
-        ></a
+        ><span class="brand-mark" aria-hidden="true"></span
+        ><span><strong>Bada!</strong><span>ai tuoi soldi</span></span></a
       >
       <nav aria-label="Link utili">
         <a
