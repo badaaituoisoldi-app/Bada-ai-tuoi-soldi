@@ -25,7 +25,7 @@ Se il link esiste già, riusalo verificando la destinazione. Apri `http://localh
 
 - `site/index.html`: sezioni, contenuti, metadati SEO/Open Graph, FAQ native.
 - `site/styles.css`: layout responsive, temi delle sezioni, focus e movimento ridotto.
-- `site/script.js`: capitoli e schermate durante lo scorrimento, transizioni, avanzamento della lettura e anno nel footer.
+- `site/script.js`: ingresso discreto delle sezioni e anno nel footer.
 - `site/viewer.js`: visualizzatore degli originali con zoom, adattamento, vista 1:1 e trascinamento.
 - `site/assets/`: screenshot e immagini originali forniti dal titolare, DM Sans locale con licenza OFL.
 - `.github/workflows/pages.yml`: distribuzione con azioni ufficiali GitHub Pages.
@@ -35,15 +35,15 @@ Se il link esiste già, riusalo verificando la destinazione. Apri `http://localh
 
 ## Immagini e transizioni
 
-Il titolare ha fornito le immagini della scheda Play Store nell’archivio `Nuova cartella.zip`: sei schermate promozionali in tema chiaro (1080 × 1920), la feature graphic (1024 × 500) e una copertina. Gli originali dei sei `store-*.png` sono in `site/assets/screenshots/`; `site/assets/feature-graphic.png` è usata per Open Graph e `site/assets/copertina-onde.png` nella chiusura. I PNG sono copie integre dei file ricevuti: testi, importi e controlli non sono stati modificati.
+Il titolare ha fornito `Nuova cartella.zip`: sei schermate promozionali in tema chiaro (1080 × 1920), una feature graphic (1024 × 500) e una copertina. Il sito usa solo i sei originali `store-*.png` in `site/assets/screenshots/` e `site/assets/feature-graphic.png` per marchio e Open Graph. La copertina non è usata. I sette PNG sono copie integre dei file ricevuti: testi, importi e controlli restano invariati.
 
-L’apertura affianca le schermate originali Mese e Obiettivi. Tre capitoli presentano Mese, Entrate/uscite e Obiettivi: su desktop l’immagine resta accanto al testo e cambia con lo scorrimento o con i selettori Mese, Spese e Obiettivi; su mobile ogni capitolo contiene la propria schermata. Le schede Anno, CSV e Impostazioni completano il percorso e scorrono orizzontalmente su telefono. L’intestazione contiene marchio e navigazione; i collegamenti Google Play restano nell’apertura e nella chiusura. DM Sans è ospitato localmente, con dimensioni e pesi rivisti per una lettura più compatta.
+L’intestazione contiene il marchio e tre collegamenti: Funzionalità, Privacy e FAQ. L’apertura presenta la schermata Mese e il pulsante Google Play. Due sezioni illustrano Spese e Obiettivi, ciascuna con una sola schermata; una galleria compatta raccoglie Anno, CSV e Impostazioni. Seguono privacy, otto FAQ e un invito finale a scaricare l’app. DM Sans locale è l’unica famiglia tipografica, con una gerarchia semplice di dimensioni e pesi.
 
 Ogni schermata si apre in un visualizzatore a tutto schermo: l’immagine parte da 720 px di larghezza su telefono, fino a 1080 px su desktop, e si può scorrere per leggere i dettagli. I controlli permettono zoom, adattamento alla larghezza, vista 1:1 e apertura dell’originale. È disponibile anche il trascinamento con il mouse e lo scorrimento touch nativo. Senza JavaScript i collegamenti aprono direttamente i PNG.
 
-Le transizioni di ingresso si ripetono tornando sulle sezioni; il cambio delle immagini segue i capitoli. Un lieve movimento dell’apertura e l’indicatore di lettura rispondono allo scorrimento. La preferenza di sistema per il movimento ridotto disattiva gli effetti decorativi. Non sono animate transazioni o cifre.
+Le sezioni compaiono una sola volta con una breve dissolvenza e uno spostamento di 16 px in 600 ms. La preferenza di sistema per il movimento ridotto disattiva l’effetto. Non sono presenti schermate persistenti durante lo scorrimento, schede a selezione, indicatori di lettura o parallasse.
 
-Il 15 ottobre 2026 sono stati rimossi il calcolatore illustrativo e gli asset provenienti dal repository dell’app; restano solo i file immagine forniti nello ZIP. Non sono presenti interfacce dell’app ricostruite. Nell’intestazione e nel footer il logo è inquadrato via CSS dalla feature graphic fornita, senza creare un nuovo file o ridisegnarlo: il sorriso resta il punto esclamativo di «Bada!».
+Il calcolatore illustrativo e gli asset provenienti dal repository dell’app sono stati rimossi; restano solo i file immagine forniti nello ZIP. Nessuna interfaccia dell’app è ricostruita. Nell’intestazione e nel footer il logo è inquadrato via CSS dalla feature graphic fornita, senza creare un nuovo file o ridisegnarlo: il sorriso resta il punto esclamativo di «Bada!».
 
 Prima della pubblicazione confronta le funzioni con lo store corrente: in questa attività Google Play non era raggiungibile. Le immagini fornite documentano l’interfaccia, ma non stabiliscono la versione attualmente distribuita o il prezzo dello store. I dettagli sulla provenienza sono in `docs/SOURCES.md`.
 

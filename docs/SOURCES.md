@@ -53,6 +53,19 @@ sono riferimenti di comunicazione, senza riprenderne testi, immagini,
 marchi o funzionalità. Il repository è archiviato; il README dichiara che
 il progetto non è più mantenuto dal 5 novembre 2024.
 
+## Riferimenti per il sito
+
+Per la nuova composizione sono stati consultati i repository ufficiali:
+
+- [Cashew Website](https://github.com/jameskokoska/Cashew-Website), commit `44c2ebb`: sorgenti HTML/CSS e pagina renderizzata localmente.
+- [Fossify](https://github.com/FossifyOrg/FossifyOrg.github.io), commit `79ec981`: sorgente della pagina singola app `src/pages/apps/[slug].astro`; non è stata verificata la pagina pubblicata.
+
+Il riferimento è la gerarchia semplice dei siti di app: prodotto visibile,
+testo breve e invito al download. Non sono stati copiati testi, immagini
+o marchi. I tentativi di aprire i siti pubblici Things, Structured,
+Daylio, Streaks, Cashew e How We Feel hanno restituito HTTP 403 tramite il
+proxy: tali pagine non sono state viste e non sono dichiarate esaminate.
+
 ## Provenienza degli asset e anteprime
 
 Il materiale iniziale comprendeva il brief testuale. Il repository di
@@ -69,31 +82,26 @@ come immagini della scheda Play Store. Contiene sei schermate promozionali
 `copertina-onde.png` (1080 × 1920).
 
 I sei originali `store-*.png` sono conservati in
-`site/assets/screenshots/` e usati integri, senza modifiche a testo, dati o
-controlli. Mese e Obiettivi compaiono nell’apertura. Il percorso principale
-presenta Mese, Entrate/uscite e Obiettivi; le tre schede aggiuntive mostrano
-Anno, Importazione e Impostazioni. Il visualizzatore apre gli stessi PNG
-originali con zoom, scorrimento e collegamento diretto alla fonte. La feature
-graphic originale è in `site/assets/feature-graphic.png` e serve come
-immagine Open Graph. La copertina originale è in
-`site/assets/copertina-onde.png` e compare nella chiusura. Il logo in
-intestazione e footer è una porzione della feature graphic inquadrata via
-CSS: il file originale resta integro. Non sono usati altri file immagine.
+`site/assets/screenshots/` e usati integri. L’apertura mostra Mese; le due
+sezioni principali presentano Entrate/uscite e Obiettivi. La galleria
+compatta contiene Anno, Importazione e Impostazioni. Il visualizzatore
+apre gli stessi PNG originali con zoom e collegamento diretto alla fonte.
+La feature graphic originale è in `site/assets/feature-graphic.png` e serve
+per Open Graph e per il logo inquadrato via CSS nell’intestazione e nel
+footer. La copertina ricevuta non è usata nel sito e non è inclusa negli
+asset del sito. Non sono usati altri file immagine.
 
-Il 15 ottobre 2026, su richiesta del titolare, sono stati rimossi il
-calcolatore illustrativo e gli asset provenienti dal repository dell’app.
-Restano solo i file immagine forniti nello ZIP; non sono presenti interfacce
-dell’app ricostruite. Le transizioni accompagnano sezioni, capitoli e
-visualizzatore; il lieve movimento dell’apertura segue lo scorrimento.
-Non sono animati dati o transazioni. DM Sans locale è rimasto il font del
-sito, con scala e pesi rivisti.
-Non sono state generate o ritoccate immagini.
+Su richiesta del titolare sono stati rimossi il calcolatore illustrativo e
+gli asset provenienti dal repository dell’app. Restano solo i file immagine
+forniti nello ZIP; nessuna interfaccia dell’app è ricostruita. Le sezioni
+hanno un ingresso discreto, una sola volta, con preferenza per il movimento
+ridotto. DM Sans locale è l’unica famiglia tipografica, con una gerarchia semplificata. Non sono
+state generate o ritoccate immagini.
 
-Controllo indipendente del 15 ottobre 2026: tutti gli otto PNG presenti in
-`site/assets/` corrispondono byte per byte agli originali dell’archivio
-(confronto SHA-256). I riferimenti alle immagini in HTML, CSS, JavaScript e
-metadati Open Graph rimandano solo a questi file. Non restano altri asset
-raster, favicon derivate o immagini incorporate nei sorgenti.
+Controllo indipendente del 15 ottobre 2026: tutti i sette PNG presenti nel sito
+sono identici byte per byte agli originali forniti (SHA-256). I riferimenti
+raster in HTML, CSS, entrambi gli script e Open Graph rimandano solo a questi
+file. La copertina è esclusa dagli asset del sito.
 
 Le immagini mostrano bilancio mensile e annuale, categorie di spesa,
 obiettivi, revisione dell’importazione e impostazioni per promemoria,

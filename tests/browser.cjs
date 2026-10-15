@@ -8,7 +8,7 @@ const baseURL = process.env.SITE_URL || 'http://127.0.0.1:8000/Bada-ai-tuoi-sold
 const siteRoot = resolve(__dirname, '../site');
 const viewports = [320, 360, 390, 430, 768, 1024, 1440];
 const suppliedImages = [
-  'assets/copertina-onde.png', 'assets/feature-graphic.png',
+  'assets/feature-graphic.png',
   'assets/screenshots/store-1-mese.png', 'assets/screenshots/store-2-impostazioni.png',
   'assets/screenshots/store-3-uscite.png', 'assets/screenshots/store-4-obiettivi.png',
   'assets/screenshots/store-5-anno.png', 'assets/screenshots/store-6-import.png',
@@ -55,7 +55,7 @@ async function audit(page, state) {
   assert.deepEqual(result.violations, [], `Accessibility violations (${state})`);
 }
 async function visibleContent(page, state) {
-  const hidden = await page.locator('[data-reveal], .chapter-image:not([aria-hidden="true"])').evaluateAll(elements => elements.filter(element => {
+  const hidden = await page.locator('[data-reveal], .hero-intro, .hero-screen, .feature-copy, .feature-media, .screenshots-grid figure, .privacy-content, .closing').evaluateAll(elements => elements.filter(element => {
     const style = getComputedStyle(element);
     return style.display === 'none' || style.visibility !== 'visible' || Number(style.opacity) !== 1 || element.getBoundingClientRect().height === 0;
   }).map(element => element.className));
@@ -63,63 +63,13 @@ async function visibleContent(page, state) {
 }
 async function screenshotLinks(page) {
   const links = page.locator('.screenshot-link');
-  assert.equal(await links.count(), 8, 'Two hero, three story and three tools screenshot links');
+  assert.equal(await links.count(), 6, 'One hero, two feature and three gallery screenshots');
   const hrefs = await links.evaluateAll(elements => elements.map(element => element.getAttribute('href')));
   assert.deepEqual([...new Set(hrefs)].sort(), suppliedImages.filter(path => path.includes('/screenshots/')).sort(), 'All six original screenshot sources are linked');
   for (const link of await links.all()) assert.equal(await link.getAttribute('href'), await link.locator('img').getAttribute('src'), 'Thumbnail and viewer use the same original');
 }
-async function scrollChapter(page, index) {
-  await page.locator('.story-chapter').nth(index).evaluate(element => {
-    const box = element.getBoundingClientRect();
-    scrollTo({ top: scrollY + box.top + box.height / 2 - innerHeight * 0.46, behavior: 'instant' });
-  });
-  await settle(page);
-}
-async function exerciseStory(page, width) {
-  assert.equal(await page.locator('.story-chapter').count(), 3);
-  if (width > 900) {
-    assert(await page.locator('.story-layout').evaluate(element => element.classList.contains('is-enhanced')));
-    assert.equal(await page.locator('.story-stage').evaluate(element => getComputedStyle(element).position), 'sticky');
-    for (let index = 0; index < 3; index++) {
-      await scrollChapter(page, index);
-      await page.waitForFunction(index => document.querySelectorAll('.story-chapter')[index].classList.contains('is-current'), index);
-      const current = page.locator('.story-stage .chapter-image.is-current');
-      assert.equal(await current.count(), 1);
-      assert.equal(await current.locator('a').getAttribute('data-title'), await page.locator('.story-chapter').nth(index).getAttribute('data-title'));
-      await loaded(page, current.locator('img'));
-      assert.equal(await current.getAttribute('aria-hidden'), 'false');
-      for (const inactive of await page.locator('.story-stage .chapter-image:not(.is-current)').all()) {
-        assert.equal(await inactive.getAttribute('aria-hidden'), 'true');
-        assert.equal(await inactive.locator('a').getAttribute('tabindex'), '-1');
-      }
-    }
-    assert.equal(await page.locator('.story-controls [data-story-step]').count(), 3);
-    for (const index of [1, 2, 0]) {
-      const button = page.locator(`[data-story-step="${index}"]`);
-      await button.focus();
-      await page.keyboard.press('Enter');
-      await page.waitForFunction(index => document.querySelectorAll('.story-chapter')[index].classList.contains('is-current') && document.querySelector(`[data-story-step="${index}"]`).getAttribute('aria-pressed') === 'true', index);
-      assert.equal(await page.locator('.story-controls [aria-pressed="true"]').count(), 1, 'One story choice is pressed');
-      assert(await button.evaluate(element => element === document.activeElement), 'Choosing a story keeps keyboard focus on its button');
-      const chapter = page.locator('.story-chapter').nth(index);
-      assert(await chapter.evaluate(element => {
-        const box = element.getBoundingClientRect();
-        return Math.abs(box.top + box.height / 2 - innerHeight / 2) < innerHeight * 0.15;
-      }), 'Keyboard choice brings its chapter near the viewport centre');
-      const current = page.locator('.story-stage .chapter-image.is-current');
-      assert.equal(await current.locator('a').getAttribute('data-title'), await chapter.getAttribute('data-title'), 'Keyboard choice displays the matching original screenshot');
-      await loaded(page, current.locator('img'));
-    }
-  } else {
-    assert.equal(await page.locator('.story-layout.is-enhanced').count(), 0);
-    assert(await page.locator('.story-stage').evaluate(element => element.hidden));
-    assert.equal(await page.locator('.story-controls').isVisible(), false, 'Story choice controls are hidden on mobile');
-    assert.equal(await page.locator('.story-chapter > .chapter-image').count(), 3, 'Mobile story images remain beside their own text');
-  }
-}
 async function loadVisibleImages(page) {
   for (const image of await page.locator('main img').all()) {
-    if (await image.evaluate(element => Boolean(element.closest('.story-stage')))) continue;
     if (!await image.isVisible()) continue;
     await image.scrollIntoViewIfNeeded();
     await loaded(page, image);
@@ -218,16 +168,19 @@ async function zoomAndPan(page, state) {
       await page.goto(baseURL);
       await page.evaluate(() => document.fonts.ready);
       assert.equal(await page.locator('h1').count(), 1);
-      assert.equal(await page.locator('form, .calculator, #result').count(), 0);
+      assert.equal(await page.locator('form, .calculator, #result, .story-layout, .story-stage, .story-controls, .reading-progress').count(), 0, 'The page has no simulator, story controls or reading progress');
       assert.equal(await page.locator('.site-header a[href*="play.google.com"]').count(), 0, 'Header has no store CTA');
+      assert(await page.locator('.site-header').evaluate(element => !['fixed', 'sticky'].includes(getComputedStyle(element).position)), 'Header scrolls naturally with the page');
+      assert.equal(await page.locator('.hero-screen').count(), 1);
+      assert.equal(await page.locator('.feature-row').count(), 2);
+      assert.equal(await page.locator('.screenshots-grid figure').count(), 3);
       await screenshotLinks(page);
-      await exerciseStory(page, width);
       await loadVisibleImages(page);
       await visibleContent(page, `reduced motion at ${width}px`);
       await noOverflow(page, width, 'page and internal screenshot rail');
       await audit(page, `${width}px`);
       await page.screenshot({ path: `/tmp/bada-${width}.png`, fullPage: true });
-      console.log(`Verified viewport ${width}px and responsive story`);
+      console.log(`Verified viewport ${width}px and original screenshots`);
     }
     assert.equal(await page.locator('details').count(), 8);
     for (const details of await page.locator('details').all()) {
@@ -241,7 +194,7 @@ async function zoomAndPan(page, state) {
     assert(anchors.includes('https://play.google.com/store/apps/details?id=com.bada.aituoisoldi&hl=it'));
     assert(anchors.includes('https://badaaituoisoldi-app.github.io/bada-privacy/Privacy-it.html'));
     const nav = page.locator('.site-header nav a');
-    assert.equal(await nav.count(), 4);
+    assert.equal(await nav.count(), 3);
     for (const link of await nav.all()) {
       await link.focus();
       await page.keyboard.press('Enter');
@@ -249,13 +202,13 @@ async function zoomAndPan(page, state) {
     }
     for (const width of [320, 1440]) {
       await page.setViewportSize({ width, height: 1000 });
-      const opener = page.locator('.hero-screen-main .screenshot-link');
+      const opener = page.locator('.hero-screen .screenshot-link');
       const state = await openViewer(page, opener);
       await audit(page, `zoom viewer at ${width}px`);
       await zoomAndPan(page, state);
       await closeViewer(page, opener, state, 'Escape');
       await noOverflow(page, width, 'after zoom viewer');
-      const tool = page.locator('.tool-card .screenshot-link').nth(1);
+      const tool = page.locator('.screenshots-grid .screenshot-link').nth(1);
       const toolState = await openViewer(page, tool);
       assert.equal(await page.locator('#screenshot-title').textContent(), 'Importazione CSV');
       await closeViewer(page, tool, toolState, 'button');
@@ -268,36 +221,31 @@ async function zoomAndPan(page, state) {
     observe(motionPage);
     await motionPage.goto(baseURL);
     await motionPage.evaluate(() => document.fonts.ready);
-    await motionPage.waitForFunction(() => document.querySelector('.hero-intro').classList.contains('in-view') && getComputedStyle(document.querySelector('.hero-intro')).opacity === '1');
+    await motionPage.waitForFunction(() => document.querySelector('.hero-intro').classList.contains('is-visible') && getComputedStyle(document.querySelector('.hero-intro')).opacity === '1');
     assert(await motionPage.locator('.hero-intro').evaluate(element => getComputedStyle(element).transitionDuration.split(',').some(duration => parseFloat(duration) >= 0.6)), 'Reveal movement has perceptible duration');
-    const lastCopy = motionPage.locator('.story-chapter').nth(2).locator('.chapter-copy');
-    assert.equal(await lastCopy.evaluate(element => element.classList.contains('in-view')), false);
-    await scrollChapter(motionPage, 2);
-    await motionPage.waitForFunction(() => document.querySelectorAll('.story-chapter')[2].classList.contains('is-current') && document.querySelectorAll('.chapter-copy')[2].classList.contains('in-view'));
-    assert(await motionPage.locator('.reading-progress').evaluate(element => new DOMMatrix(getComputedStyle(element).transform).a > 0.05), 'Rapid scrolling updates reading progress');
-    assert(await motionPage.locator('.hero-visual').evaluate(element => parseFloat(element.style.getPropertyValue('--hero-pan')) < 0), 'Hero responds to scrolling');
-    assert(await motionPage.locator('.story-stage .chapter-image.is-current').evaluate(element => getComputedStyle(element).transitionDuration.split(',').some(duration => parseFloat(duration) >= 0.65)), 'Story screenshot changes use a visible crossfade');
+    const feature = motionPage.locator('.feature-copy').last();
+    assert.equal(await feature.evaluate(element => element.classList.contains('is-visible')), false, 'A below-fold feature waits to enter view');
+    await feature.scrollIntoViewIfNeeded();
+    await motionPage.waitForFunction(element => element.classList.contains('is-visible') && getComputedStyle(element).opacity === '1', await feature.elementHandle());
     await top(motionPage);
-    await motionPage.waitForFunction(() => !document.querySelectorAll('.chapter-copy')[2].classList.contains('in-view'));
-    await scrollChapter(motionPage, 2);
-    await motionPage.waitForFunction(() => document.querySelectorAll('.chapter-copy')[2].classList.contains('in-view') && getComputedStyle(document.querySelectorAll('.chapter-copy')[2]).opacity === '1');
-    const motionOpener = motionPage.locator('.story-stage .chapter-image.is-current .screenshot-link');
+    assert(await feature.evaluate(element => element.classList.contains('is-visible') && getComputedStyle(element).opacity === '1'), 'A revealed feature stays visible after leaving the viewport');
+    const motionOpener = motionPage.locator('.hero-screen .screenshot-link');
     const motionState = await openViewer(motionPage, motionOpener);
     assert(motionState.entryDuration >= 200, 'Viewer entry animates with normal motion');
     await closeViewer(motionPage, motionOpener, motionState, 'Escape');
     await motionPage.emulateMedia({ reducedMotion: 'reduce' });
-    await motionPage.waitForFunction(() => !document.querySelector('.reveal') && document.querySelector('.hero-visual').style.getPropertyValue('--hero-pan') === '0px');
+    await motionPage.waitForFunction(() => [...document.querySelectorAll('[data-reveal]')].every(element => getComputedStyle(element).opacity === '1'));
     await visibleContent(motionPage, 'reduced-motion preference changed');
-    assert(await motionPage.locator('[data-reveal], .chapter-image').evaluateAll(elements => elements.every(element => getComputedStyle(element).transitionDuration.split(',').every(duration => parseFloat(duration) === 0))));
-    console.log('Verified rapid scrolling, repeated reveals, story crossfade, progress and reduced motion');
+    assert(await motionPage.locator('[data-reveal]').evaluateAll(elements => elements.every(element => getComputedStyle(element).transitionDuration.split(',').every(duration => parseFloat(duration) === 0))));
+    console.log('Verified one-time feature reveals and reduced motion');
 
     const noJsContext = await browser.newContext({ javaScriptEnabled: false, reducedMotion: 'no-preference', viewport: { width: 390, height: 1000 } });
     noJsContext.setDefaultTimeout(15000);
     const staticPage = await noJsContext.newPage();
     observe(staticPage);
     await staticPage.goto(baseURL);
-    assert.equal(await staticPage.locator('.reveal, .story-layout.is-enhanced').count(), 0);
-    assert.equal(await staticPage.locator('.story-chapter > .chapter-image').count(), 3);
+    assert.equal(await staticPage.locator('.reveal').count(), 0);
+    assert.equal(await staticPage.locator('main img').count(), 6);
     await visibleContent(staticPage, 'JavaScript disabled');
     assert(await staticPage.evaluate(() => [...document.images].every(image => image.complete && image.naturalWidth > 0)), 'All original images load without JavaScript');
     await screenshotLinks(staticPage);
@@ -306,7 +254,7 @@ async function zoomAndPan(page, state) {
     await noOverflow(staticPage, 390, 'JavaScript disabled');
     assert.equal(errors.length, 0, JSON.stringify(errors));
     assert(requests.every(url => url.startsWith(new URL(baseURL).origin)), 'No external asset requests');
-    console.log(`PASS: ${viewports.length} widths, original PNG paths${process.env.ORIGINAL_ASSETS_DIR ? '/hashes' : ''}, responsive story and screenshot rail, real zoom/fit/1:1/pan/keyboard scrolling, viewer cleanup/focus, repeated scroll effects, reduced motion, native no-JS content/FAQ, keyboard navigation and axe WCAG A/AA.`);
+    console.log(`PASS: ${viewports.length} widths, original PNG paths${process.env.ORIGINAL_ASSETS_DIR ? '/hashes' : ''}, six screenshots and a static header, real zoom/fit/1:1/pan/keyboard scrolling, viewer cleanup/focus, one-time reveals, reduced motion, native no-JS content/FAQ, keyboard navigation and axe WCAG A/AA.`);
   } finally {
     await browser.close();
   }
