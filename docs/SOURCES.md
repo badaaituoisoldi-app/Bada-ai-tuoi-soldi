@@ -116,8 +116,8 @@ fornita una schermata dedicata alle Spese fisse né una in tema scuro.
 Questi eventuali asset aggiuntivi non impediscono l’uso delle immagini
 autentiche già disponibili.
 
-Il tema chiaro/scuro riguarda il sito e i suoi colori: fondi caldi color
-carta e viola del marchio, oppure carbone e viola profondo. In entrambi i temi
+Il tema chiaro/scuro riguarda il sito e i suoi colori: grigio perla in
+chiaro, grafite in scuro e viola nei pulsanti, nei link e negli accenti. In entrambi i temi
 le immagini dell’app restano i PNG chiari forniti, senza filtri di inversione,
 ritocchi o schermate scure generate.
 

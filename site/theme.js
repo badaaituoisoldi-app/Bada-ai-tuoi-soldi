@@ -24,7 +24,7 @@
     const isDark = theme === "dark";
     root.dataset.theme = theme;
     if (themeColor) {
-      themeColor.content = isDark ? "#1b1b21" : "#f2efe8";
+      themeColor.content = isDark ? "#202126" : "#eef0f3";
     }
     if (toggle) {
       toggle.setAttribute("aria-checked", String(isDark));
