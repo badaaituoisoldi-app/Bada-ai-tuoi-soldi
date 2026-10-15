@@ -70,8 +70,10 @@ come immagini della scheda Play Store. Contiene sei schermate promozionali
 
 I sei originali `store-*.png` sono conservati in
 `site/assets/screenshots/` e usati integri, senza modifiche a testo, dati o
-controlli. Mese compare anche nell’apertura; la galleria presenta Mese,
-Entrate/uscite, Obiettivi, Anno, Importazione e Impostazioni. La feature
+controlli. Mese e Obiettivi compaiono nell’apertura. Il percorso principale
+presenta Mese, Entrate/uscite e Obiettivi; le tre schede aggiuntive mostrano
+Anno, Importazione e Impostazioni. Il visualizzatore apre gli stessi PNG
+originali con zoom, scorrimento e collegamento diretto alla fonte. La feature
 graphic originale è in `site/assets/feature-graphic.png` e serve come
 immagine Open Graph. La copertina originale è in
 `site/assets/copertina-onde.png` e compare nella chiusura. Il logo in
@@ -81,7 +83,10 @@ CSS: il file originale resta integro. Non sono usati altri file immagine.
 Il 15 ottobre 2026, su richiesta del titolare, sono stati rimossi il
 calcolatore illustrativo e gli asset provenienti dal repository dell’app.
 Restano solo i file immagine forniti nello ZIP; non sono presenti interfacce
-dell’app ricostruite. Le transizioni riguardano sezioni, controlli e galleria, senza animare dati o transazioni.
+dell’app ricostruite. Le transizioni accompagnano sezioni, capitoli e
+visualizzatore; il lieve movimento dell’apertura segue lo scorrimento.
+Non sono animati dati o transazioni. DM Sans locale è rimasto il font del
+sito, con scala e pesi rivisti.
 Non sono state generate o ritoccate immagini.
 
 Controllo indipendente del 15 ottobre 2026: tutti gli otto PNG presenti in
