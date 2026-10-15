@@ -35,13 +35,15 @@ Se il link esiste già, riusalo verificando la destinazione. Apri `http://localh
 
 ## Immagini e transizioni
 
-Il titolare ha fornito `Nuova cartella.zip`: sei schermate promozionali in tema chiaro (1080 × 1920), una feature graphic (1024 × 500) e una copertina. Il sito usa solo i sei originali `store-*.png` in `site/assets/screenshots/` e `site/assets/feature-graphic.png` per marchio e Open Graph. La copertina non è usata. I sette PNG sono copie integre dei file ricevuti: testi, importi e controlli restano invariati.
+Il titolare ha fornito `Nuova cartella.zip`: sei schermate promozionali in tema chiaro (1080 × 1920), una feature graphic (1024 × 500) e una copertina. Il sito usa solo i sei originali `store-*.png` in `site/assets/screenshots/` e `site/assets/feature-graphic.png` per marchio e Open Graph. La copertina non è usata. I sette PNG sono copie identiche dei file ricevuti. Il sito inquadra via CSS la sola interfaccia dell’app, escludendo titoli promozionali e margini viola del poster; nessun file immagine è modificato o rigenerato.
 
 L’intestazione contiene il marchio e tre collegamenti: Funzionalità, Privacy e FAQ. L’apertura presenta la schermata Mese e il pulsante Google Play. Due sezioni illustrano Spese e Obiettivi, ciascuna con una sola schermata; una galleria compatta raccoglie Anno, CSV e Impostazioni. Seguono privacy, otto FAQ e un invito finale a scaricare l’app. DM Sans locale è l’unica famiglia tipografica, con una gerarchia semplice di dimensioni e pesi.
 
-La rifinitura tipografica mantiene questa struttura: colonne delle funzioni più vicine, titoli con spaziatura meno serrata e a capo bilanciati, testi secondari da 15 px. Le distanze tra le sezioni sono state ridotte in modo contenuto; le schermate su telefono mantengono le dimensioni precedenti.
+La rifinitura tipografica mantiene questa struttura: colonne delle funzioni più vicine, titoli con spaziatura meno serrata e a capo bilanciati, testi secondari da 15 px. Le distanze tra le sezioni sono state ridotte in modo contenuto.
 
-Ogni schermata si apre in un visualizzatore a tutto schermo: l’immagine parte da 720 px di larghezza su telefono, fino a 1080 px su desktop, e si può scorrere per leggere i dettagli. I controlli permettono zoom, adattamento alla larghezza, vista 1:1 e apertura dell’originale. È disponibile anche il trascinamento con il mouse e lo scorrimento touch nativo. Senza JavaScript i collegamenti aprono direttamente i PNG.
+Le miniature e il visualizzatore mostrano la stessa area dell’app di 792 × 1424 px: origine (144, 401) nei PNG, oppure (144, 315) per Entrate/uscite. Una maschera con angoli di 48 px nelle coordinate originali esclude i triangoli viola esterni all’interfaccia. I pixel dell’app restano quelli forniti.
+
+Ogni schermata si apre in un visualizzatore a tutto schermo: l’area dell’app parte da 720 px di larghezza su telefono, fino a 792 px su desktop, e si può scorrere per leggere i dettagli. I controlli permettono zoom, adattamento alla larghezza, vista 1:1 e apertura del poster originale. A 1:1 l’area visibile dell’app misura 792 px e ogni pixel sorgente corrisponde a un pixel CSS. Sono disponibili trascinamento con il mouse e scorrimento touch nativo. Senza JavaScript i collegamenti aprono il PNG originale completo di titolo e margini promozionali.
 
 Le sezioni compaiono una sola volta con una breve dissolvenza e uno spostamento di 16 px in 600 ms. La preferenza di sistema per il movimento ridotto disattiva l’effetto. Non sono presenti schermate persistenti durante lo scorrimento, schede a selezione, indicatori di lettura o parallasse.
 

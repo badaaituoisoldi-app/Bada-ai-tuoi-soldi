@@ -66,7 +66,45 @@ async function screenshotLinks(page) {
   assert.equal(await links.count(), 6, 'One hero, two feature and three gallery screenshots');
   const hrefs = await links.evaluateAll(elements => elements.map(element => element.getAttribute('href')));
   assert.deepEqual([...new Set(hrefs)].sort(), suppliedImages.filter(path => path.includes('/screenshots/')).sort(), 'All six original screenshot sources are linked');
-  for (const link of await links.all()) assert.equal(await link.getAttribute('href'), await link.locator('img').getAttribute('src'), 'Thumbnail and viewer use the same original');
+  for (const link of await links.all()) {
+    const href = await link.getAttribute('href');
+    assert.equal(href, await link.locator('img').getAttribute('src'), 'Thumbnail and viewer use the same original');
+    const crop = (await link.getAttribute('data-crop')).trim().split(/\s+/).map(Number);
+    assert.deepEqual(crop, [144, href.includes('store-3-uscite') ? 315 : 401, 792, 1424], 'Each crop matches the supplied app screen bounds');
+  }
+}
+async function cropGeometry(container, crop, state) {
+  const geometry = await container.evaluate(element => {
+    const box = element.getBoundingClientRect();
+    const image = element.querySelector('img');
+    const source = image.getBoundingClientRect();
+    const style = getComputedStyle(element);
+    return {
+      width: box.width, height: box.height,
+      sourceWidth: source.width, sourceHeight: source.height,
+      offsetX: source.left - box.left, offsetY: source.top - box.top,
+      naturalWidth: image.naturalWidth, naturalHeight: image.naturalHeight,
+      clipped: style.overflowX === 'hidden' && style.overflowY === 'hidden',
+      radius: parseFloat(style.borderTopLeftRadius),
+    };
+  });
+  const [x, y, width, height] = crop;
+  const scale = geometry.width / width;
+  const near = (actual, expected, label) => assert(Math.abs(actual - expected) < 1.5, `${state}: ${label} is ${actual}, expected ${expected}`);
+  near(geometry.height, height * scale, 'crop height');
+  near(geometry.sourceWidth, 1080 * scale, 'original image width');
+  near(geometry.sourceHeight, 1920 * scale, 'original image height');
+  near(geometry.offsetX, -x * scale, 'horizontal source offset');
+  near(geometry.offsetY, -y * scale, 'vertical source offset');
+  assert.equal(geometry.naturalWidth, 1080);
+  assert.equal(geometry.naturalHeight, 1920);
+  assert(geometry.clipped && geometry.radius > 0, `${state}: rounded crop hides poster areas`);
+}
+async function thumbnailCrops(page) {
+  for (const link of await page.locator('.screenshot-link').all()) {
+    const crop = (await link.getAttribute('data-crop')).trim().split(/\s+/).map(Number);
+    await cropGeometry(link, crop, `Thumbnail ${await link.getAttribute('data-title')}`);
+  }
 }
 async function loadVisibleImages(page) {
   for (const image of await page.locator('main img').all()) {
@@ -78,7 +116,8 @@ async function loadVisibleImages(page) {
 }
 async function openViewer(page, opener) {
   await opener.focus();
-  const thumbWidth = await opener.locator('img').evaluate(element => element.getBoundingClientRect().width);
+  const thumbWidth = await opener.evaluate(element => element.getBoundingClientRect().width);
+  const crop = (await opener.getAttribute('data-crop')).trim().split(/\s+/).map(Number);
   const priorOverflow = await page.evaluate(() => document.body.style.overflow);
   await page.keyboard.press('Enter');
   const dialog = page.locator('.screenshot-dialog');
@@ -86,15 +125,17 @@ async function openViewer(page, opener) {
   const entryDuration = await dialog.evaluate(element => Math.max(0, ...element.getAnimations().map(animation => Number(animation.effect.getTiming().duration))));
   assert(await dialog.evaluate(element => element.contains(document.activeElement)), 'Focus stays in the dialog');
   const image = dialog.locator('img.viewer-image');
+  const frame = dialog.locator('.viewer-frame');
   await loaded(page, image);
   await page.waitForFunction(() => !document.querySelector('.viewer-stage').hasAttribute('aria-busy'));
   const source = new URL(await opener.getAttribute('href'), baseURL).href;
   assert.equal(await image.getAttribute('src'), source);
   assert.equal(await page.locator('#viewer-original').getAttribute('href'), source);
   assert.equal(await image.getAttribute('alt'), await opener.locator('img').getAttribute('alt'));
-  assert(await image.evaluate((element, width) => element.getBoundingClientRect().width > width * 1.5, thumbWidth), 'Viewer image is substantially larger than the thumbnail');
+  assert(await frame.evaluate((element, width) => element.getBoundingClientRect().width > width * 1.5, thumbWidth), 'Visible app screen is substantially larger than the thumbnail');
+  await cropGeometry(frame, crop, 'Initial viewer crop');
   assert.equal(await page.evaluate(() => document.body.style.overflow), 'hidden');
-  return { dialog, image, priorOverflow, entryDuration };
+  return { dialog, image, frame, crop, priorOverflow, entryDuration };
 }
 async function closeViewer(page, opener, state, method) {
   if (method === 'Escape') await page.keyboard.press('Escape');
@@ -104,7 +145,7 @@ async function closeViewer(page, opener, state, method) {
   assert.equal(await page.locator('.screenshot-open').count(), 0, 'Closing restores document scrolling');
 }
 async function zoomAndPan(page, state) {
-  const width = () => state.image.evaluate(element => element.getBoundingClientRect().width);
+  const width = () => state.frame.evaluate(element => element.getBoundingClientRect().width);
   let previous = await width();
   await page.locator('#viewer-zoom-in').click();
   assert(await width() > previous, 'Zoom plus increases actual rendered width');
@@ -117,9 +158,14 @@ async function zoomAndPan(page, state) {
     return stage.clientWidth - parseFloat(style.paddingLeft) - parseFloat(style.paddingRight);
   });
   assert(await width() <= available + 1, `Fit image width ${await width()} fits available width ${available}`);
+  await cropGeometry(state.frame, state.crop, 'Fit viewer crop');
   await page.locator('#viewer-actual').click();
-  assert.equal(Math.round(await width()), 1080, '1:1 uses the original 1080px image width');
+  assert.equal(Math.round(await width()), 792, '1:1 uses the original 792px app screen width');
+  assert.equal(Math.round(await state.image.evaluate(element => element.getBoundingClientRect().width)), 1080, '1:1 retains the full original source behind the crop');
+  await cropGeometry(state.frame, state.crop, '1:1 viewer crop');
   assert.equal(await page.locator('#viewer-zoom').textContent(), '100%');
+  await page.locator('#viewer-zoom-in').click();
+  await page.locator('#viewer-zoom-in').click();
   await page.locator('#viewer-zoom-in').click();
   await page.locator('#viewer-zoom-in').click();
   const stage = page.locator('.viewer-stage');
@@ -141,7 +187,7 @@ async function zoomAndPan(page, state) {
   await page.keyboard.press('0');
   assert(await width() <= available + 1, 'Keyboard shortcut fits the screenshot');
   await page.keyboard.press('1');
-  assert.equal(Math.round(await width()), 1080, 'Keyboard shortcut restores 1:1');
+  assert.equal(Math.round(await width()), 792, 'Keyboard shortcut restores crop at 1:1');
 }
 
 (async () => {
@@ -176,6 +222,7 @@ async function zoomAndPan(page, state) {
       assert.equal(await page.locator('.screenshots-grid figure').count(), 3);
       await screenshotLinks(page);
       await loadVisibleImages(page);
+      await thumbnailCrops(page);
       await visibleContent(page, `reduced motion at ${width}px`);
       await noOverflow(page, width, 'page and internal screenshot rail');
       await audit(page, `${width}px`);
@@ -208,10 +255,15 @@ async function zoomAndPan(page, state) {
       await zoomAndPan(page, state);
       await closeViewer(page, opener, state, 'Escape');
       await noOverflow(page, width, 'after zoom viewer');
-      const tool = page.locator('.screenshots-grid .screenshot-link').nth(1);
-      const toolState = await openViewer(page, tool);
-      assert.equal(await page.locator('#screenshot-title').textContent(), 'Importazione CSV');
-      await closeViewer(page, tool, toolState, 'button');
+      for (const [selector, title] of [
+        ['.feature-media .screenshot-link', 'Entrate e uscite'],
+        ['.screenshots-grid .screenshot-link', 'Importazione CSV'],
+      ]) {
+        const link = title === 'Entrate e uscite' ? page.locator(selector).first() : page.locator(selector).nth(1);
+        const nextState = await openViewer(page, link);
+        assert.equal(await page.locator('#screenshot-title').textContent(), title);
+        await closeViewer(page, link, nextState, 'button');
+      }
       console.log(`Verified real zoom, fit, 1:1, pan and close at ${width}px`);
     }
 
@@ -249,12 +301,13 @@ async function zoomAndPan(page, state) {
     await visibleContent(staticPage, 'JavaScript disabled');
     assert(await staticPage.evaluate(() => [...document.images].every(image => image.complete && image.naturalWidth > 0)), 'All original images load without JavaScript');
     await screenshotLinks(staticPage);
+    await thumbnailCrops(staticPage);
     await staticPage.locator('details summary').first().click();
     assert(await staticPage.locator('details').first().evaluate(element => element.open));
     await noOverflow(staticPage, 390, 'JavaScript disabled');
     assert.equal(errors.length, 0, JSON.stringify(errors));
     assert(requests.every(url => url.startsWith(new URL(baseURL).origin)), 'No external asset requests');
-    console.log(`PASS: ${viewports.length} widths, original PNG paths${process.env.ORIGINAL_ASSETS_DIR ? '/hashes' : ''}, six screenshots and a static header, real zoom/fit/1:1/pan/keyboard scrolling, viewer cleanup/focus, one-time reveals, reduced motion, native no-JS content/FAQ, keyboard navigation and axe WCAG A/AA.`);
+    console.log(`PASS: ${viewports.length} widths, original PNG paths${process.env.ORIGINAL_ASSETS_DIR ? '/hashes' : ''}, six correctly cropped app screenshots, real zoom/fit/1:1/pan/keyboard scrolling, viewer crop/source/cleanup/focus, one-time reveals, reduced motion, native no-JS content/FAQ, keyboard navigation and axe WCAG A/AA.`);
   } finally {
     await browser.close();
   }

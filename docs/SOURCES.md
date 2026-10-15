@@ -82,10 +82,16 @@ come immagini della scheda Play Store. Contiene sei schermate promozionali
 `copertina-onde.png` (1080 × 1920).
 
 I sei originali `store-*.png` sono conservati in
-`site/assets/screenshots/` e usati integri. L’apertura mostra Mese; le due
+`site/assets/screenshots/`, identici ai file ricevuti. L’apertura mostra Mese; le due
 sezioni principali presentano Entrate/uscite e Obiettivi. La galleria
-compatta contiene Anno, Importazione e Impostazioni. Il visualizzatore
-apre gli stessi PNG originali con zoom e collegamento diretto alla fonte.
+compatta contiene Anno, Importazione e Impostazioni. Miniature e
+visualizzatore inquadrano via CSS la sola area dell’app,
+escludendo titolo promozionale e margini viola: 792 × 1424 px da (144, 401),
+oppure da (144, 315) per Entrate/uscite. Una maschera con angoli di 48 px
+nelle coordinate sorgente esclude i triangoli viola agli angoli. I file PNG
+restano invariati e non viene rigenerata alcuna parte dell’interfaccia.
+Il visualizzatore offre zoom sulla stessa area; il collegamento al poster
+originale e il comportamento senza JavaScript aprono il PNG completo.
 La feature graphic originale è in `site/assets/feature-graphic.png` e serve
 per Open Graph e per il logo inquadrato via CSS nell’intestazione e nel
 footer. La copertina ricevuta non è usata nel sito e non è inclusa negli

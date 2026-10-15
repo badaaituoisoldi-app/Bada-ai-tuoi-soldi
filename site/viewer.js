@@ -1,7 +1,7 @@
 "use strict";
 
-// The source is always the user's original PNG. Links still work without this
-// enhancement, and modified clicks retain the browser's normal behaviour.
+// The source is always the user's original PNG. A cropped viewport hides the
+// Play Store poster without editing its pixels. Links keep their native fallback.
 (() => {
   const dialog = document.querySelector(".screenshot-dialog");
   if (!dialog || typeof dialog.showModal !== "function") return;
@@ -34,7 +34,10 @@
   const minScale = 0.25;
   const maxScale = 2;
   let source = null;
-  let naturalWidth = 1080;
+  let frame = null;
+  let sourceWidth = 1080;
+  let sourceHeight = 1920;
+  let crop = { x: 0, y: 0, width: 1080, height: 1920 };
   let scale = 1;
   let returnFocus = null;
   let priorOverflow = "";
@@ -45,6 +48,21 @@
   let openVersion = 0;
   let drag = null;
   let sizing = "initial";
+
+  function readCrop(value, width, height) {
+    const fullImage = { x: 0, y: 0, width, height };
+    if (!value || !/^\d+(?:\s+\d+){3}$/.test(value.trim())) return fullImage;
+    const [x, y, cropWidth, cropHeight] = value.trim().split(/\s+/).map(Number);
+    if (
+      ![x, y, cropWidth, cropHeight].every(Number.isSafeInteger) ||
+      cropWidth <= 0 ||
+      cropHeight <= 0 ||
+      x + cropWidth > width ||
+      y + cropHeight > height
+    )
+      return fullImage;
+    return { x, y, width: cropWidth, height: cropHeight };
+  }
 
   function availableWidth() {
     const styles = window.getComputedStyle(canvas);
@@ -65,17 +83,28 @@
   }
 
   function setScale(nextScale, reset = false) {
-    if (!source || !dialog.open) return;
+    if (!source || !frame || !dialog.open) return;
     const stageBox = stage.getBoundingClientRect();
-    const oldBox = source.getBoundingClientRect();
+    const oldBox = frame.getBoundingClientRect();
     const centerX = stageBox.left + stage.clientLeft + stage.clientWidth / 2;
     const centerY = stageBox.top + stage.clientTop + stage.clientHeight / 2;
     const imageX = (centerX - oldBox.left) / scale;
     const imageY = (centerY - oldBox.top) / scale;
 
     scale = Math.min(maxScale, Math.max(minScale, nextScale));
-    source.style.width = `${Math.round(naturalWidth * scale)}px`;
-    source.style.height = "auto";
+    frame.style.width = `${crop.width * scale}px`;
+    frame.style.height = `${crop.height * scale}px`;
+    const cropped =
+      crop.x > 0 ||
+      crop.y > 0 ||
+      crop.width < sourceWidth ||
+      crop.height < sourceHeight;
+    // The supplied app screen has a 48 px corner radius at its natural size.
+    frame.style.borderRadius = cropped ? `${48 * scale}px` : "0";
+    source.style.width = `${sourceWidth * scale}px`;
+    source.style.height = `${sourceHeight * scale}px`;
+    source.style.left = `${-crop.x * scale}px`;
+    source.style.top = `${-crop.y * scale}px`;
     source.style.maxWidth = "none";
     zoomLabel.value = `${Math.round(scale * 100)}%`;
     zoomLabel.textContent = zoomLabel.value;
@@ -92,7 +121,7 @@
       stage.scrollTop = 0;
     } else {
       // Keep the source pixel beneath the viewport centre in the same place.
-      const nextBox = source.getBoundingClientRect();
+      const nextBox = frame.getBoundingClientRect();
       stage.scrollLeft += nextBox.left + imageX * scale - centerX;
       stage.scrollTop += nextBox.top + imageY * scale - centerY;
     }
@@ -100,12 +129,12 @@
 
   function fit() {
     sizing = "fit";
-    setScale(availableWidth() / naturalWidth, true);
+    setScale(availableWidth() / crop.width, true);
   }
 
   function updateInitialSize() {
-    const width = Math.min(1080, Math.max(availableWidth(), 720));
-    setScale(width / naturalWidth, true);
+    const width = Math.min(crop.width, Math.max(availableWidth(), 720));
+    setScale(width / crop.width, true);
   }
 
   function resetDialog() {
@@ -117,6 +146,7 @@
     closingAnimation = null;
     canvas.replaceChildren();
     source = null;
+    frame = null;
     stage.removeAttribute("aria-busy");
     dialog.classList.remove("is-opening", "is-closing");
     document.body.style.overflow = priorOverflow;
@@ -182,13 +212,22 @@
       image.alt = thumbnail?.alt || title.textContent;
       image.decoding = "async";
       image.draggable = false;
-      naturalWidth = thumbnail?.naturalWidth || 1080;
-      image.width = naturalWidth;
-      image.height = thumbnail?.naturalHeight || 1920;
+      image.style.position = "absolute";
+      image.style.margin = "0";
+      sourceWidth = thumbnail?.naturalWidth || 1080;
+      sourceHeight = thumbnail?.naturalHeight || 1920;
+      crop = readCrop(link.dataset.crop, sourceWidth, sourceHeight);
+      image.width = sourceWidth;
+      image.height = sourceHeight;
+      frame = document.createElement("div");
+      frame.className = "viewer-frame";
+      frame.style.position = "relative";
+      frame.style.overflow = "hidden";
+      frame.append(image);
       source = image;
       sizing = "initial";
       scale = 1;
-      canvas.replaceChildren(image);
+      canvas.replaceChildren(frame);
       updateInitialSize();
 
       image.addEventListener(
@@ -196,9 +235,11 @@
         () => {
           if (version !== openVersion || source !== image || !dialog.open)
             return;
-          naturalWidth = image.naturalWidth;
-          image.width = image.naturalWidth;
-          image.height = image.naturalHeight;
+          sourceWidth = image.naturalWidth;
+          sourceHeight = image.naturalHeight;
+          crop = readCrop(link.dataset.crop, sourceWidth, sourceHeight);
+          image.width = sourceWidth;
+          image.height = sourceHeight;
           stage.removeAttribute("aria-busy");
           if (sizing === "initial") updateInitialSize();
           else if (sizing === "fit") fit();
@@ -215,9 +256,10 @@
           const message = document.createElement("p");
           message.className = "viewer-error";
           message.textContent =
-            "Impossibile caricare la schermata. Prova il collegamento «Apri originale».";
+            "Impossibile caricare la schermata. Prova il collegamento «File originale».";
           canvas.replaceChildren(message);
           source = null;
+          frame = null;
         },
         { once: true },
       );

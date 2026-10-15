@@ -248,19 +248,34 @@ h1 em {
   justify-self: center;
 }
 .screenshot-link {
+  --crop-x: 144;
+  --crop-y: 401;
+  --crop-width: 792;
+  --crop-height: 1424;
   display: block;
+  position: relative;
+  aspect-ratio: var(--crop-width) / var(--crop-height);
+  overflow: hidden;
+  border-radius: 6.060606% / 3.370787%;
+  background: var(--bg);
+  box-shadow: 0 8px 24px #0f172a0d;
   cursor: zoom-in;
-}
-.screenshot-link img {
-  width: 100%;
-  height: auto;
-  border: 1px solid #ded8ed;
-  border-radius: 12px;
   transition:
     transform 300ms ease,
     box-shadow 300ms ease;
 }
-.screenshot-link:hover img {
+.screenshot-link[data-crop="144 315 792 1424"] {
+  --crop-y: 315;
+}
+.screenshot-link img {
+  position: absolute;
+  width: calc(100% * 1080 / var(--crop-width));
+  max-width: none;
+  height: auto;
+  left: calc(-100% * var(--crop-x) / var(--crop-width));
+  top: calc(-100% * var(--crop-y) / var(--crop-height));
+}
+.screenshot-link:hover {
   transform: translateY(-3px);
   box-shadow: 0 10px 24px #24203912;
 }
@@ -679,12 +694,18 @@ h2 {
   padding: 24px;
   box-sizing: border-box;
 }
+.viewer-frame {
+  position: relative;
+  overflow: hidden;
+  margin-inline: auto;
+  border-radius: 6.060606% / 3.370787%;
+}
 .viewer-image {
+  position: absolute;
   display: block;
   max-width: none;
   height: auto;
-  margin-inline: auto;
-  border-radius: 8px;
+  margin: 0;
 }
 .viewer-error {
   padding: 30px;
@@ -1119,7 +1140,7 @@ h2 {
     transform: none;
   }
   .button:hover,
-  .screenshot-link:hover img {
+  .screenshot-link:hover {
     transform: none;
   }
 }
