@@ -908,6 +908,10 @@ h1 em {
   .mobile-only {
     display: inline;
   }
+  /* On phones the fourth item gets its own line instead of a dangling dot. */
+  .hero-trust .trust-separator {
+    display: none;
+  }
   .overview {
     padding-block: 44px;
   }

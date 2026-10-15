@@ -20,7 +20,6 @@ def data_uri(relative_path):
 
 def build_html():
     html = (SITE / "index.html").read_text()
-    html = html.replace("<head>", '<head>\n    <link rel="icon" href="data:," />', 1)
     css = (SITE / "styles.css").read_text()
     css = re.sub(
         r'url\(["\']?(assets/[^)"\']+)["\']?\)',
@@ -50,13 +49,13 @@ def build_html():
         lambda match: match[1] + '="' + data_uri(match[2]) + '"',
         html,
     )
+    html = html.replace('id="viewer-original"', 'id="viewer-original" download="Bada-originale.png"')
     # Browsers block navigation to data: images, but allow saving them.
     html = re.sub(
         r'(<a\b[^>]*href="data:image/png;base64,[^"]+")',
-        lambda match: match[1] + ' download="Bada-schermata.png"',
+        lambda match: match[1] if " download=" in match[1] else match[1] + ' download="Bada-schermata.png"',
         html,
     )
-    html = html.replace('id="viewer-original"', 'id="viewer-original" download="Bada-originale.png"')
     # Keep the locally bundled font's redistribution notice in the single file.
     license_text = (SITE / "assets/fonts/LICENSE.txt").read_text()
     html = html.replace("</head>", "<!--\nFont license:\n" + license_text + "\n-->\n</head>")
