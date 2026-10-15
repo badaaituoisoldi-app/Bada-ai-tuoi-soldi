@@ -4,7 +4,15 @@ Landing page italiana per l’app Android Bada!. HTML, CSS e JavaScript statici,
 
 ## Avvio locale
 
-Per vedere l’anteprima senza installazioni, estrai lo ZIP del repository e apri `site/index.html` nel browser. Mantieni insieme tutti i file della cartella `site`, che contiene anche immagini e font.
+Per vedere l’anteprima senza installazioni, usa **`downloads/bada-anteprima.zip`**: estrai `Bada.html` e aprilo nel browser. È un file unico con stile, font, immagini e JavaScript incorporati; non richiede cartelle di supporto. Il visualizzatore mantiene lo zoom e il ritaglio degli screenshot. «File originale» salva il PNG originale incluso.
+
+Per rigenerare questo pacchetto dopo una modifica al sito:
+
+```sh
+python3 scripts/build_preview.py
+```
+
+Il sorgente per la pubblicazione resta in `site/`. Se apri direttamente `site/index.html`, mantieni insieme tutti i file di quella cartella: il solo `index.html` non include gli stili e le immagini.
 
 Per usare un server locale, sono sufficienti Python 3 e un browser:
 
@@ -33,6 +41,8 @@ Se il link esiste già, riusalo verificando la destinazione. Apri `http://localh
 - `site/assets/`: screenshot e immagini originali forniti dal titolare, DM Sans locale con licenza OFL.
 - `.github/workflows/pages.yml`: distribuzione con azioni ufficiali GitHub Pages.
 - `tests/browser.cjs`: verifiche browser ripetibili, incluse accessibilità automatica.
+- `scripts/build_preview.py`: genera lo ZIP con un unico HTML e include la licenza del font.
+- `tests/preview.cjs`: verifica il file estratto dal pacchetto in isolamento, senza asset adiacenti.
 - `docs/SOURCES.md`: fonti consultate, provenienza degli asset e limiti.
 - `docs/VALIDATION.md`: controlli eseguiti e risultati.
 
@@ -61,9 +71,10 @@ Il sito non richiede Node. Per eseguire i soli test, installa gli strumenti fuor
 ```sh
 npm install --prefix /tmp/bada-tools --cache /tmp/npm-cache playwright @axe-core/playwright
 NODE_PATH=/tmp/bada-tools/node_modules node tests/browser.cjs
+NODE_PATH=/tmp/bada-tools/node_modules node tests/preview.cjs
 ```
 
-Il server deve essere in esecuzione al percorso `/Bada-ai-tuoi-soldi/` sulla porta 8000. È usato Chromium in `/usr/bin/chromium`; personalizza con `CHROMIUM_PATH`. Puoi cambiare l’indirizzo con `SITE_URL`. Le immagini dei test vengono salvate in `/tmp/bada-320.png`, `/tmp/bada-360.png`, `/tmp/bada-390.png`, `/tmp/bada-430.png`, `/tmp/bada-768.png`, `/tmp/bada-1024.png`, `/tmp/bada-1440.png`.
+Per `browser.cjs` il server deve essere in esecuzione al percorso `/Bada-ai-tuoi-soldi/` sulla porta 8000. `preview.cjs` estrae il solo HTML dal pacchetto e avvia autonomamente un server temporaneo. È usato Chromium in `/usr/bin/chromium`; personalizza con `CHROMIUM_PATH`. Puoi cambiare l’indirizzo del primo test con `SITE_URL`. Le immagini dei test vengono salvate in `/tmp/bada-320.png`, `/tmp/bada-360.png`, `/tmp/bada-390.png`, `/tmp/bada-430.png`, `/tmp/bada-768.png`, `/tmp/bada-1024.png`, `/tmp/bada-1440.png`.
 
 Controllare anche visivamente desktop e telefono, testi e asset dopo ogni modifica. Il controllo automatico di accessibilità non sostituisce una verifica manuale con tecnologie assistive.
 

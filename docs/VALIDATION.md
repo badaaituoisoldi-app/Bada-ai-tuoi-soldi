@@ -41,6 +41,25 @@ dell’ambiente blocca tale protocollo con `ERR_BLOCKED_BY_ADMINISTRATOR`.
 I controlli sopra usano il server statico; tutti gli asset necessari
 sono locali e inclusi nell’archivio.
 
+## Anteprima in un unico file
+
+Lo screenshot inviato dal titolare mostrava HTML privo di CSS: font del
+browser, collegamenti senza formattazione e icona SVG fuori scala. Il
+pacchetto `downloads/bada-anteprima.zip` elimina la dipendenza da file
+adiacenti: contiene soltanto `Bada.html`, con CSS, JavaScript, font, licenza
+del font e PNG incorporati. Le sei schermate incorporate conservano gli
+stessi byte dei PNG sorgente. I collegamenti ai poster originali usano
+`download`, evitando la navigazione verso un indirizzo `data:`.
+
+`tests/preview.cjs` estrae il solo HTML in una cartella temporanea e lo
+serve senza altri file. Verifica superata a 320 e 1440 px in entrambi i
+temi: CSS attivo, DM Sans caricato, sei PNG a risoluzione originale,
+assenza di overflow e di richieste HTTP aggiuntive. Superati cambio tema,
+zoom, adattamento, vista 1:1, chiusura e focus, download del PNG originale
+con verifica SHA-256 e otto FAQ da tastiera. Anche senza JavaScript stile,
+immagini, tema di sistema e FAQ restano disponibili. Questa prova isola
+la completezza del file; non modifica il limite `file://` sopra indicato.
+
 La scheda Google Play e l’informativa privacy remote avevano restituito
 HTTP 403 nell’ambiente: il loro contenuto e la versione corrente dello store
 non sono stati verificati. La distribuzione GitHub Pages richiede una
