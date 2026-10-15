@@ -8,7 +8,7 @@ const baseURL = process.env.SITE_URL || 'http://127.0.0.1:8000/Bada-ai-tuoi-sold
 const siteRoot = resolve(__dirname, '../site');
 const viewports = [320, 360, 390, 430, 768, 1024, 1440];
 const suppliedImages = [
-  'assets/feature-graphic.png',
+  'assets/feature-graphic.png', 'assets/icon.png',
   'assets/screenshots/store-1-mese.png', 'assets/screenshots/store-2-impostazioni.png',
   'assets/screenshots/store-3-uscite.png', 'assets/screenshots/store-4-obiettivi.png',
   'assets/screenshots/store-5-anno.png', 'assets/screenshots/store-6-import.png',
