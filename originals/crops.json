@@ -1,0 +1,77 @@
+[
+  {
+    "file": "disponible.webp",
+    "source": "store-1-mese.png",
+    "box": [
+      168,
+      537,
+      913,
+      868
+    ],
+    "width": 745,
+    "height": 331,
+    "bytes": 20858,
+    "original_sha256": "88770f861ebdd32a0e894a1319a9347436b96fb0c0f3e12d46e981d0fb0401df",
+    "rgb_sha256": "7dd793d2ef232a8a1982ee33f029fdc09e2c637ba06d34d314623240b9ded658"
+  },
+  {
+    "file": "movements.webp",
+    "source": "store-3-uscite.png",
+    "box": [
+      168,
+      634,
+      912,
+      1197
+    ],
+    "width": 744,
+    "height": 563,
+    "bytes": 24358,
+    "original_sha256": "40a980fdd73df15a681d43f34607cf248ca4e94453153e6d49e669ccf4f86117",
+    "rgb_sha256": "82c14885ce9cadbbd1b41dbe25c7439680e0cc665ebbe7c8fdcadb2cdb97f1a9"
+  },
+  {
+    "file": "goals.webp",
+    "source": "store-4-obiettivi.png",
+    "box": [
+      168,
+      707,
+      912,
+      1276
+    ],
+    "width": 744,
+    "height": 569,
+    "bytes": 25214,
+    "original_sha256": "d9289434f2f7e43e14c4765e59e30281298270dfd153819d685cb124ac7c1c11",
+    "rgb_sha256": "6002f41404edb564c485a96023edde4e117293254033fcd645aa96dc7842eda4"
+  },
+  {
+    "file": "import.webp",
+    "source": "store-6-import.png",
+    "box": [
+      168,
+      428,
+      912,
+      1008
+    ],
+    "width": 744,
+    "height": 580,
+    "bytes": 31172,
+    "original_sha256": "584ea24c9437e2ed92c212161a765200307a457ffe783eb35633d58e782baa36",
+    "rgb_sha256": "3adf19b89eead141bdd7a5c33e2c9f444749b3828bac9fdcb8e7662a1338d50c"
+  },
+  {
+    "file": "year.webp",
+    "source": "store-5-anno.png",
+    "box": [
+      168,
+      938,
+      912,
+      1447
+    ],
+    "width": 744,
+    "height": 509,
+    "bytes": 19868,
+    "original_sha256": "d3e4966282d41ad4dc7021116e76e12fbf7f7f48e808bfe0840d4762d209689d",
+    "rgb_sha256": "c3d279751798d98ceff5bcddc5a659fae5dadea4bc662ade0be242fe2f100f3d"
+  }
+]
