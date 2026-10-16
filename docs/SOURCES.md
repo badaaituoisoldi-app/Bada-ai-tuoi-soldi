@@ -1,131 +1,67 @@
-# Fonti e limiti della verifica
+# Fonti e limiti della ricostruzione
 
-Consultazione delle fonti: **14 ottobre 2026**. Asset aggiornati il **15 ottobre 2026**.
-Questo documento distingue le evidenze disponibili dai contenuti non verificati.
+Verifica documentale del **16 ottobre 2026**. Il brief di Antonio, `prompt-sito-da-zero-2026-10-16.md`, autorizza pagine IT/EN senza JavaScript, ritagli WebP lossless e consegna tramite pull request senza merge.
 
-## App Bada!
+## Repository dell’app, consultato in sola lettura
 
-Repository di riferimento, consultato senza modificarlo:
-<https://github.com/badaaituoisoldi-app/Bada---ai-tuoi-soldi>.
-Commit esaminato: `1a16a1a6d61b83b2aa37c3fc5e34ee341c90b7f5`.
+Fonte: `badaaituoisoldi-app/Bada---ai-tuoi-soldi`, privato. Non è stato modificato né ripubblicato il codice dell’app.
 
-Sono stati letti `AGENTS.md`, `CLAUDE.md`, `README.md`, `CHANGELOG.md`,
-`package.json`, `app.json`, `src/constants.ts`, `src/ui/tokens.ts` e
-`docs/privacy-policy.md`. Le informazioni su funzioni e privacy derivano
-da questi documenti, non da una verifica dell'app installata.
+- Baseline delle funzionalità: commit `fd0a2a4245043dbb06967dcb188fbaedc181e640`, release **1.2.1**, confermata da `app.json`, `src/constants.ts` e `CHANGELOG.md`.
+- HEAD consultato: `9fb256c3b0aac37f614060133ce4da7295eb9e34`, versione **1.2.2**. Il brief la indica come non ancora pubblicata: le sue correzioni non sono presentate come già distribuite.
+- `CLAUDE.md` è identico nelle due revisioni. La privacy sorgente aggiornata, `docs/privacy-policy.md`, è stata letta anche a HEAD per le precisazioni su diagnostica e backup.
 
-Il changelog identifica **1.0.0, 1 settembre 2026**, come prima versione
-pubblica e documenta **1.2.1, 27 settembre 2026**, come versione più recente.
-La versione 1.2.1 coincide con i manifest del repository. Questo è un
-riscontro documentale delle versioni: la versione attualmente distribuita
-da Google Play non è stata verificata. Le voci sotto «Non rilasciato» non
-sono usate come promessa di funzionalità già disponibili.
+È un audit dei documenti e dei sorgenti: l’app non è stata compilata o provata su telefono e il manifest del pacchetto 1.2.1 distribuito non è stato ispezionato. La gratuità corrente, la versione pubblicata e la presentazione personale di Antonio sono informazioni del brief; il repository non prova il prezzo o la distribuzione effettiva su Play.
 
-Le funzioni documentate comprendono budget mensile, entrate e uscite,
-categorie, spese fisse, obiettivi, bilancio annuale, grafici, importazione ed
-esportazione CSV e backup automatico in una cartella scelta dall'utente.
-L'app è solo Android, con interfaccia italiana e inglese. Non sono promessi
-collegamenti bancari, sincronizzazione tra dispositivi o app web/iOS.
+| Contenuto della landing | Evidenze consultate nella 1.2.1, salvo indicazione |
+| --- | --- |
+| Android, offline, nessun account/server/pubblicità, IT/EN | `app.json`, `README.md`, `CLAUDE.md` |
+| Rimozione del permesso Internet nella release | `plugins/withOfflineManifest.js`, attivato in `app.json`; il debug mantiene la rete per gli strumenti di sviluppo |
+| Permessi ereditati, Firebase Messaging, launcher e attribuzione Play | `CLAUDE.md`, audit offline del 26 agosto e privacy sorgente a HEAD |
+| Apertura di link tramite browser esterno | `src/constants.ts` |
+| Entrate, uscite, categorie e spese fisse nei mesi selezionati | `README.md`, `src/domain/fixedExpenses/fixedExpense.actions.ts` |
+| Disponibile reale e quote residue degli obiettivi | `src/domain/planning/planning.selectors.ts`, `src/hooks/useAppDerivedState.ts`, `src/domain/planning/goals.ts` |
+| CSV, riconoscimento colonne, categorie per negozio e revisione | `src/services/csv/importTransactionsCsv.ts`, `src/features/csvImport/ColumnMapper.tsx`, `CsvImportReviewScreen.tsx`, `groupMovements.ts` |
+| Bilancio annuale e mese migliore/peggiore | `src/screens/AnnualBalanceTab.tsx`, dizionario italiano |
+| Esportazione dei movimenti CSV | `src/services/csv/buildTransactionsCsv.ts` |
+| Promemoria locale alle 20:00, modificabile e facoltativo | `src/features/settings/reminderSettings.ts`, `src/services/notifications.ts`, `src/navigation/NotificationManager.tsx` |
+| Tema, valuta senza conversioni, scorciatoia Aggiungi spesa | `README.md`, `src/shared/money/currencyFormat.ts`, `plugins/withAddExpenseShortcut.js` |
+| Backup giornaliero all’apertura, cartella e file unico | `src/hooks/useDailyAutoBackup.ts`, `src/services/storage/autoBackup.ts`, `fileBackup.ts` |
+| Ripristino selettivo e primo avvio facoltativo | `src/features/settings/backupSelection.ts`, `src/features/onboarding/useOnboardingRestore.ts`, `onboarding.steps.ts` |
+| Esporta diagnostica disponibile se esistono errori | `src/features/settings/components/VersionSection.tsx`, `hooks/useDiagnosticsActions.ts`, `src/services/diagnostics/diagnosticsSharing.ts` |
 
-L'informativa sorgente precisa che l'app non invia dati e funziona offline.
-CSV condivisi dall'utente, cartelle di backup eventualmente sincronizzate
-con servizi cloud e backup di sistema Android seguono invece le scelte
-dell'utente e del sistema. «Offline» non significa che un file esportato
-non possa mai uscire dal telefono.
+Il backup avviene una volta al giorno **quando si apre l’app**, non autonomamente in background. Non c’è esportazione manuale del backup completo. Il CSV è un’importazione manuale con riconoscimento euristico: non implica collegamento bancario o compatibilità garantita. Le quote sottratte dal disponibile sono quelle ancora da versare; il margine è applicato solo nei mesi in cui è attivo. Non vengono pubblicati esempi numerici o formule semplificate.
 
-## Accesso alle fonti pubbliche
+## Rete e privacy
 
-I tentativi di consultare la scheda Google Play, il sito Actual Budget,
-il sito Cashew e l'informativa privacy pubblicata hanno restituito **HTTP
-403** nell'ambiente di lavoro. Non sono stati verificati contenuti, immagini,
-prezzi, recensioni o versione corrente dello store attraverso tali pagine.
-L'informativa sorgente del repository non prova automaticamente che la copia
-pubblicata sia identica.
+L’assenza di `INTERNET` impedisce all’app di aprire connessioni di rete da sola. Non impedisce di aprire un browser esterno o di condividere un file per scelta dell’utente. Un vecchio audit del manifest conferma l’assenza di Internet in una build precedente, ma non è una nuova verifica del pacchetto distribuito 1.2.1.
 
-- Google Play: <https://play.google.com/store/apps/details?id=com.bada.aituoisoldi&hl=it>
-- Privacy pubblicata: <https://badaaituoisoldi-app.github.io/bada-privacy/Privacy-it.html>
-- Actual Budget: <https://actualbudget.org/>
-- Cashew: <https://cashewapp.web.app/>
+Firebase Messaging e altre voci possono essere ereditate dalle dipendenze. Non è disponibile la trascrizione corrente delle autorizzazioni della scheda Play: il commento `DA COMPLETARE` nell’HTML chiede ad Antonio le diciture esatte, incluse eventuali voci di rete come `ACCESS_NETWORK_STATE` o ricezione FCM. Non vengono inventate traduzioni dell’elenco Play. Non è disponibile un report Exodus: la relativa prova è omessa.
 
-Il testo del repository <https://github.com/Ivy-Apps/ivy-wallet> è stato
-accessibile. Le domande quotidiane sul budget, la semplicità e la chiarezza
-sono riferimenti di comunicazione, senza riprenderne testi, immagini,
-marchi o funzionalità. Il repository è archiviato; il README dichiara che
-il progetto non è più mantenuto dal 5 novembre 2024.
+La privacy sorgente precisa che una cartella sincronizzata con un cloud e il backup di sistema Android possono portare dati fuori dal telefono; lo stesso vale per CSV e diagnostica condivisi volontariamente. Il file di backup nella cartella scelta resta dopo la disinstallazione. La landing riporta queste cautele e non promette che i dati non possano mai uscire dal telefono.
 
-## Riferimenti per il sito
+Gli URL delle informative IT/EN derivano da `src/constants.ts`:
 
-Per la nuova composizione sono stati consultati i repository ufficiali:
+- <https://badaaituoisoldi-app.github.io/bada-privacy/Privacy-it.html>
+- <https://badaaituoisoldi-app.github.io/bada-privacy/Privacy-en.html>
 
-- [Cashew Website](https://github.com/jameskokoska/Cashew-Website), commit `44c2ebb`: sorgenti HTML/CSS e pagina renderizzata localmente.
-- [Fossify](https://github.com/FossifyOrg/FossifyOrg.github.io), commit `79ec981`: sorgente della pagina singola app `src/pages/apps/[slug].astro`; non è stata verificata la pagina pubblicata.
+Il repository `bada-privacy` non è stato toccato. La sorgente consultata non prova che le copie pubbliche siano identiche.
 
-Il riferimento è la gerarchia semplice dei siti di app: prodotto visibile,
-testo breve e invito al download. Non sono stati copiati testi, immagini
-o marchi. I tentativi di aprire i siti pubblici Things, Structured,
-Daylio, Streaks, Cashew e How We Feel hanno restituito HTTP 403 tramite il
-proxy: tali pagine non sono state viste e non sono dichiarate esaminate.
+## Immagini, icona e font
 
-## Provenienza degli asset e anteprime
+I sei poster 1080 × 1920 forniti in `Nuova cartella.zip` sono conservati, byte per byte, in `originals/`. La feature graphic 1024 × 500 resta in `site/assets/feature-graphic.png`; la copertina decorativa non viene usata.
 
-Il materiale iniziale comprendeva il brief testuale. Il repository di
-riferimento contiene logo e icone ufficiali; questi file non sono più usati
-nella landing, che impiega soltanto immagini dell’archivio fornito dal titolare.
-L’autorizzazione all’uso del materiale non costituisce una licenza generale
-sugli altri contenuti del repository, il cui codice resta riservato.
+La decisione di Antonio del 16 ottobre sostituisce la vecchia regola dei PNG interi nel sito con ritagli WebP lossless. I cinque ritagli pubblicati mostrano Disponibile reale, categorie dei movimenti, obiettivi, revisione CSV e bilancio annuale. Sono porzioni dei poster senza ridimensionamento, ritocco o ricostruzione; `originals/crops.json` registra coordinate, dimensioni, byte e hash. Il confronto dei byte RGB decodificati conferma che ogni WebP coincide con il ritaglio del PNG sorgente. Il README contiene il comando Pillow per rigenerarli.
 
-Il 14 ottobre 2026 il titolare ha fornito `Nuova cartella.zip`, descritto
-come immagini della scheda Play Store. Contiene sei schermate promozionali
-1080 × 1920 (`store-1-mese.png`, `store-2-impostazioni.png`,
-`store-3-uscite.png`, `store-4-obiettivi.png`, `store-5-anno.png`,
-`store-6-import.png`), `feature-graphic.png` (1024 × 500) e
-`copertina-onde.png` (1080 × 1920).
+I cinque WebP pesano complessivamente **121.470 byte**. Le schermate sono italiane e chiare in entrambe le lingue e in entrambi i temi del sito; la pagina inglese lo dichiara. Le immagini restano quelle fornite: la nuova schermata del mese dopo la correzione dell’app non è stata ricevuta. Non è stata ricostruita un’interfaccia per anticiparla.
 
-I sei originali `store-*.png` sono conservati in
-`site/assets/screenshots/`, identici ai file ricevuti. L’apertura presenta
-insieme Mese, Entrate/uscite e Obiettivi. Dopo una panoramica di tre benefici,
-la galleria raccoglie Anno, Importazione e Impostazioni. Privacy e FAQ sono
-affiancate su desktop; su telefono le schermate scorrono orizzontalmente
-con contatore e frecce. Il secondo download segue le FAQ nell’ordine mobile. Miniature e
-visualizzatore inquadrano via CSS la sola area dell’app,
-escludendo titolo promozionale e margini viola: 792 × 1424 px da (144, 401),
-oppure da (144, 315) per Entrate/uscite. Una maschera con angoli di 48 px
-nelle coordinate sorgente esclude i triangoli viola agli angoli. I file PNG
-restano invariati e non viene rigenerata alcuna parte dell’interfaccia.
-Il visualizzatore offre zoom sulla stessa area; il collegamento al poster
-originale e il comportamento senza JavaScript aprono il PNG completo.
-La feature graphic originale è in `site/assets/feature-graphic.png` e serve
-per Open Graph e per il logo inquadrato via CSS nell’intestazione e nel
-footer. La copertina ricevuta non è usata nel sito e non è inclusa negli
-asset del sito. Non sono usati altri file immagine.
+`site/assets/icon.png` è l’icona 192 × 192 già presente su `main`, invariata. È stato verificato che corrisponde all’icona ufficiale 1024 × 1024 del repository dell’app ridimensionata con Pillow LANCZOS. L’originale dell’app è identico tra 1.2.1 e HEAD. Il marchio non è ridisegnato: il segno che sembra un sorriso è il punto esclamativo di «Bada!».
 
-Su richiesta del titolare sono stati rimossi il calcolatore illustrativo e
-gli asset provenienti dal repository dell’app. Restano solo i file immagine
-forniti nello ZIP; nessuna interfaccia dell’app è ricostruita. Le sezioni
-hanno un ingresso discreto, una sola volta, con preferenza per il movimento
-ridotto. DM Sans locale è l’unica famiglia tipografica, con una gerarchia semplificata. Non sono
-state generate o ritoccate immagini.
+DM Sans viene servito dal file WOFF2 locale già presente, con la relativa licenza OFL. La provenienza degli screenshot non dimostra la versione distribuita nello store o l’esistenza di recensioni; tali inferenze non sono usate nel sito.
 
-Controllo indipendente del 15 ottobre 2026: tutti i sette PNG presenti nel sito
-sono identici byte per byte agli originali forniti (SHA-256). I riferimenti alle immagini nei sorgenti HTML, CSS e JavaScript e nei
-metadati Open Graph rimandano solo a questi file. La copertina è esclusa dagli asset del sito.
+## Accessi bloccati e contenuti da completare
 
-Le immagini mostrano bilancio mensile e annuale, categorie di spesa,
-obiettivi, revisione dell’importazione e impostazioni per promemoria,
-backup/ripristino e CSV. Tutte le schermate sono in tema chiaro; non è stata
-fornita una schermata dedicata alle Spese fisse né una in tema scuro.
-Questi eventuali asset aggiuntivi non impediscono l’uso delle immagini
-autentiche già disponibili.
+Da questo ambiente `github.io` e `play.google.com` non sono raggiungibili. Non sono stati verificati la landing pubblica, la scheda Play o le informative pubblicate. Il recupero dei badge ufficiali Google è stato bloccato con HTTP 403: restano segnaposto testuali evidenti, non badge disegnati o modificati.
 
-Il tema chiaro/scuro riguarda il sito e i suoi colori: grigio perla in
-chiaro, grafite in scuro e viola nei pulsanti, nei link e negli accenti. In entrambi i temi
-le immagini dell’app restano i PNG chiari forniti, senza filtri di inversione,
-ritocchi o schermate scure generate.
+La frase personale sul perché Antonio ha creato l’app resta un segnaposto visibile. La forma UTM è centralizzata in `scripts/play_links.py`, ma la sua interpretazione in Play Console non è verificata. Il report Exodus, le diciture delle autorizzazioni Play e il nuovo screenshot del mese restano aperti.
 
-Nell’ispezione visiva non compaiono nomi, contatti o identificativi bancari:
-si vedono importi, categorie e obiettivi generici. L’immagine da sola non
-prova che ogni dato sia dimostrativo. La fornitura del titolare documenta
-la provenienza degli asset; non sostituisce la verifica diretta della
-scheda pubblicata, della versione attualmente distribuita o del prezzo.
-
-Precisazione del marchio fornita dall’autore: il segno disposto come un sorriso è il punto esclamativo di «Bada!». Il logo non è stato ridisegnato.
+I documenti esterni citati nel brief, `/mnt/project-files/report/bada-roadmap-2026-10-14.md` e `/mnt/project-files/report/bada-sito-da-zero-2026-10-15.md`, non sono disponibili in questo ambiente e non sono dichiarati consultati. La ricostruzione segue il brief allegato e le fonti effettivamente lette. Gli esiti browser e le misure della pagina sono registrati separatamente in `VALIDATION.md`.
