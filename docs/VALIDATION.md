@@ -1,4 +1,55 @@
-# Verifica della ricostruzione statica
+# Verifica del sito
+
+## Rifinitura del 17 ottobre 2026
+
+La richiesta successiva del titolare aggiunge carattere e transizioni alla
+base statica del 16 ottobre. Cambia solo il CSS del sito; HTML, testi,
+immagini e font restano gli stessi. DM Sans ha pesi più decisi e un accento
+in corsivo; fondale lavanda inclinato, feature alternate su desktop e
+invito finale su una superficie dedicata danno ritmo alla pagina.
+
+La suite `tests/browser.cjs` è stata eseguita sulla revisione: **12
+combinazioni superate**, IT/EN a 320, 390 e 1440 px in chiaro/scuro,
+zero violazioni axe WCAG 2 A/AA e 2.1 AA, nessun overflow o immagine
+mancante, link Play corretti e nessuno script della pagina.
+
+Un controllo browser separato ha esercitato IT/EN a 390 e 1440 px, con
+movimento normale e ridotto, per **8 combinazioni**. Con movimento
+normale, ingresso dell'apertura da 650 ms e transizioni hover da 220 ms.
+Le funzioni seguono una timeline di scorrimento: misurati circa 13 px
+all'ingresso e 0 px quando entrano completamente nella vista. Un salto
+istantaneo alla terza funzione mantiene opacità 1 e visibilità normale
+su tutte le funzioni. Nessuna dissolvenza nasconde testi o schermate.
+Con movimento ridotto: zero animazioni, durata delle transizioni 0 s,
+scorrimento automatico ordinario e nessuna trasformazione delle funzioni.
+Il supporto alle timeline è stato rilevato in Chromium; nei browser che
+non le supportano la regola `@supports` lascia le funzioni statiche.
+Non è stata dichiarata una prova in altri motori browser.
+
+Ispezionate aperture e funzioni desktop nei due temi, feature a 768 px,
+telefono italiano e inglese, con attesa del caricamento lazy delle immagini.
+Rilevati e ricontrollati i rettangoli a 320, 390, 768 e 1440 px in entrambe
+le lingue e i temi: nessun overflow o target sotto 44 × 44 px. L'apertura
+italiana termina ancora a 703 px e quella inglese a 745 px nel viewport
+390 × 844. Il titolo desktop italiano resta su due righe a 62 px.
+Le anteprime statiche finali sono in `anteprime-20261017/` e non vengono
+pubblicate nella cartella `site/`.
+
+Misura finale a 390 × 844 con cache iniziale vuota, server Python senza
+compressione e `transferSize`, con lo stesso metodo descritto sotto:
+
+| Pagina | Prima schermata | Pagina intera |
+| --- | ---: | ---: |
+| Italiano | 106.349 byte | 208.161 byte |
+| Inglese | 106.727 byte | 208.539 byte |
+
+CSS: **7.997 byte**, entro 8.000. Nessuna richiesta esterna. Guardia di
+pubblicazione, verifica dei link Play e `git diff --check` superati.
+Nessun file immagine dell'app modificato. Restano i segnaposto documentati
+per frase personale, badge e autorizzazioni Play; questa rifinitura non
+li sostituisce con contenuti inventati.
+
+## Baseline verificata il 16 ottobre 2026
 
 Controlli eseguiti il **16 ottobre 2026**, sul branch dedicato alla pagina
 IT/EN. Server Python sulla porta 8000 al percorso `/Bada-ai-tuoi-soldi/`.

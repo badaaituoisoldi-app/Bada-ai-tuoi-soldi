@@ -31,7 +31,7 @@ Se il collegamento esiste già, verifica che punti alla cartella `site/` di ques
 - `tests/browser.cjs`: controlli Playwright e axe.
 - `docs/SOURCES.md`, `docs/ROADMAP.md`, `docs/VALIDATION.md`: fonti, percorso della ricostruzione e verifiche effettivamente eseguite.
 
-La pagina presenta il disponibile reale, le prove verificabili sulla privacy, quattro funzioni con immagini, backup, limiti dell’app, tre domande con risposte sempre aperte, Antonio e l’invito finale. Solo la spiegazione dei permessi usa un `<details>` nativo. Non ci sono gallerie, visualizzatore personalizzato, animazioni, selettore del tema o JSON-LD.
+La pagina presenta il disponibile reale, le prove verificabili sulla privacy, quattro funzioni con immagini, backup, limiti dell’app, tre domande con risposte sempre aperte, Antonio e l’invito finale. Solo la spiegazione dei permessi usa un `<details>` nativo. Non ci sono gallerie, visualizzatore personalizzato, selettore del tema o JSON-LD. La rifinitura del 17 ottobre aggiunge transizioni solo CSS: ingresso dell’apertura in 650 ms, sollevamento di 3 px dei link a immagini/store al passaggio del mouse e un ingresso verticale delle funzioni legato allo scorrimento, nei browser che supportano `animation-timeline: view()`. Nessun elemento viene nascosto con opacità o visibilità: anche uno scorrimento rapido mantiene leggibili i contenuti. Tutti gli effetti e lo scorrimento morbido sono attivi soltanto con `prefers-reduced-motion: no-preference`; altrimenti il sito resta fermo.
 
 ## Immagini e riproduzione dei ritagli
 
