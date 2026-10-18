@@ -1,5 +1,56 @@
 # Verifica del sito
 
+## Rifacimento del 18 ottobre 2026
+
+Quattro modifiche: prove sulla privacy più corte, «Cosa fa» ridotto a tre
+schermate (spese, obiettivi, importazione CSV; l'anno passa nella riga «E
+poi» e `year.webp` esce dal sito e da `crops.json`), guardia contro i
+segnaposto visibili in `check_site.py`, scala di token per spaziature,
+testi e raggi nel CSS. L'immagine dell'apertura è invariata: nessuno
+screenshot nuovo del mese in `originals/`.
+
+`tests/browser.cjs`: **12 combinazioni superate** (IT/EN, 320, 390 e
+1440 px, chiaro e scuro), zero violazioni axe. `scripts/check_site.py site`
+e `scripts/play_links.py` superati.
+
+La nuova regola di `check_site.py` è stata provata rompendola: «da
+aggiungere» visibile nell'HTML italiano e «TODO» in quello inglese fanno
+fallire la guardia; la stessa frase dentro un commento HTML e una parola
+come «metodo» passano. Le pagine di `049a4ea`, prima che la PR #4
+togliesse i segnaposto, vengono respinte su «da aggiungere», «to be added»
+e «[ANTONIO’S WORDS». Il sito attuale passa.
+
+Misure a 390 × 844 con cache vuota, server Python senza compressione,
+byte ricevuti contati con `Network.loadingFinished` di Chromium (metodo
+diverso dalla sezione del 17 ottobre: confronta solo le colonne di questa
+tabella fra loro). «Prima» è `main` a `d86860c`.
+
+| Misura | IT prima | IT dopo | EN prima | EN dopo |
+| --- | ---: | ---: | ---: | ---: |
+| Prima schermata | 105.585 B | 130.028 B | 105.847 B | 130.316 B |
+| Pagina intera | 206.957 B | 186.794 B | 207.219 B | 187.082 B |
+| Altezza pagina | 6.651 px | 6.066 px | 6.857 px | 6.327 px |
+| Testo delle prove | 863 car. | 718 car. | 845 car. | 715 car. |
+| Fondo dell'apertura | 492 px | 492 px | — | 534 px |
+
+La prima schermata pesa di più perché la pagina più corta porta
+`movements.webp` dentro la soglia del caricamento lazy di Chromium;
+la pagina intera pesa meno perché `year.webp` non c'è più. L'obiettivo
+di 5.500 px di altezza non è raggiunto. CSS: **8.553 byte**, entro
+12.000.
+
+Guardati gli screenshot a pagina intera a 320, 390, 768 e 1440 px, IT ed
+EN, chiaro e scuro. Nessun testo tagliato, nessuno scorrimento
+orizzontale, le tre funzioni alternano testo e immagine da 768 px in su e
+si impilano sotto. Rispetto a prima della scala di token: testo piccolo
+da 14 a 13 px, pulsante da 17 a 16 px, nome in testata da 24 a 21 px,
+padding delle sezioni su telefono da 44 a 48 px; impaginazione uguale.
+Su telefono la riga di «Controlla tu» / «Check for yourself» è più alta
+delle altre perché il link ha un'area di tocco di 44 px: c'era già prima.
+
+Non verificati: sito pubblicato, scheda Play, badge ufficiali, forma UTM
+letta da Play Console (rete bloccata o dati non disponibili).
+
 ## Rifinitura del 17 ottobre 2026
 
 La richiesta successiva del titolare aggiunge carattere e transizioni alla

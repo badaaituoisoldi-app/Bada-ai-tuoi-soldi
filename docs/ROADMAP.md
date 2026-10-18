@@ -16,15 +16,28 @@ La rifinitura rende più decisi i pesi di DM Sans, usa il corsivo per l’accent
 
 Il movimento usa sole trasformazioni: 650 ms nell’apertura, feedback di 220 ms sui link e ingresso delle funzioni sincronizzato con lo scorrimento quando supportato dal browser. I contenuti restano sempre visibili; la preferenza per il movimento ridotto elimina gli effetti. Verifiche e misure della revisione in `VALIDATION.md`. Anche questa rifinitura si consegna su branch per revisione, senza merge automatico.
 
+## Rifacimento del 18 ottobre 2026
+
+Dopo la PR #4, una roadmap in undici passi ha rivisto la pagina contro i siti di app simili. Le scelte:
+
+- **Apertura:** resta la scheda «Disponibile reale», non tre telefoni. Si rifà dal nuovo screenshot del mese solo se Antonio ne fornisce uno con barra di stato pulita (il repository è pubblico); finché non arriva, l’immagine resta quella di oggi.
+- **Prove:** tre paragrafi più corti, senza promesse assolute; le cautele su cartella sincronizzata e backup di Android restano visibili.
+- **Funzioni:** tre blocchi con immagine (spese, obiettivi, importazione CSV). Il grafico dell’anno passa nella riga «E poi» con le funzioni minori.
+- **Guardia:** `check_site.py` blocca la pubblicazione se nell’HTML compare un segnaposto fuori dai commenti, perché era già successo una volta.
+- **CSS:** scala di token per spaziature, testi e raggi; limite alzato a 12.000 byte, misurato a mano.
+
+Misure prima e dopo in `VALIDATION.md`.
+
 ## Punti aperti per la revisione
 
-- Frase personale di Antonio: segnaposto visibile in entrambe le pagine.
-- Badge ufficiali IT/EN: download Google bloccato con HTTP 403; segnaposto evidente da sostituire con gli SVG ufficiali non modificati.
+- Screenshot del mese con barra di stato pulita, per rifare il ritaglio dell’apertura.
+- Frase personale di Antonio: oggi solo un commento `DA COMPLETARE` nell’HTML, nessun testo visibile.
+- Badge ufficiali IT/EN: download Google bloccato con HTTP 403; al loro posto un pulsante di testo.
 - Elenco delle autorizzazioni Play: trascrizione di Antonio ancora necessaria; commento `DA COMPLETARE` nell’HTML.
 - Exodus: nessun report disponibile, quindi nessuna affermazione «zero tracciatori».
 - UTM: presenza verificabile nei link, interpretazione di Play Console non verificata.
-- Hero: ritaglio dello screenshot attualmente fornito, in attesa dell’eventuale nuovo screenshot del mese.
-- Accesso esterno: sito pubblico e Play bloccati dall’ambiente; i due report `/mnt/project-files/report/` citati nel brief non sono disponibili.
+- Poster «Spese»: la testata mostra un’icona a freccia circolare, mentre il registro modifiche della 1.2.1 parla della parola «Cronologia». Lo screenshot potrebbe non corrispondere all’app pubblicata.
+- Accesso esterno: sito pubblico e Play bloccati dall’ambiente.
 
 ## Fuori da questa pull request
 

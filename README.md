@@ -1,6 +1,6 @@
 # Bada! — ai tuoi soldi · sito ufficiale
 
-Landing page dell’app Android Bada!, in italiano e inglese. Due pagine HTML scritte a mano e un unico `styles.css` condiviso, entro 8.000 byte: nessuna build, JavaScript, dipendenza di produzione, richiesta a servizi di terzi o font esterno. Il tema segue il sistema tramite `prefers-color-scheme`.
+Landing page dell’app Android Bada!, in italiano e inglese. Due pagine HTML scritte a mano e un unico `styles.css` condiviso, entro 12.000 byte: nessuna build, JavaScript, dipendenza di produzione, richiesta a servizi di terzi o font esterno. Il tema segue il sistema tramite `prefers-color-scheme`.
 
 La nuova versione è preparata su un branch dedicato per una pull request verso `main`. Il merge pubblica il sito: la consegna di questa revisione non comprende il merge né la pubblicazione.
 
@@ -19,8 +19,8 @@ Se il collegamento esiste già, verifica che punti alla cartella `site/` di ques
 ## Struttura
 
 - `site/index.html` e `site/en/index.html`: pagine italiana e inglese, metadati e contenuti equivalenti. Le schermate restano italiane, con una nota nella pagina inglese.
-- `site/styles.css`: layout, font locale, tema chiaro/scuro di sistema e focus visibile. Il `body` ha uno sfondo esplicito.
-- `site/assets/screenshots/*.webp`: cinque ritagli lossless, collegati direttamente ai rispettivi file. L’ingrandimento è quello del browser.
+- `site/styles.css`: layout, font locale, tema chiaro/scuro di sistema e focus visibile. Il `body` ha uno sfondo esplicito. Spaziature, dimensioni del testo e raggi usano i token su `:root`: `--s1`…`--s8` (4, 8, 12, 16, 24, 32, 48, 64 px), `--f1`…`--f5` (13, 16, 21, 27, 32 px), `--fh1` e `--fh2` per i titoli, `--r1`…`--r4` (3, 10, 14, 24 px). Restano fuori scala, perché lontani più di 4 px da ogni token: le spaziature 40, 54, 72 px e i massimi 80 e 96 px dei `clamp()`, il corpo del testo a 17 px su desktop, il titolo su telefono `clamp(32px,10vw,42px)` e i raggi 32 e 52 px.
+- `site/assets/screenshots/*.webp`: quattro ritagli lossless, collegati direttamente ai rispettivi file. L’ingrandimento è quello del browser.
 - `site/assets/icon.png`: icona ufficiale per testata, favicon e Apple touch icon.
 - `site/assets/feature-graphic.png`: immagine Open Graph/Twitter fornita dal titolare.
 - `site/assets/fonts/`: DM Sans locale, precaricato con `font-display: swap`, e licenza OFL.
@@ -31,11 +31,11 @@ Se il collegamento esiste già, verifica che punti alla cartella `site/` di ques
 - `tests/browser.cjs`: controlli Playwright e axe.
 - `docs/SOURCES.md`, `docs/ROADMAP.md`, `docs/VALIDATION.md`: fonti, percorso della ricostruzione e verifiche effettivamente eseguite.
 
-La pagina presenta il disponibile reale, le prove verificabili sulla privacy, quattro funzioni con immagini, backup, limiti dell’app, tre domande con risposte sempre aperte, Antonio e l’invito finale. Solo la spiegazione dei permessi usa un `<details>` nativo. Non ci sono gallerie, visualizzatore personalizzato, selettore del tema o JSON-LD. La rifinitura del 17 ottobre aggiunge transizioni solo CSS: ingresso dell’apertura in 650 ms, sollevamento di 3 px dei link a immagini/store al passaggio del mouse e un ingresso verticale delle funzioni legato allo scorrimento, nei browser che supportano `animation-timeline: view()`. Nessun elemento viene nascosto con opacità o visibilità: anche uno scorrimento rapido mantiene leggibili i contenuti. Tutti gli effetti e lo scorrimento morbido sono attivi soltanto con `prefers-reduced-motion: no-preference`; altrimenti il sito resta fermo.
+La pagina presenta il disponibile reale, le prove verificabili sulla privacy, tre funzioni con immagini (spese, obiettivi, importazione CSV) e una riga per le altre, backup, limiti dell’app, tre domande con risposte sempre aperte, Antonio e l’invito finale. Solo la spiegazione dei permessi usa un `<details>` nativo. Non ci sono gallerie, visualizzatore personalizzato, selettore del tema o JSON-LD. La rifinitura del 17 ottobre aggiunge transizioni solo CSS: ingresso dell’apertura in 650 ms, sollevamento di 3 px dei link a immagini/store al passaggio del mouse e un ingresso verticale delle funzioni legato allo scorrimento, nei browser che supportano `animation-timeline: view()`. Nessun elemento viene nascosto con opacità o visibilità: anche uno scorrimento rapido mantiene leggibili i contenuti. Tutti gli effetti e lo scorrimento morbido sono attivi soltanto con `prefers-reduced-motion: no-preference`; altrimenti il sito resta fermo.
 
 ## Immagini e riproduzione dei ritagli
 
-I sei poster di `Nuova cartella.zip` sono conservati in `originals/` senza cambiare i byte. Il sito pubblica ritagli più stretti dell’interfaccia, salvati in WebP lossless senza ridimensionare, ricostruire o ritoccare i pixel. La nuova regola sostituisce la precedente richiesta di pubblicare i PNG interi e ritagliarli via CSS. Le coordinate assolute, le dimensioni e gli hash sono in `originals/crops.json`; il confronto dei pixel RGB decodificati conferma la corrispondenza dei cinque WebP con i ritagli sorgente.
+I sei poster di `Nuova cartella.zip` sono conservati in `originals/` senza cambiare i byte. Il sito pubblica ritagli più stretti dell’interfaccia, salvati in WebP lossless senza ridimensionare, ricostruire o ritoccare i pixel. La nuova regola sostituisce la precedente richiesta di pubblicare i PNG interi e ritagliarli via CSS. Le coordinate assolute, le dimensioni e gli hash sono in `originals/crops.json`; il confronto dei pixel RGB decodificati conferma la corrispondenza dei quattro WebP con i ritagli sorgente.
 
 Con Pillow disponibile, questo comando dalla radice rigenera tutti i ritagli:
 
@@ -56,7 +56,7 @@ python3 scripts/play_links.py
 python3 scripts/play_links.py --write
 ```
 
-Il primo comando verifica gli URL, il secondo li aggiorna. `utm_source=sito` e `utm_campaign=<pagina>-<posizione>` distinguono i collegamenti; il riconoscimento di questa forma da parte di Play Console non è verificato. I badge ufficiali sono ancora da aggiungere: il download da Google è stato bloccato con HTTP 403. I segnaposto visibili sono link testuali funzionanti, non badge ricostruiti.
+Il primo comando verifica gli URL, il secondo li aggiorna. `utm_source=sito` e `utm_campaign=<pagina>-<posizione>` distinguono i collegamenti; il riconoscimento di questa forma da parte di Play Console non è verificato. I badge ufficiali sono ancora da aggiungere: il download da Google è stato bloccato con HTTP 403. Al loro posto ci sono link testuali funzionanti, non badge ricostruiti.
 
 ## Verifiche
 
@@ -69,11 +69,11 @@ python3 scripts/check_site.py site
 python3 scripts/play_links.py
 ```
 
-La suite richiede il server sulla porta 8000 al percorso `/Bada-ai-tuoi-soldi/`. `SITE_URL` consente di cambiarlo. In questo ambiente Chromium è `/usr/bin/chromium`; il percorso `/opt/pw-browsers/chromium` indicato nel brief non esiste. Non eseguire `playwright install`.
+La suite richiede il server sulla porta 8000 al percorso `/Bada-ai-tuoi-soldi/`. `SITE_URL` consente di cambiarlo. `CHROMIUM_PATH` punta al Chromium dell’ambiente: `/usr/bin/chromium` o `/opt/pw-browsers/chromium`, secondo dove è installato. Non eseguire `playwright install`.
 
 La suite verifica entrambe le lingue, a 320, 390 e 1440 px in chiaro e scuro: niente scorrimento orizzontale, tutte le immagini caricate anche dopo scorrimento, un solo H1, parametri UTM su ogni link Play, assenza di script e richieste script, axe WCAG 2 A/AA e 2.1 AA. Separatamente vanno guardate le pagine a 320, 390, 768 e 1440 px in entrambi i temi e misurati i byte realmente caricati alla prima schermata e a pagina intera. `docs/VALIDATION.md` registra risultati e limiti, senza dedurli dai soli sorgenti.
 
-La guardia rifiuta file `.js` anche maiuscoli, `<script` nei contenuti testuali serviti e ogni file sopra 100.000 byte, con l’unica eccezione di `site/assets/feature-graphic.png`. Le immagini binarie non vengono interpretate come testo. La guardia è stata provata con fixture temporanee: JavaScript, script inline e SVG, file sovradimensionati e falsa eccezione fuori da `assets/` sono stati respinti; le fixture valide sono passate. Il limite più stretto di 8.000 byte del CSS va controllato anche prima della consegna.
+La guardia rifiuta file `.js` anche maiuscoli, `<script` nei contenuti testuali serviti e ogni file sopra 100.000 byte, con l’unica eccezione di `site/assets/feature-graphic.png`, e i segnaposto visibili negli HTML: «da aggiungere», «da completare», «to be added», «to be completed», «TODO», «lorem» o una parentesi quadra seguita da maiuscole, ammessi solo dentro i commenti HTML. Le immagini binarie non vengono interpretate come testo. La guardia è stata provata con fixture temporanee: JavaScript, script inline e SVG, file sovradimensionati e falsa eccezione fuori da `assets/` sono stati respinti; le fixture valide sono passate. Il limite di 12.000 byte del CSS non lo controlla nessuno script: misuralo con `wc -c site/styles.css` prima della consegna.
 
 ## Pubblicazione e punti aperti
 
