@@ -1,6 +1,6 @@
 # Bada! — ai tuoi soldi · sito ufficiale
 
-Landing page dell’app Android Bada!, in italiano e inglese. Due pagine HTML scritte a mano e un unico `styles.css` condiviso, entro 8.000 byte: nessuna build, JavaScript, dipendenza di produzione, richiesta a servizi di terzi o font esterno. Il tema segue il sistema tramite `prefers-color-scheme`.
+Landing page dell’app Android Bada!, in italiano e inglese. Due pagine HTML scritte a mano e un unico `styles.css` condiviso, entro 12.000 byte: nessuna build, JavaScript, dipendenza di produzione, richiesta a servizi di terzi o font esterno. Il tema segue il sistema tramite `prefers-color-scheme`.
 
 La nuova versione è preparata su un branch dedicato per una pull request verso `main`. Il merge pubblica il sito: la consegna di questa revisione non comprende il merge né la pubblicazione.
 
@@ -19,7 +19,7 @@ Se il collegamento esiste già, verifica che punti alla cartella `site/` di ques
 ## Struttura
 
 - `site/index.html` e `site/en/index.html`: pagine italiana e inglese, metadati e contenuti equivalenti. Le schermate restano italiane, con una nota nella pagina inglese.
-- `site/styles.css`: layout, font locale, tema chiaro/scuro di sistema e focus visibile. Il `body` ha uno sfondo esplicito.
+- `site/styles.css`: layout, font locale, tema chiaro/scuro di sistema e focus visibile. Il `body` ha uno sfondo esplicito. Spaziature, dimensioni del testo e raggi usano i token su `:root`: `--s1`…`--s8` (4, 8, 12, 16, 24, 32, 48, 64 px), `--f1`…`--f5` (13, 16, 21, 27, 32 px), `--fh1` e `--fh2` per i titoli, `--r1`…`--r4` (3, 10, 14, 24 px). Restano fuori scala, perché lontani più di 4 px da ogni token: le spaziature 40, 54, 72 px e i massimi 80 e 96 px dei `clamp()`, il corpo del testo a 17 px su desktop, il titolo su telefono `clamp(32px,10vw,42px)` e i raggi 32 e 52 px.
 - `site/assets/screenshots/*.webp`: cinque ritagli lossless, collegati direttamente ai rispettivi file. L’ingrandimento è quello del browser.
 - `site/assets/icon.png`: icona ufficiale per testata, favicon e Apple touch icon.
 - `site/assets/feature-graphic.png`: immagine Open Graph/Twitter fornita dal titolare.
@@ -73,7 +73,7 @@ La suite richiede il server sulla porta 8000 al percorso `/Bada-ai-tuoi-soldi/`.
 
 La suite verifica entrambe le lingue, a 320, 390 e 1440 px in chiaro e scuro: niente scorrimento orizzontale, tutte le immagini caricate anche dopo scorrimento, un solo H1, parametri UTM su ogni link Play, assenza di script e richieste script, axe WCAG 2 A/AA e 2.1 AA. Separatamente vanno guardate le pagine a 320, 390, 768 e 1440 px in entrambi i temi e misurati i byte realmente caricati alla prima schermata e a pagina intera. `docs/VALIDATION.md` registra risultati e limiti, senza dedurli dai soli sorgenti.
 
-La guardia rifiuta file `.js` anche maiuscoli, `<script` nei contenuti testuali serviti e ogni file sopra 100.000 byte, con l’unica eccezione di `site/assets/feature-graphic.png`. Le immagini binarie non vengono interpretate come testo. La guardia è stata provata con fixture temporanee: JavaScript, script inline e SVG, file sovradimensionati e falsa eccezione fuori da `assets/` sono stati respinti; le fixture valide sono passate. Il limite più stretto di 8.000 byte del CSS va controllato anche prima della consegna.
+La guardia rifiuta file `.js` anche maiuscoli, `<script` nei contenuti testuali serviti e ogni file sopra 100.000 byte, con l’unica eccezione di `site/assets/feature-graphic.png`. Le immagini binarie non vengono interpretate come testo. La guardia è stata provata con fixture temporanee: JavaScript, script inline e SVG, file sovradimensionati e falsa eccezione fuori da `assets/` sono stati respinti; le fixture valide sono passate. Il limite di 12.000 byte del CSS non lo controlla nessuno script: misuralo con `wc -c site/styles.css` prima della consegna.
 
 ## Pubblicazione e punti aperti
 
