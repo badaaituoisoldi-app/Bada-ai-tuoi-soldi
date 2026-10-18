@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Reject JavaScript, script markup and oversized files in the published folder."""
+"""Reject JavaScript, script markup, visible placeholders and oversized files in the published folder."""
 
 import argparse
 import mimetypes
@@ -12,6 +12,12 @@ MAX_BYTES = 100_000
 SIZE_EXCEPTION = Path("assets/feature-graphic.png")
 SCRIPT_TAG = re.compile(rb"<script", re.IGNORECASE)
 TEXT_TYPES = {"application/json", "application/xml", "application/manifest+json"}
+HTML_COMMENT = re.compile(r"<!--.*?-->", re.DOTALL)
+# Placeholders already reached the live site once: they may live only in HTML comments.
+PLACEHOLDER_WORDS = re.compile(
+    r"\b(?:da aggiungere|to be added|da completare|to be completed|todo|lorem)\b", re.IGNORECASE
+)
+PLACEHOLDER_BRACKET = re.compile(r"\[[A-ZÀ-Ý][A-ZÀ-Ý'’ ]{2,}")
 
 
 def violations(root: Path) -> list[str]:
@@ -28,6 +34,10 @@ def violations(root: Path) -> list[str]:
         is_text = media_type.startswith("text/") or media_type.endswith("+xml") or media_type in TEXT_TYPES
         if is_text and SCRIPT_TAG.search(path.read_bytes()):
             errors.append(f"{relative}: <script markup is not allowed")
+        if path.suffix.lower() == ".html":
+            visible = HTML_COMMENT.sub("", path.read_text(encoding="utf-8"))
+            for match in [*PLACEHOLDER_WORDS.finditer(visible), *PLACEHOLDER_BRACKET.finditer(visible)]:
+                errors.append(f"{relative}: visible placeholder {match.group(0)!r}")
     return errors
 
 
@@ -42,7 +52,10 @@ def main() -> int:
     if errors:
         print("Static site guard failed:\n" + "\n".join(errors), file=sys.stderr)
         return 1
-    print("Static site guard passed: no .js, no <script, no files over 100 KB except the Open Graph graphic")
+    print(
+        "Static site guard passed: no .js, no <script, no visible placeholders,"
+        " no files over 100 KB except the Open Graph graphic"
+    )
     return 0
 
 
