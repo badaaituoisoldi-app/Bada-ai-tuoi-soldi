@@ -10,13 +10,21 @@ manifesto. Il ritaglio finisce nella fascia bianca sotto «Fisse /
 Variabili», così nessuna riga di testo resta tagliata.
 
 `tests/browser.cjs`: **12 combinazioni superate**. `check_site.py` e
-`play_links.py` superati. CSS: **8.743 byte**.
+`play_links.py` superati. CSS: **8.841 byte**.
 
 Screenshot del primo schermo guardati a 390 × 844, 768 × 1024 e
 1440 × 900, IT ed EN, chiaro e scuro. A 1440 × 900 il telefono e la
-didascalia stanno nel primo schermo (fine dell'apertura a 849 px). Su
-telefono il primo schermo mostra titolo, testo, pulsante e l'inizio del
-telefono con 190,60 €; l'apertura finisce a 977 px (IT) e 1.019 px (EN).
+didascalia stanno nel primo schermo (fine dell'apertura a 849 px).
+
+Su telefono (fino a 700 px) Antonio ha trovato l'apertura pessima: un muro
+di testo e un telefono piccolo e illeggibile in fondo. Ora il telefono è
+largo quasi quanto lo schermo e si interrompe sul bordo della sezione
+successiva, la descrizione è nascosta perché la schermata subito sotto dice
+la stessa cosa, la didascalia non c'è, «Controlla tu» è un link normale
+nella frase e nessuna parola resta sola sotto il pulsante. A 360 × 800 il
+telefono comincia a 430 px e l'apertura finisce a 693 px (EN 472 e 735);
+a 390 × 844 finisce a 706 px. Desktop e 768 px: screenshot identici al
+pixel a prima della modifica.
 Nessuno scorrimento orizzontale. Gli angoli del pannello del poster non
 si vedono: li taglia il `border-radius`.
 
