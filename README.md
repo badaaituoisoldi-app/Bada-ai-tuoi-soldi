@@ -43,7 +43,7 @@ Con Pillow disponibile, questo comando dalla radice rigenera tutti i ritagli:
 python3 -c 'import json; from PIL import Image; [Image.open("originals/"+c["source"]).crop(c["box"]).save("site/assets/screenshots/"+c["file"], format="WEBP", lossless=True, quality=100, method=6, exact=True) for c in json.load(open("originals/crops.json"))]'
 ```
 
-Dopo la sostituzione di un poster, rivedi le coordinate e aggiorna dimensioni, pesi e hash nel manifesto; controlla visivamente che testi e schede restino interi. Il ritaglio iniziale usa ancora lo screenshot del mese fornito in precedenza: resta da sostituire se Antonio consegna quello corretto prima del lancio.
+Dopo la sostituzione di un poster, rivedi le coordinate e aggiorna dimensioni, pesi e hash nel manifesto; controlla visivamente che testi e schede restino interi. L’apertura mostra `month.webp`, il pannello «Bilancio mensile» del poster `store-1-mese.png` tagliato sotto la riga «Fisse / Variabili»: gli angoli arrotondati del pannello li nasconde il `border-radius` del CSS, e la cornice del telefono è disegnata in CSS attorno all’immagine. I dati sono quelli del poster: resta da sostituire se Antonio consegna una schermata più recente prima del lancio.
 
 `site/assets/icon.png` è il PNG 192 × 192 già presente su `main`, invariato in questa revisione. È stato verificato rispetto all’icona ufficiale 1024 × 1024 del repository dell’app ridimensionata con Pillow `Image.Resampling.LANCZOS`. Il marchio non viene ridisegnato: il sorriso è il punto esclamativo di «Bada!». La feature graphic resta l’originale fornito; la copertina decorativa non è usata.
 

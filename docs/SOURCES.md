@@ -50,7 +50,7 @@ Il repository `bada-privacy` non è stato toccato. La sorgente consultata non pr
 
 I sei poster 1080 × 1920 forniti in `Nuova cartella.zip` sono conservati, byte per byte, in `originals/`. La feature graphic 1024 × 500 resta in `site/assets/feature-graphic.png`; la copertina decorativa non viene usata.
 
-La decisione di Antonio del 16 ottobre sostituisce la vecchia regola dei PNG interi nel sito con ritagli WebP lossless. I cinque ritagli pubblicati mostrano Disponibile reale, categorie dei movimenti, obiettivi, revisione CSV e bilancio annuale. Sono porzioni dei poster senza ridimensionamento, ritocco o ricostruzione; `originals/crops.json` registra coordinate, dimensioni, byte e hash. Il confronto dei byte RGB decodificati conferma che ogni WebP coincide con il ritaglio del PNG sorgente. Il README contiene il comando Pillow per rigenerarli.
+La decisione di Antonio del 16 ottobre sostituisce la vecchia regola dei PNG interi nel sito con ritagli WebP lossless. I quattro ritagli pubblicati mostrano la schermata intera del mese, le categorie dei movimenti, gli obiettivi e la revisione CSV. Sono porzioni dei poster senza ridimensionamento, ritocco o ricostruzione; `originals/crops.json` registra coordinate, dimensioni, byte e hash. Il confronto dei byte RGB decodificati conferma che ogni WebP coincide con il ritaglio del PNG sorgente. Il README contiene il comando Pillow per rigenerarli.
 
 I cinque WebP pesano complessivamente **121.470 byte**. Le schermate sono italiane e chiare in entrambe le lingue e in entrambi i temi del sito; la pagina inglese lo dichiara. Le immagini restano quelle fornite: la nuova schermata del mese dopo la correzione dell’app non è stata ricevuta. Non è stata ricostruita un’interfaccia per anticiparla.
 
