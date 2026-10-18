@@ -58,20 +58,5 @@
     "bytes": 31172,
     "original_sha256": "584ea24c9437e2ed92c212161a765200307a457ffe783eb35633d58e782baa36",
     "rgb_sha256": "3adf19b89eead141bdd7a5c33e2c9f444749b3828bac9fdcb8e7662a1338d50c"
-  },
-  {
-    "file": "year.webp",
-    "source": "store-5-anno.png",
-    "box": [
-      168,
-      938,
-      912,
-      1447
-    ],
-    "width": 744,
-    "height": 509,
-    "bytes": 19868,
-    "original_sha256": "d3e4966282d41ad4dc7021116e76e12fbf7f7f48e808bfe0840d4762d209689d",
-    "rgb_sha256": "c3d279751798d98ceff5bcddc5a659fae5dadea4bc662ade0be242fe2f100f3d"
   }
 ]
