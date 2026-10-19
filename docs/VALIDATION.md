@@ -1,5 +1,32 @@
 # Verifica del sito
 
+## Schermate intere e due telefoni, 19 ottobre 2026
+
+Le quattro immagini ritagliate dai poster sono sostituite da otto schermate
+intere dell'app (Mese, Entrate/uscite, Obiettivi, Importazione; chiaro e scuro),
+780 × 1688 px, WebP lossless, da 31 a 57 KB l'una, 340 KB in totale caricati
+dalla pagina. Le fa la versione web di Expo servita da Metro (vedi README); sono
+screenshot del rendering web, non di un telefono. L'apertura mostra Mese chiara
+e scura sovrapposte; le tre funzioni sono tre telefoni in fila con titolo e riga
+sotto (sul telefono scorrono di lato con aggancio) e seguono il tema del
+visitatore tramite `<picture>`. Il testo sotto il titolo torna visibile anche su
+telefono, i tre segni di fiducia stanno sotto il pulsante e «Solo Android» resta
+solo nella riga d'apertura.
+
+`tests/browser.cjs`: **12 combinazioni superate** (320, 390, 1440 px; chiaro e
+scuro; IT ed EN), compresa axe. `check_site.py` e `play_links.py` superati.
+CSS: **9.068 byte**.
+
+Guardato a 320, 360, 390, 412, 600, 768, 820, 1024, 1280, 1440, 1920, 2560 px e
+in orizzontale 844 × 390 e 915 × 412: nessuno scorrimento orizzontale della
+pagina e nessun tocco sotto 44 px. Con la dimensione del testo del browser al
+150% a 390 px non c'è overflow. Sopra 1600 e 2200 px la radice cresce a 18 e
+20 px; a 1920 e 2560 px i telefoni sono 306 e 340 px di larghezza.
+
+Non misurato: il peso della sola prima schermata (con `networkidle` anche le
+immagini sotto la piega risultano già scaricate), la pagina vista su un
+telefono vero, la resa dei font nelle schermate rispetto all'app sul telefono.
+
 ## Nuova apertura del 18 ottobre 2026
 
 L'immagine dell'apertura è ora `month.webp`: il pannello «Bilancio mensile»
