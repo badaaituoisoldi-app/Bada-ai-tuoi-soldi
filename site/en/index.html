@@ -76,7 +76,17 @@
           ><strong>Bada!</strong><small lang="it">ai tuoi soldi</small></span
         >
       </a>
-      <a class="language-link" href="../" lang="it" hreflang="it">Italiano</a>
+      <div class="site-controls">
+        <fieldset class="seg theme">
+          <legend class="sr-only">Theme</legend>
+          <label class="t-light"><input type="radio" name="tema" id="tema-chiaro" /><span>Light</span></label>
+          <label class="t-dark"><input type="radio" name="tema" id="tema-scuro" /><span>Dark</span></label>
+        </fieldset>
+        <nav class="seg" aria-label="Language">
+          <a href="../" lang="it" hreflang="it" aria-label="Italiano">ITA</a>
+          <a href="./" lang="en" hreflang="en" aria-label="English" aria-current="page">ENG</a>
+        </nav>
+      </div>
     </header>
     <main id="contenuto">
       <section class="hero container" aria-labelledby="titolo">
@@ -203,12 +213,6 @@
             launch. Tap a screenshot to open it and zoom in using your browser.
           </p>
         </div>
-        <fieldset class="theme-switch">
-          <legend>Screen theme</legend>
-          <label><input type="radio" name="tema" value="auto" checked /><span>Auto</span></label>
-          <label><input type="radio" name="tema" value="light" /><span>Light</span></label>
-          <label><input type="radio" name="tema" value="dark" /><span>Dark</span></label>
-        </fieldset>
         <div class="shots" role="region" aria-label="The three screens" tabindex="0">
           <article class="shot">
             <a class="screen-link phone is-light" href="../assets/screenshots/movements-light-en.webp" aria-label="Enlarge the expense categories"
