@@ -110,6 +110,7 @@ details p{font-size:var(--f2);color:var(--muted);padding-bottom:var(--s3)}
 .shot h3{margin-top:var(--s5)}
 .shot p{margin-top:var(--s2);color:var(--muted)}
 .also{max-width:50.625rem;margin-top:var(--s6);color:var(--muted)}
+.also ul{margin-top:var(--s2);padding-left:1.25em}
 .backup-section{background:var(--soft);border-block:1px solid var(--line)}
 .prose p+p,.maker-section .small-note{margin-top:var(--s4)}
 .small-note{font-size:var(--f1);line-height:1.6;color:var(--muted)}
