@@ -19,6 +19,7 @@ const auditTags = ["wcag2a", "wcag2aa", "wcag21aa"];
           const context = await browser.newContext({
             viewport: { width, height: 844 },
             colorScheme,
+            reducedMotion: "reduce", // niente transizioni a metà durante axe e le misure
           });
           const page = await context.newPage();
           const label = `${language}, ${width}px, ${colorScheme}`;

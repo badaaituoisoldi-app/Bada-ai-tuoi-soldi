@@ -177,16 +177,19 @@ figcaption{display:none}
 @media (min-width:100em){html{font-size:112.5%}}
 @media (min-width:137.5em){html{font-size:125%}}
 @keyframes enter{from{transform:translateY(1rem)} to{transform:translateY(0)}}
+@keyframes slide{from{opacity:0;transform:translateX(3rem)}}
 @media (prefers-reduced-motion:no-preference){
 html{scroll-behavior:smooth;scroll-padding-top:var(--s5)}
 .hero-copy,.hero-figure{animation:enter .65s cubic-bezier(.2,.7,.2,1) backwards}
 .hero-figure{animation-delay:.1s}
+.phones .phone+.phone{animation:slide .8s .4s cubic-bezier(.2,.7,.2,1) backwards}
+*{transition:background-color .3s,color .3s,border-color .3s}
 .store-link,.screen-link{transition:transform .22s ease,box-shadow .22s ease}
 @media (hover:hover){
 .store-link:hover,.screen-link:hover{transform:translateY(-3px);box-shadow:0 0.75rem 2.25rem var(--shadow)}
 }
 @supports (animation-timeline:view()){
-.shot{animation:enter linear both;animation-timeline:view();animation-range:entry 0% entry 90%}
+.shot,.section-heading,.proof-list li,.limits-list li,.faq-list>*{animation:enter linear both;animation-timeline:view();animation-range:entry 0% entry 90%}
 }
 }
 .sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
