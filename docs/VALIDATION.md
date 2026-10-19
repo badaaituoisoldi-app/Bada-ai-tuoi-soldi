@@ -141,6 +141,14 @@ Il supporto alle timeline è stato rilevato in Chromium; nei browser che
 non le supportano la regola `@supports` lascia le funzioni statiche.
 Non è stata dichiarata una prova in altri motori browser.
 
+Il 19 ottobre 2026 si sono aggiunti tre ritocchi leggeri, solo CSS e tutti
+dentro `prefers-reduced-motion: no-preference`: il secondo telefono
+dell'apertura entra da destra con dissolvenza (800 ms, ritardo 400 ms, a fine
+corsa opacità 1), titoli e voci delle sezioni salgono di 1 rem entrando nella
+vista (stessa regola `@supports` delle funzioni, senza dissolvenza) e il cambio
+di tema passa da una transizione di 300 ms su colori e bordi. Il test del
+browser usa movimento ridotto per misurare colori stabili.
+
 Ispezionate aperture e funzioni desktop nei due temi, feature a 768 px,
 telefono italiano e inglese, con attesa del caricamento lazy delle immagini.
 Rilevati e ricontrollati i rettangoli a 320, 390, 768 e 1440 px in entrambe
