@@ -204,3 +204,5 @@ html{scroll-behavior:smooth;scroll-padding-top:var(--s5)}
 @media (prefers-color-scheme:dark){.is-light{display:none}.is-dark{display:block}}
 :root:has(#tema-chiaro:checked) .is-light,:root:has(#tema-scuro:checked) .is-dark{display:block}
 :root:has(#tema-chiaro:checked) .is-dark,:root:has(#tema-scuro:checked) .is-light{display:none}
+@media (max-width:43.75em){.site-controls{gap:var(--s1)}.seg span,.seg a{min-height:1.75rem;padding-inline:.4rem;font-size:.6875rem}.site-header{padding-block:var(--s2);column-gap:var(--s2)}.brand small{font-size:.75rem}}
+@media (max-width:24em){.brand{gap:.375rem}.brand strong{font-size:1.125rem}.brand small{font-size:.6875rem}.seg span,.seg a{padding-inline:.3125rem}}
