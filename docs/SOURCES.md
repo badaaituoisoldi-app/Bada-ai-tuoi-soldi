@@ -54,7 +54,7 @@ La decisione di Antonio del 16 ottobre sostituisce la vecchia regola dei PNG int
 
 **Superato il 19 ottobre 2026:** la pagina non usa più i ritagli dei poster ma otto schermate intere dell'app (README, «Immagini e come rifarle»); `crops.json` è stato rimosso e i poster restano solo in `originals/`.
 
-I cinque WebP pesano complessivamente **121.470 byte**. Le schermate sono italiane e chiare in entrambe le lingue e in entrambi i temi del sito; la pagina inglese lo dichiara. Le immagini restano quelle fornite: la nuova schermata del mese dopo la correzione dell’app non è stata ricevuta. Non è stata ricostruita un’interfaccia per anticiparla.
+I cinque WebP pesano complessivamente **121.470 byte**. Le schermate sono italiane e chiare in entrambe le lingue e in entrambi i temi del sito; la pagina inglese lo dichiara. Le immagini restano quelle fornite: la nuova schermata del mese dopo la correzione dell’app non è stata ricevuta. Non è stata ricostruita un’interfaccia per anticiparla. *(Superato il 19 ottobre 2026: le schermate sono ora screenshot veri dell’app e la pagina inglese ha le sue, in inglese.)*
 
 `site/assets/icon.png` è l’icona 192 × 192 già presente su `main`, invariata. È stato verificato che corrisponde all’icona ufficiale 1024 × 1024 del repository dell’app ridimensionata con Pillow LANCZOS. L’originale dell’app è identico tra 1.2.1 e HEAD. Il marchio non è ridisegnato: il segno che sembra un sorriso è il punto esclamativo di «Bada!».
 

@@ -1,0 +1,11 @@
+const base = require('./seed.cjs');
+const prefs = JSON.parse(base['budget-prefs']);
+prefs.language = 'en';
+prefs.recurringIncomes[0].descrizione = 'Salary';
+prefs.goals[0].nome = 'Holiday in Greece';
+prefs.goals[1].nome = 'Emergency fund';
+const y = JSON.parse(base['budget-2026']);
+const tr = { 'Spesa Esselunga': 'Groceries', 'Cena da Luca': 'Dinner at Luca’s', 'Palestra': 'Gym', 'Cinema': 'Cinema', 'Spesa Coop': 'Groceries', 'Farmacia': 'Pharmacy', 'Aperitivo': 'Drinks with friends' };
+y[9].entrateList[0].descrizione = 'Salary';
+y[9].registro.forEach(r => { r.descrizione = tr[r.descrizione] || r.descrizione; });
+module.exports = { 'budget-prefs': JSON.stringify(prefs), 'budget-2026': JSON.stringify(y) };

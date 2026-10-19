@@ -199,64 +199,76 @@
             Apri una schermata per ingrandirla nel browser.
           </p>
         </div>
+        <fieldset class="theme-switch">
+          <legend>Tema delle schermate</legend>
+          <label><input type="radio" name="tema" value="auto" checked /><span>Automatico</span></label>
+          <label><input type="radio" name="tema" value="light" /><span>Chiaro</span></label>
+          <label><input type="radio" name="tema" value="dark" /><span>Scuro</span></label>
+        </fieldset>
         <div class="shots" role="region" aria-label="Le tre schermate" tabindex="0">
           <article class="shot">
-            <a
-              class="screen-link phone"
-              href="assets/screenshots/movements-light.webp"
-              aria-label="Ingrandisci Entrate e uscite"
-              ><picture
-                ><source
-                  media="(prefers-color-scheme: dark)"
-                  srcset="assets/screenshots/movements-dark.webp"
-                /><img
+            <a class="screen-link phone is-light" href="assets/screenshots/movements-light.webp" aria-label="Ingrandisci Entrate e uscite"
+              ><img
                   src="assets/screenshots/movements-light.webp"
                   width="780"
                   height="1688"
                   alt="Schermata Entrate/uscite di ottobre 2026: entrate 1.850 €, margine di sicurezza e spese del mese per categoria, totale 1.355,57 €."
                   loading="lazy"
                   decoding="async"
-              /></picture></a>
+              /></a>
+            <a class="screen-link phone is-dark" href="assets/screenshots/movements-dark.webp" aria-label="Ingrandisci Entrate e uscite"
+              ><img
+                  src="assets/screenshots/movements-dark.webp"
+                  width="780"
+                  height="1688"
+                  alt="Schermata Entrate/uscite di ottobre 2026: entrate 1.850 €, margine di sicurezza e spese del mese per categoria, totale 1.355,57 €."
+                  loading="lazy"
+                  decoding="async"
+              /></a>
             <h3>Ogni spesa al suo posto</h3>
             <p>Entrate e uscite per categoria; le spese fisse le inserisci una volta e Bada! le rimette nei mesi che scegli.</p>
           </article>
           <article class="shot">
-            <a
-              class="screen-link phone"
-              href="assets/screenshots/goals-light.webp"
-              aria-label="Ingrandisci gli obiettivi"
-              ><picture
-                ><source
-                  media="(prefers-color-scheme: dark)"
-                  srcset="assets/screenshots/goals-dark.webp"
-                /><img
+            <a class="screen-link phone is-light" href="assets/screenshots/goals-light.webp" aria-label="Ingrandisci gli obiettivi"
+              ><img
                   src="assets/screenshots/goals-light.webp"
                   width="780"
                   height="1688"
                   alt="Schermata Obiettivi: 2.697,77 € messi da parte; «Vacanza in Grecia» a 1.120 € su 1.600 € e «Fondo emergenze» a 1.577,77 € su 3.000 €."
                   loading="lazy"
                   decoding="async"
-              /></picture></a>
+              /></a>
+            <a class="screen-link phone is-dark" href="assets/screenshots/goals-dark.webp" aria-label="Ingrandisci gli obiettivi"
+              ><img
+                  src="assets/screenshots/goals-dark.webp"
+                  width="780"
+                  height="1688"
+                  alt="Schermata Obiettivi: 2.697,77 € messi da parte; «Vacanza in Grecia» a 1.120 € su 1.600 € e «Fondo emergenze» a 1.577,77 € su 3.000 €."
+                  loading="lazy"
+                  decoding="async"
+              /></a>
             <h3>Metti da parte, un mese alla volta</h3>
             <p>Dici quanto ti serve e per quando, e Bada! calcola la quota del mese ancora da versare e la toglie dal disponibile.</p>
           </article>
           <article class="shot">
-            <a
-              class="screen-link phone"
-              href="assets/screenshots/import-light.webp"
-              aria-label="Ingrandisci la revisione dell’importazione"
-              ><picture
-                ><source
-                  media="(prefers-color-scheme: dark)"
-                  srcset="assets/screenshots/import-dark.webp"
-                /><img
+            <a class="screen-link phone is-light" href="assets/screenshots/import-light.webp" aria-label="Ingrandisci la revisione dell’importazione"
+              ><img
                   src="assets/screenshots/import-light.webp"
                   width="780"
                   height="1688"
                   alt="Schermata Rivedi l’importazione: sei movimenti di un CSV bancario raggruppati per negozio, ognuno con «Scegli categoria»."
                   loading="lazy"
                   decoding="async"
-              /></picture></a>
+              /></a>
+            <a class="screen-link phone is-dark" href="assets/screenshots/import-dark.webp" aria-label="Ingrandisci la revisione dell’importazione"
+              ><img
+                  src="assets/screenshots/import-dark.webp"
+                  width="780"
+                  height="1688"
+                  alt="Schermata Rivedi l’importazione: sei movimenti di un CSV bancario raggruppati per negozio, ognuno con «Scegli categoria»."
+                  loading="lazy"
+                  decoding="async"
+              /></a>
             <h3>L’estratto conto entra solo se lo dici tu</h3>
             <p>Importi il CSV della banca, Bada! trova date e importi, raggruppa per negozio e ricorda la categoria; prima di salvare rivedi tutto.</p>
           </article>
