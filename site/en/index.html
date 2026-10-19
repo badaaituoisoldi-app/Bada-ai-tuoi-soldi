@@ -86,15 +86,7 @@
             A budget app with <span>no Internet permission.</span>
           </h1>
           <p class="hero-description">
-            Record income and expenses, and Bada! tells you what is left this
-            month after your safety margin and savings goals.
-          </p>
-          <p class="promise">
-            <strong
-              >And it does not send your data to anyone: the app does not even
-              have permission to use the Internet.</strong
-            >
-            <a href="#prove">Check for yourself</a>
+            Record income and expenses. Bada! shows you one number: what you can still spend this month, after spending, savings goals and your safety margin.
           </p>
           <!-- DA COMPLETARE: sostituire il pulsante di testo con il badge SVG ufficiale inglese, scaricato da Google senza modifiche. -->
           <a
@@ -103,21 +95,40 @@
             href="https://play.google.com/store/apps/details?id=com.bada.aituoisoldi&amp;hl=en&amp;utm_source=sito&amp;utm_campaign=en-hero"
             >Get it on Google Play</a
           >
-          <p class="store-note">Free · No account · No ads · Android only</p>
+          <ul class="signs">
+            <li>No Internet permission</li>
+            <li>Works offline</li>
+            <li>No account</li>
+          </ul>
+          <p class="store-note">
+            Free and ad-free. If it is not for you, uninstall it. <a href="#prove">How to check</a>
+          </p>
         </div>
         <figure class="hero-figure">
-          <a
-            class="screen-link"
-            href="../assets/screenshots/month.webp"
-            aria-label="Enlarge the monthly balance screen"
-            ><img
-              src="../assets/screenshots/month.webp"
-              width="792"
-              height="1389"
-              alt="Monthly balance screen for August 2026: real available balance €190.60, the month closed within budget, biggest expenses for sport, dinner and cinema."
-              fetchpriority="high"
-          /></a>
-          <figcaption>Your month: what’s left and where the money went.</figcaption>
+          <div class="phones">
+            <a
+              class="screen-link phone"
+              href="../assets/screenshots/month-light.webp"
+              aria-label="Enlarge the monthly balance screen, light theme"
+              ><img
+                src="../assets/screenshots/month-light.webp"
+                width="780"
+                height="1688"
+                alt="Monthly balance screen for October 2026 in the light theme: real available balance €346.43, month check “keep an eye on it” and the biggest variable expenses."
+                fetchpriority="high"
+            /></a>
+            <a
+              class="screen-link phone"
+              href="../assets/screenshots/month-dark.webp"
+              aria-label="Enlarge the monthly balance screen, dark theme"
+              ><img
+                src="../assets/screenshots/month-dark.webp"
+                width="780"
+                height="1688"
+                alt="The same screen in the dark theme."
+            /></a>
+          </div>
+          <figcaption>Your month in one number, in light and dark themes.</figcaption>
         </figure>
       </section>
       <section
@@ -192,71 +203,68 @@
             launch. Tap a screenshot to open it and zoom in using your browser.
           </p>
         </div>
-        <article class="feature">
-          <div>
+        <div class="shots" role="region" aria-label="The three screens" tabindex="0">
+          <article class="shot">
+            <a
+              class="screen-link phone"
+              href="../assets/screenshots/movements-light.webp"
+              aria-label="Enlarge the expense categories"
+              ><picture
+                ><source
+                  media="(prefers-color-scheme: dark)"
+                  srcset="../assets/screenshots/movements-dark.webp"
+                /><img
+                  src="../assets/screenshots/movements-light.webp"
+                  width="780"
+                  height="1688"
+                  alt="Expenses and income screen for October 2026: income €1,850, safety margin and the month’s spending by category, total €1,355.57."
+                  loading="lazy"
+                  decoding="async"
+              /></picture></a>
             <h3>A place for every expense</h3>
-            <p>
-              Organise income and expenses by category. Enter fixed expenses
-              once, and Bada! adds them to the months you choose.
-            </p>
-          </div>
-          <a
-            class="screen-link"
-            href="../assets/screenshots/movements.webp"
-            aria-label="Enlarge the expense categories"
-            ><img
-              src="../assets/screenshots/movements.webp"
-              width="744"
-              height="563"
-              alt="Monthly spending grouped into categories, with a total for each."
-              loading="lazy"
-              decoding="async"
-          /></a>
-        </article>
-        <article class="feature">
-          <div>
+            <p>Organise income and expenses by category. Enter fixed expenses once, and Bada! adds them to the months you choose.</p>
+          </article>
+          <article class="shot">
+            <a
+              class="screen-link phone"
+              href="../assets/screenshots/goals-light.webp"
+              aria-label="Enlarge the savings goals"
+              ><picture
+                ><source
+                  media="(prefers-color-scheme: dark)"
+                  srcset="../assets/screenshots/goals-dark.webp"
+                /><img
+                  src="../assets/screenshots/goals-light.webp"
+                  width="780"
+                  height="1688"
+                  alt="Goals screen: €2,697.77 set aside; “Vacanza in Grecia” at €1,120 of €1,600 and “Fondo emergenze” at €1,577.77 of €3,000."
+                  loading="lazy"
+                  decoding="async"
+              /></picture></a>
             <h3>Save towards a goal, month by month</h3>
-            <p>
-              Set how much you need and by when. Bada! calculates this month’s
-              contribution still to be paid and deducts it from what is
-              available to spend.
-            </p>
-          </div>
-          <a
-            class="screen-link"
-            href="../assets/screenshots/goals.webp"
-            aria-label="Enlarge the savings goals"
-            ><img
-              src="../assets/screenshots/goals.webp"
-              width="744"
-              height="569"
-              alt="Savings goals with target amounts, deadlines, progress bars and the latest contributions."
-              loading="lazy"
-              decoding="async"
-          /></a>
-        </article>
-        <article class="feature">
-          <div>
+            <p>Set how much you need and by when. Bada! calculates this month’s contribution still to be paid and deducts it from what is available to spend.</p>
+          </article>
+          <article class="shot">
+            <a
+              class="screen-link phone"
+              href="../assets/screenshots/import-light.webp"
+              aria-label="Enlarge the import review"
+              ><picture
+                ><source
+                  media="(prefers-color-scheme: dark)"
+                  srcset="../assets/screenshots/import-dark.webp"
+                /><img
+                  src="../assets/screenshots/import-light.webp"
+                  width="780"
+                  height="1688"
+                  alt="Import review screen: six transactions from a bank CSV grouped by merchant, each with a category to choose."
+                  loading="lazy"
+                  decoding="async"
+              /></picture></a>
             <h3>Your bank statement comes in only when you choose</h3>
-            <p>
-              Import your bank’s CSV and Bada! finds dates and amounts, groups
-              expenses by merchant and remembers their category. You review
-              everything before saving.
-            </p>
-          </div>
-          <a
-            class="screen-link"
-            href="../assets/screenshots/import.webp"
-            aria-label="Enlarge the import review"
-            ><img
-              src="../assets/screenshots/import.webp"
-              width="744"
-              height="580"
-              alt="CSV import review: expenses grouped by merchant, with categories to choose."
-              loading="lazy"
-              decoding="async"
-          /></a>
-        </article>
+            <p>Import your bank’s CSV and Bada! finds dates and amounts, groups expenses by merchant and remembers their category. You review everything before saving.</p>
+          </article>
+        </div>
         <p class="also">
           You can also see a chart of your year with your best and worst months,
           export transactions as CSV, use an evening reminder that
