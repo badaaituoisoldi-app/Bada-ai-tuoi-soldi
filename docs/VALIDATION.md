@@ -9,7 +9,13 @@ dalla pagina. Le fa la versione web di Expo servita da Metro (vedi README); sono
 screenshot del rendering web, non di un telefono. L'apertura mostra Mese chiara
 e scura sovrapposte; le tre funzioni sono tre telefoni in fila con titolo e riga
 sotto (sul telefono scorrono di lato con aggancio) e seguono il tema del
-visitatore tramite `<picture>`. Il testo sotto il titolo torna visibile anche su
+visitatore con due link per schermata, e l'interruttore Chiaro/Scuro dell'intestazione (solo CSS, radio +
+`:root:has(#tema-scuro:checked)`; non ricorda la scelta, senza JavaScript) forza
+il tema di pagina e schermate, con l'interruttore ITA/ENG accanto; la pagina inglese
+usa le stesse schermate in inglese (`*-en.webp`, dati e copione in
+`originals/app-2026-10-19/en/`). Il test del browser prova l'interruttore
+in tutte le combinazioni di tema di sistema e lingua, con axe anche sul tema
+opposto forzato. Il testo sotto il titolo torna visibile anche su
 telefono, i tre segni di fiducia stanno sotto il pulsante e «Solo Android» resta
 solo nella riga d'apertura.
 

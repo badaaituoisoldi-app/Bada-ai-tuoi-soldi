@@ -50,12 +50,52 @@ const auditTags = ["wcag2a", "wcag2aa", "wcag21aa"];
           const images = page.locator("img");
           assert((await images.count()) > 0, `Images are present (${label})`);
           for (const image of await images.all()) {
+            if (!(await image.isVisible())) continue; // la variante di tema non attiva è nascosta
             await image.scrollIntoViewIfNeeded();
             await page.waitForFunction(
               (element) => element.complete && element.naturalWidth > 0,
               await image.elementHandle(),
             );
           }
+          const visibleShots = () =>
+            page.locator(".shot .screen-link:visible").evaluateAll((links) =>
+              links.map((link) => link.classList.contains("is-dark")),
+            );
+          const pageBackground = () =>
+            page.evaluate(() => getComputedStyle(document.body).backgroundColor);
+          for (const [choice, wantDark] of [
+            [null, colorScheme === "dark"],
+            ["chiaro", false],
+            ["scuro", true],
+            ["chiaro", false],
+          ]) {
+            if (choice)
+              await page.locator(`label:has(#tema-${choice})`).click();
+            assert.deepEqual(
+              await visibleShots(),
+              [wantDark, wantDark, wantDark],
+              `Screens follow the theme (${label}, ${choice})`,
+            );
+            assert.equal(
+              await pageBackground(),
+              wantDark ? "rgb(22, 21, 27)" : "rgb(245, 245, 247)",
+              `Page follows the theme switch (${label}, ${choice})`,
+            );
+          }
+          await page.reload();
+          await page.evaluate(() => document.fonts.ready);
+          const lang = page.locator('nav[aria-label] a[aria-current="page"]');
+          assert.equal(await lang.getAttribute("lang"), language, `Current language is marked (${label})`);
+          assert.equal(
+            await page.locator("nav[aria-label] a:not([aria-current])").getAttribute("lang"),
+            language === "en" ? "it" : "en",
+            `Other language link (${label})`,
+          );
+          const shotSrcs = await page.locator(".shot img").evaluateAll((imgs) => imgs.map((i) => i.getAttribute("src")));
+          assert(
+            shotSrcs.every((src) => (language === "en") === src.endsWith("-en.webp")),
+            `Screenshots match the page language (${label})`,
+          );
           assert.deepEqual(scriptRequests, [], `No script requests (${label})`);
           assert(
             await page.evaluate(
@@ -91,6 +131,12 @@ const auditTags = ["wcag2a", "wcag2aa", "wcag21aa"];
             .withTags(auditTags)
             .analyze();
           assert.deepEqual(violations, [], `Accessibility (${label})`);
+          // Contrasto anche con il tema opposto forzato dall'interruttore.
+          await page
+            .locator(`label:has(#tema-${colorScheme === "dark" ? "chiaro" : "scuro"})`)
+            .click();
+          const forced = await new AxeBuilder({ page }).withTags(auditTags).analyze();
+          assert.deepEqual(forced.violations, [], `Accessibility, opposite theme (${label})`);
           console.log(
             `PASS ${label}: layout, images, H1, Play links, no scripts, axe`,
           );

@@ -4,7 +4,7 @@ src:url("assets/fonts/dm-sans-latin-wght-normal.woff2") format("woff2");
 font-weight:100 1000;
 font-display:swap;
 }
-:root{
+:root,:root:has(#tema-chiaro:checked){
 color-scheme:light;
 --canvas:#f5f5f7;
 --surface:#fff;
@@ -49,6 +49,18 @@ color-scheme:dark;
 --bezel:#0a090d;
 }
 }
+:root:has(#tema-scuro:checked){
+color-scheme:dark;
+--canvas:#16151b;
+--surface:#1e1c25;
+--soft:#25222f;
+--ink:#f3f0fa;
+--muted:#bdb8cb;
+--line:#45404f;
+--accent:#b8a6ff;
+--shadow:#00000030;
+--bezel:#0a090d;
+}
 *{box-sizing:border-box}
 body{margin:0;background:var(--canvas);color:var(--ink);font:1.0625rem/1.6 "DM Sans",sans-serif}
 h1,h2,h3,p,figure{margin:0}
@@ -70,13 +82,12 @@ img{display:block;max-width:100%;height:auto}
 .split{display:grid;grid-template-columns:.85fr 1.15fr;column-gap:clamp(var(--s6),5.5vw,5rem);align-items:start}
 .skip-link{position:absolute;left:1rem;top:-6.25rem;padding:var(--s3) var(--s4);background:var(--surface);z-index:1}
 .skip-link:focus{top:0.75rem}
-.site-header{display:flex;align-items:center;justify-content:space-between;min-height:5rem;border-bottom:1px solid var(--line)}
+.site-header{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:var(--s2) var(--s4);min-height:5rem;border-bottom:1px solid var(--line)}
 .brand{display:inline-flex;align-items:center;gap:var(--s2);min-height:2.75rem;color:var(--ink);text-decoration:none}
 .brand img{width:2rem;height:2rem;border-radius:var(--r2)}
 .brand span{display:flex;align-items:baseline;gap:var(--s1)}
 .brand strong{font-size:var(--f3);letter-spacing:-.05em}
 .brand small{font-size:var(--f1)}
-.language-link{display:inline-flex;align-items:center;min-height:2.75rem;font-size:var(--f1)}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:clamp(var(--s6),4.6vw,var(--s8));padding-block:3.375rem var(--s8)}
 .hero .eyebrow{font-size:var(--f1)}
 .hero-copy{max-width:37.5rem}
@@ -178,3 +189,22 @@ html{scroll-behavior:smooth;scroll-padding-top:var(--s5)}
 .shot{animation:enter linear both;animation-timeline:view();animation-range:entry 0% entry 90%}
 }
 }
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
+.site-controls{display:flex;flex-wrap:wrap;gap:var(--s2)}
+.seg{display:inline-flex;margin:0;padding:0;border:1px solid var(--line);border-radius:var(--r4);background:var(--surface);overflow:hidden;min-inline-size:0}
+.seg label{position:relative;display:inline-flex}
+.seg input{position:absolute;inset:0;margin:0;opacity:0;cursor:pointer}
+.seg span,.seg a{display:inline-flex;align-items:center;min-height:2.75rem;padding-inline:var(--s3);font-size:var(--f1);font-weight:600;color:var(--ink);text-decoration:none}
+.seg input:focus-visible+span,.seg a:focus-visible{outline:3px solid var(--accent);outline-offset:-3px}
+.seg input:checked+span,.seg a[aria-current],:root:not(:has(.seg input:checked)) .t-light span{background:var(--accent);color:var(--canvas)}
+@media (prefers-color-scheme:dark){:root:not(:has(.seg input:checked)) .t-light span{background:none;color:var(--ink)}:root:not(:has(.seg input:checked)) .t-dark span{background:var(--accent);color:var(--canvas)}}
+.seg svg{width:1.125rem;height:1.125rem;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.theme{display:none}
+@supports selector(:has(*)){.theme{display:inline-flex}}
+.is-dark{display:none}
+@media (prefers-color-scheme:dark){.is-light{display:none}.is-dark{display:block}}
+:root:has(#tema-chiaro:checked) .is-light,:root:has(#tema-scuro:checked) .is-dark{display:block}
+:root:has(#tema-chiaro:checked) .is-dark,:root:has(#tema-scuro:checked) .is-light{display:none}
+@media (max-width:43.75em){.site-controls{gap:var(--s1)}.seg span,.seg a{min-height:1.75rem;padding-inline:.4rem;font-size:.6875rem}.site-header{padding-block:var(--s2);column-gap:var(--s2)}.brand small{font-size:.75rem}}
+@media (max-width:24em){.brand{gap:.375rem}.brand strong{font-size:1.125rem}.brand small{font-size:.6875rem}.seg span,.seg a{padding-inline:.3125rem}}
+@media (max-width:43.75em){.seg svg{width:1rem;height:1rem}}
