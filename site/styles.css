@@ -13,8 +13,8 @@ color-scheme:light;
 --muted:#595563;
 --line:#d5d2de;
 --accent:#5b3fd6;
---decoration:#9071f4;
 --shadow:#28223912;
+--bezel:#25222e;
 --s1:4px;
 --s2:8px;
 --s3:12px;
@@ -46,6 +46,7 @@ color-scheme:dark;
 --line:#45404f;
 --accent:#b8a6ff;
 --shadow:#00000030;
+--bezel:#0a090d;
 }
 }
 *{box-sizing:border-box}
@@ -76,21 +77,22 @@ img{display:block;max-width:100%;height:auto}
 .brand strong{font-size:var(--f3);letter-spacing:-.05em}
 .brand small{font-size:var(--f1)}
 .language-link{display:inline-flex;align-items:center;min-height:44px;font-size:var(--f1)}
-.hero{display:grid;grid-template-columns:1.1fr 1fr;align-items:center;gap:clamp(var(--s6),4.6vw,var(--s8));padding-block:54px var(--s8)}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) auto;align-items:center;gap:clamp(var(--s6),4.6vw,var(--s8));padding-block:54px var(--s8)}
 .hero .eyebrow{font-size:var(--f1)}
+.hero-copy{max-width:600px}
 .hero-description{margin-top:var(--s5)}
 .promise{margin-top:var(--s4);font-size:var(--f2);line-height:1.5}
 .promise strong{font-weight:650}
-.promise a{display:inline-flex;align-items:center;min-height:44px;font-weight:600}
-@media (min-width:701px){.promise a{display:inline;min-height:0}}
+.promise a{font-weight:600}
 .store-link{display:inline-flex;align-items:center;min-height:56px;padding:0 var(--s5);border-radius:var(--r2);background:var(--accent);color:var(--canvas);font-size:var(--f2);font-weight:650;text-decoration:none}
 .hero .store-link{margin-top:var(--s4)}
 .store-note{margin-top:var(--s2);font-size:var(--f1);color:var(--muted)}
-.hero-figure{position:relative;padding-block:40px;isolation:isolate}
-.hero-figure::before{content:"";position:absolute;inset:0 -12px;z-index:-1;background:linear-gradient(135deg,color-mix(in srgb,var(--accent) 12%,var(--soft)),var(--soft) 70%);border-radius:52px var(--r4);border-top:3px solid var(--decoration);transform:rotate(-3deg)}
+/* phone frame, sized by viewport height so it fits a laptop's first screen. The image has 44px corners at 792px wide: its radius is .057 of its width, and the bezel adds the 9px of padding+border so the corners stay concentric */
+.hero .screen-link{--phone:clamp(260px,min(56svh - 100px,40vw),360px);width:var(--phone);margin-inline:auto;padding:var(--s2);border:1px solid var(--line);border-radius:calc(var(--phone)*.057 + 8px);background:var(--bezel)}
+.hero .screen-link img{border-radius:calc((var(--phone) - 18px)*.057)}
 .screen-link{display:block;border-radius:var(--r3);box-shadow:0 8px 32px var(--shadow)}
 .screen-link img{width:100%;border-radius:inherit}
-figcaption{margin-top:var(--s3);font-size:var(--f1);text-align:center;color:var(--muted)}
+figcaption{margin-top:var(--s3);font-size:var(--f1);text-align:center;text-wrap:balance;color:var(--muted)}
 .proof-section,.maker-section{background:var(--surface);border-block:1px solid var(--line)}
 .proof-list,.limits-list{list-style:none;padding:0;margin:0}
 .proof-list li+li{border-top:1px solid var(--line);margin-top:var(--s5);padding-top:var(--s5)}
@@ -130,17 +132,20 @@ body{font-size:var(--f2);line-height:1.5}
 .container{width:calc(100% - 40px)}
 .site-header{min-height:68px}
 .section{padding-block:var(--s7)}
-.hero{display:block;padding-block:var(--s5) var(--s5)}
+.hero{display:block;padding-block:var(--s4) 0}
+.hero p{text-wrap:pretty}
 h1{font-size:clamp(32px,10vw,42px);line-height:1.07;letter-spacing:-.035em}
 h2{font-size:var(--f5)}
 .hero .eyebrow{font-size:var(--f1);margin-bottom:var(--s3)}
-.hero-description{margin-top:var(--s4);line-height:1.45}
-.promise{margin-top:var(--s3);line-height:1.45}
-.hero .store-link{margin-top:var(--s3);min-height:58px}
-.store-note{margin-top:var(--s2);line-height:1.5}
-.hero-figure{padding-block:0;margin-top:var(--s5)}
-.hero-figure::before{inset:-10px -4px 26px;border-radius:var(--r4) var(--r3);transform:rotate(-2deg)}
-figcaption{margin-top:var(--s2);font-size:var(--f1)}
+.hero-description{display:none}
+.promise{margin-top:var(--s4);line-height:1.45}
+.hero .store-link{margin-top:var(--s4)}
+.store-note{margin-top:var(--s2);line-height:1.5;text-wrap:balance}
+/* the phone rises from the next section: cut flat at the hero's bottom edge; no room for the caption */
+.hero-figure{margin-top:var(--s5)}
+.hero .screen-link{--phone:min(100vw - 40px,400px);max-height:calc(var(--phone)*.85);overflow:hidden;border-bottom:0;border-end-start-radius:0;border-end-end-radius:0}
+.promise a{white-space:nowrap}
+figcaption{display:none}
 .split{grid-template-columns:1fr;gap:var(--s5)}
 .section-heading>p:not(.eyebrow){margin-top:var(--s4)}
 .feature{grid-template-columns:1fr;gap:var(--s5);padding-block:var(--s6)}

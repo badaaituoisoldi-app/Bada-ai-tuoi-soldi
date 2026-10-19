@@ -28,9 +28,11 @@ Dopo la PR #4, una roadmap in undici passi ha rivisto la pagina contro i siti di
 
 Misure prima e dopo in `VALIDATION.md`.
 
+Subito dopo la pubblicazione Antonio ha bocciato l’apertura: la scheda ritagliata, su un fondale inclinato, non convinceva. Sono state costruite e confrontate tre alternative (schermata del mese in una cornice chiara, scheda piatta, schermata in un telefono). L’apertura ora mostra la schermata intera del mese dentro un telefono disegnato in CSS, senza rotazione né fondale; `disponible.webp` è sostituito da `month.webp`.
+
 ## Punti aperti per la revisione
 
-- Screenshot del mese con barra di stato pulita, per rifare il ritaglio dell’apertura.
+- Schermata del mese più recente, se i dati del poster non corrispondono più all’app.
 - Frase personale di Antonio: oggi solo un commento `DA COMPLETARE` nell’HTML, nessun testo visibile.
 - Badge ufficiali IT/EN: download Google bloccato con HTTP 403; al loro posto un pulsante di testo.
 - Elenco delle autorizzazioni Play: trascrizione di Antonio ancora necessaria; commento `DA COMPLETARE` nell’HTML.

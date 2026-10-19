@@ -1,18 +1,18 @@
 [
   {
-    "file": "disponible.webp",
+    "file": "month.webp",
     "source": "store-1-mese.png",
     "box": [
-      168,
-      537,
-      913,
-      868
+      144,
+      401,
+      936,
+      1790
     ],
-    "width": 745,
-    "height": 331,
-    "bytes": 20858,
+    "width": 792,
+    "height": 1389,
+    "bytes": 73468,
     "original_sha256": "88770f861ebdd32a0e894a1319a9347436b96fb0c0f3e12d46e981d0fb0401df",
-    "rgb_sha256": "7dd793d2ef232a8a1982ee33f029fdc09e2c637ba06d34d314623240b9ded658"
+    "rgb_sha256": "9f9d7caf3b959d52e26df43193b84cbdb921da484b8f8ca763a7adf148b2f933"
   },
   {
     "file": "movements.webp",
