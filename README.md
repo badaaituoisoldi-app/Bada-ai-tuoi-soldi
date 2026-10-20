@@ -77,6 +77,6 @@ La guardia rifiuta file `.js` anche maiuscoli, `<script` nei contenuti testuali 
 
 ## Pubblicazione e punti aperti
 
-Il workflow `.github/workflows/pages.yml` pubblica esclusivamente `site/`, dopo la guardia, a ogni push su `main`; conserva anche l’avvio manuale. Le pagine di destinazione sono <https://badaaituoisoldi-app.github.io/Bada-ai-tuoi-soldi/> e `/en/`. `originals/`, test e documentazione non vengono caricati su Pages. Per questa revisione prepara una pull request e attendi il merge deciso dal titolare.
+Il workflow `.github/workflows/pages.yml` pubblica esclusivamente `site/`, dopo la guardia, a ogni push su `main`; conserva anche l’avvio manuale. Le pagine di destinazione sono <https://badaaituoisoldi-app.github.io/> e `/en/`. `originals/`, test e documentazione non vengono caricati su Pages. Per questa revisione prepara una pull request e attendi il merge deciso dal titolare.
 
 Restano espliciti la frase personale di Antonio, i badge ufficiali, la trascrizione esatta delle eventuali voci di rete nella scheda Play, il report Exodus non disponibile, la forma UTM non verificata e lo screenshot iniziale da aggiornare. Nessuna dichiarazione «zero tracciatori secondo Exodus» viene pubblicata. L’accesso a `github.io` e a Google Play è bloccato da questo ambiente: non sono verificati né il sito pubblico né la scheda corrente dello store. Le fonti, la distinzione tra app 1.2.1 e 1.2.2 e le cautele sul backup sono in `docs/SOURCES.md`.
